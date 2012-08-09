@@ -13,7 +13,14 @@ module LinkThumbnailer
   end
 
   def self.url(url)
-    source = open(url).read
+    parse(open(url).read)
+  rescue
+    false
+  end
+
+private
+
+  def self.parse(source)
     doc = Nokogiri.parse(source)
 
     object = LinkThumbnailer::Object.new
