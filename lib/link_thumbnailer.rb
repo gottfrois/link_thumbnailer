@@ -8,6 +8,9 @@ module LinkThumbnailer
   mattr_accessor :mendatory_attributes
   @@mandatory_attributes = %w(url title image)
 
+  mattr_accessor :strict
+  @@strict = true
+
   def self.setup
     yield self
   end
@@ -31,7 +34,9 @@ private
       end
     end
 
-    return object
+    return false if object.keys.empty?
+    return false unless object.valid? if @@strict
+    object
   end
 
 end
