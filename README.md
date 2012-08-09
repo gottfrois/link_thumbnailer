@@ -31,19 +31,23 @@ In `irb`:
 	
 	object.title?
  	=> true
- 	
  	object.title
  	=> "Join us at example.com"
  	
  	object.url?
-	=> false 
+	=> true 
 	object.url
+	=> "http://example.com"
+	
+	object.foo?
+	=> false
+	object.foo
 	=> nil
 
 You can check whether this object is valid or not (set mandatory attributes in the initializer, defaults are `[url, title, image]`)
 
 	object.valid?
- 	=> false
+ 	=> true
 
 ## Configuration
 

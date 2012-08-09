@@ -16,7 +16,7 @@ module LinkThumbnailer
   end
 
   def self.url(url)
-    parse(open(url).read)
+    parse(open(url))
   rescue
     false
   end
@@ -24,9 +24,10 @@ module LinkThumbnailer
 private
 
   def self.parse(source)
-    doc = Nokogiri.parse(source)
+    doc = Nokogiri.parse(source.read)
 
     object = LinkThumbnailer::Object.new
+    object[:url] = source.base_uri.to_s
 
     doc.css('meta').each do |m|
       if m.attribute('property') && m.attribute('property').to_s.match(/^og:(.+)$/i)
