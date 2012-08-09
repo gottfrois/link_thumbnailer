@@ -13,7 +13,7 @@ module LinkThumbnailer
     end
 
     def valid?
-      @@mandatory_attributes.each {|a| return false unless self[a] }
+      LinkThumbnailer.mandatory_attributes.each {|a| return false unless self[a] }
       true
     end
 

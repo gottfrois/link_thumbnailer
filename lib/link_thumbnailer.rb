@@ -5,7 +5,7 @@ require 'link_thumbnailer/object'
 require 'link_thumbnailer/version'
 
 module LinkThumbnailer
-  mattr_accessor :mendatory_attributes
+  mattr_accessor :mandatory_attributes
   @@mandatory_attributes = %w(url title image)
 
   mattr_accessor :strict

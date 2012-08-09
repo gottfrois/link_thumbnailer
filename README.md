@@ -15,12 +15,49 @@ And then execute:
 Or install it yourself as:
 
     $ gem install link_thumbnailer
+    
+Run:
+
+TODO
+
+	$ rails g link_thumbnailer:install
 
 ## Usage
 
 In `irb`:
 
-	LinkThumbnailer.url('http://example.com/')
+	object = LinkThumbnailer.url('http://example.com/')
+	=> #<LinkThumbnailer::Object description="some description" image="http://example.com/icon.png" site_name="example.com" title="Join us at example.com">
+	
+	object.title?
+ 	=> true
+ 	
+ 	object.title
+ 	=> "Join us at example.com"
+ 	
+ 	object.url?
+	=> false 
+	object.url
+	=> nil
+
+You can check whether this object is valid or not (set mandatory attributes in the initializer, default are `[url, title, image]`)
+
+	object.valid?
+ 	=> false
+
+## Configuration
+
+In `config/initializers/link_thumbnailer.rb`
+
+	LinkThumbnailer.setup do |config|
+		# Set mandatory attributes require for the website to be valid.
+		# You can set `strict` to false if you want to skip this validation.
+		config.mandatory_attributes = %w(url title image)
+		
+		# Whether you want to validate given website against mandatory attributes or not.
+		config.strict = true
+	end
+	
 
 ## Contributing
 
