@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 require File.expand_path('../lib/link_thumbnailer/version', __FILE__)
+# $:.push File.expand_path('../lib', __FILE__)
+# require 'link_thumbnailer/version'
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Pierre-Louis Gottfrois"]
@@ -14,4 +16,7 @@ Gem::Specification.new do |gem|
   gem.name          = "link_thumbnailer"
   gem.require_paths = ["lib"]
   gem.version       = LinkThumbnailer::VERSION
+
+  gem.add_dependency(%q{nokogiri}, ['~> 1.4.0'])
+  gem.add_dependency(%q{hashie}, ['~> 1.2.0'])
 end
