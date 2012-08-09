@@ -40,7 +40,7 @@ In `irb`:
 	object.url
 	=> nil
 
-You can check whether this object is valid or not (set mandatory attributes in the initializer, default are `[url, title, image]`)
+You can check whether this object is valid or not (set mandatory attributes in the initializer, defaults are `[url, title, image]`)
 
 	object.valid?
  	=> false
@@ -52,10 +52,10 @@ In `config/initializers/link_thumbnailer.rb`
 	LinkThumbnailer.setup do |config|
 		# Set mandatory attributes require for the website to be valid.
 		# You can set `strict` to false if you want to skip this validation.
-		config.mandatory_attributes = %w(url title image)
+		# config.mandatory_attributes = %w(url title image)
 		
 		# Whether you want to validate given website against mandatory attributes or not.
-		config.strict = true
+		# config.strict = false
 	end
 	
 
