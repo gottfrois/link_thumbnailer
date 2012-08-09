@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
 require File.expand_path('../lib/link_thumbnailer/version', __FILE__)
-# $:.push File.expand_path('../lib', __FILE__)
-# require 'link_thumbnailer/version'
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Pierre-Louis Gottfrois"]

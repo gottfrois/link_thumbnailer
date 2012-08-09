@@ -19,8 +19,8 @@ module LinkThumbnailer
     object = LinkThumbnailer::Object.new
 
     doc.css('meta').each do |m|
-      if m.attributes('property') && m.attributes('property').to_s.match(/^og:(.+)$/i)
-        object[$1.gsub('-', '_')] = m.attributes('content').to_s
+      if m.attribute('property') && m.attribute('property').to_s.match(/^og:(.+)$/i)
+        object[$1.gsub('-', '_')] = m.attribute('content').to_s
       end
     end
 
