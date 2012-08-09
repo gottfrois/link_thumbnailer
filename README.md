@@ -15,7 +15,7 @@ And then execute:
 Or install it yourself as:
 
     $ gem install link_thumbnailer
-    
+
 Run:
 
 TODO
@@ -28,17 +28,17 @@ In `irb`:
 
 	object = LinkThumbnailer.url('http://example.com/')
 	=> #<LinkThumbnailer::Object description="some description" image="http://example.com/icon.png" site_name="example.com" title="Join us at example.com">
-	
+
 	object.title?
  	=> true
  	object.title
  	=> "Join us at example.com"
- 	
+
  	object.url?
-	=> true 
+	=> true
 	object.url
 	=> "http://example.com"
-	
+
 	object.foo?
 	=> false
 	object.foo
@@ -57,11 +57,11 @@ In `config/initializers/link_thumbnailer.rb`
 		# Set mandatory attributes require for the website to be valid.
 		# You can set `strict` to false if you want to skip this validation.
 		# config.mandatory_attributes = %w(url title image)
-		
+
 		# Whether you want to validate given website against mandatory attributes or not.
-		# config.strict = false
+		# config.strict = true
 	end
-	
+
 ## Features
 
 Implemented:
