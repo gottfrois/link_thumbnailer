@@ -20,7 +20,7 @@ Run:
 
 	$ rails g link_thumbnailer:install
 
-This will add `link_thumbnailer.rb` to `config/initializers/`
+This will add `link_thumbnailer.rb` to `config/initializers/`. See [#Configuration](https://github.com/gottfrois/link_thumbnailer#configuration) for more details.
 
 ## Usage
 
