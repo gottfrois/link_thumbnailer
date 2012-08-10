@@ -18,9 +18,9 @@ Or install it yourself as:
 
 Run:
 
-TODO
-
 	$ rails g link_thumbnailer:install
+
+This will add `link_thumbnailer.rb` to `config/initializers/`
 
 ## Usage
 
@@ -53,7 +53,7 @@ You can check whether this object is valid or not (set mandatory attributes in t
 
 In `config/initializers/link_thumbnailer.rb`
 
-	LinkThumbnailer.setup do |config|
+	LinkThumbnailer.configure do |config|
 		# Set mandatory attributes require for the website to be valid.
 		# You can set `strict` to false if you want to skip this validation.
 		# config.mandatory_attributes = %w(url title image)

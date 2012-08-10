@@ -11,7 +11,7 @@ module LinkThumbnailer
   mattr_accessor :strict
   @@strict = true
 
-  def self.setup
+  def self.configure
     yield self
   end
 
