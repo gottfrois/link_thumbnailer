@@ -44,6 +44,7 @@ In `irb`:
 	object.foo
 	=> nil
 
+
 You can check whether this object is valid or not (set mandatory attributes in the initializer, defaults are `[url, title, image]`)
 
 	object.valid?
