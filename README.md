@@ -76,7 +76,6 @@ Implemented:
 
 Coming soon:
 
-- Implementing [oEmbed](http://oembed.com/) protocol
 - Implementing a finder to get all of the images according to how well they represent what the page is about (including relative images).
 - Sort images based on their size and color
 - Blacklist some well known image urls
