@@ -1,7 +1,9 @@
+require 'json'
 require 'nokogiri'
 require 'open-uri'
 require 'hashie'
 require 'link_thumbnailer/object'
+require 'link_thumbnailer/parser/opengraph'
 require 'link_thumbnailer/version'
 
 module LinkThumbnailer
@@ -9,7 +11,7 @@ module LinkThumbnailer
   @@mandatory_attributes = %w(url title image)
 
   mattr_accessor :strict
-  @@strict = true
+  @@strict = false
 
   def self.configure
     yield self
@@ -29,15 +31,10 @@ private
     object = LinkThumbnailer::Object.new
     object[:url] = source.base_uri.to_s
 
-    doc.css('meta').each do |m|
-      if m.attribute('property') && m.attribute('property').to_s.match(/^og:(.+)$/i)
-        object[$1.gsub('-', '_')] = m.attribute('content').to_s
-      end
-    end
+    object = Parser::Opengraph.parse(object, doc)
+    return object unless object === false
 
-    return false if object.keys.empty?
-    return false unless object.valid? if @@strict
-    object
+    false
   end
 
 end

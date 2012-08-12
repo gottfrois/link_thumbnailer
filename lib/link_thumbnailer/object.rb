@@ -13,7 +13,8 @@ module LinkThumbnailer
     end
 
     def valid?
-      LinkThumbnailer.mandatory_attributes.each {|a| return false unless self[a] }
+      return false if self.keys.delete_if {|x| x == 'url'}.empty?
+      LinkThumbnailer.mandatory_attributes.each {|a| return false unless self[a] } if LinkThumbnailer.strict
       true
     end
 

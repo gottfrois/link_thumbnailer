@@ -24,8 +24,13 @@ This will add `link_thumbnailer.rb` to `config/initializers/`. See [#Configurati
 
 ## Usage
 
-In `irb`:
+Run `irb` and then:
 
+	require 'rails'
+	 => true
+	require 'link_thumbnailer'
+	 => true
+	
 	object = LinkThumbnailer.url('http://example.com/')
 	=> #<LinkThumbnailer::Object description="some description" image="http://example.com/icon.png" site_name="example.com" title="Join us at example.com">
 
