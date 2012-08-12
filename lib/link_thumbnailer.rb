@@ -18,23 +18,23 @@ module LinkThumbnailer
   end
 
   def self.url(url)
-    parse(open(url))
+    parse(open(url), url)
   rescue
     false
   end
 
 private
 
-  def self.parse(source)
+  def self.parse(source, url)
     doc = Nokogiri.parse(source.read)
 
     object = LinkThumbnailer::Object.new
-    object[:url] = source.base_uri.to_s
+    object[:url] = url
 
     object = Parser::Opengraph.parse(object, doc)
-    return object unless object === false
+    return object unless object.nil?
 
-    false
+    nil
   end
 
 end

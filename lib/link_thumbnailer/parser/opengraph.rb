@@ -9,7 +9,7 @@ module LinkThumbnailer
           end
         end
 
-        return false unless object.valid?
+        return nil unless object.valid?
         object
       end
 
