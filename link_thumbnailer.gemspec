@@ -20,5 +20,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency(%q{net-http-persistent}, ['~> 2.7'])
   gem.add_dependency(%q{rmagick}, ['~> 2.13.1'])
 
-  gem.add_dependency(%q{rspec}, ['~> 2.11.0'])
+  gem.add_development_dependency(%q{rspec}, ['~> 2.11.0'])
 end
