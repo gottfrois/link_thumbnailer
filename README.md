@@ -65,7 +65,7 @@ Now with a regular website with no particular protocol:
 	scene=0]
 
 	object.images.first.source_url
-	 => #<URI::HTTP:0x007ff7a923ef58 URL:http://foo.com/media/	BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/	cordovabeach.jpg>
+	 => #<URI::HTTP:0x007ff7a923ef58 URL:http://foo.com/media/	BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg>
 
 You can check whether this object is valid or not (set mandatory attributes in the initializer, defaults are `[url, title, images]`)
 
