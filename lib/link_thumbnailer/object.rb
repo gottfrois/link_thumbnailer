@@ -1,3 +1,5 @@
+require 'hashie'
+
 module LinkThumbnailer
   class Object < Hashie::Mash
 
@@ -13,7 +15,7 @@ module LinkThumbnailer
     end
 
     def valid?
-      return false if self.keys.delete_if {|x| x == 'url'}.empty?
+      return false if self.keys.empty?
       LinkThumbnailer.mandatory_attributes.each {|a| return false unless self[a] } if LinkThumbnailer.strict
       true
     end

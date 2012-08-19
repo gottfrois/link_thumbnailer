@@ -17,4 +17,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency(%q{nokogiri}, ['~> 1.4.0'])
   gem.add_dependency(%q{hashie}, ['~> 1.2.0'])
+  gem.add_dependency(%q{net-http-persistent}, ['> 0'])
+  gem.add_dependency(%q{rmagick}, ['> 0'])
 end

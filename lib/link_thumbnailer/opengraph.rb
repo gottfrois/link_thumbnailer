@@ -1,5 +1,5 @@
 module LinkThumbnailer
-  module Parser
+
     class Opengraph
 
       def self.parse(object, doc)
@@ -8,11 +8,11 @@ module LinkThumbnailer
             object[$1.gsub('-', '_')] = m.attribute('content').to_s
           end
         end
+        object[:images] = [object[:image]] if object[:image]
 
-        return nil unless object.valid?
         object
       end
 
     end
-  end
+
 end
