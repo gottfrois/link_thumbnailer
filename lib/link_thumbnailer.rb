@@ -1,7 +1,3 @@
-# require 'json'
-# require 'nokogiri'
-# require 'link_thumbnailer/parser/opengraph'
-
 require 'link_thumbnailer/object'
 require 'link_thumbnailer/fetcher'
 require 'link_thumbnailer/doc_parser'

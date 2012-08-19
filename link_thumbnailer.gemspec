@@ -15,8 +15,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = LinkThumbnailer::VERSION
 
-  gem.add_dependency(%q{nokogiri}, ['~> 1.4.0'])
+  gem.add_dependency(%q{nokogiri}, ['~> 1.5.5'])
   gem.add_dependency(%q{hashie}, ['~> 1.2.0'])
-  gem.add_dependency(%q{net-http-persistent}, ['> 0'])
-  gem.add_dependency(%q{rmagick}, ['> 0'])
+  gem.add_dependency(%q{net-http-persistent}, ['~> 2.7'])
+  gem.add_dependency(%q{rmagick}, ['~> 2.13.1'])
+
+  gem.add_dependency(%q{rspec}, ['~> 2.11.0'])
 end
