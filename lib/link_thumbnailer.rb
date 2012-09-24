@@ -16,26 +16,21 @@ module LinkThumbnailer
 
   class << self
 
-    attr_accessor :configuration
-    attr_accessor :object
-    attr_accessor :fetcher
-    attr_accessor :doc_parser
-    attr_accessor :img_url_filters
-    attr_accessor :img_parser
+    attr_accessor :configuration, :object, :fetcher, :doc_parser, :img_url_filters, :img_parser
 
     def config
       self.configuration ||= Configuration.new(
         :mandatory_attributes => %w(url title images),
-        :strict => true,
-        :redirect_limit => 3,
-        :blacklist_urls => [
+        :strict               => true,
+        :redirect_limit       => 3,
+        :blacklist_urls       => [
           %r{^http://ad\.doubleclick\.net/},
           %r{^http://b\.scorecardresearch\.com/},
           %r{^http://pixel\.quantserve\.com/},
           %r{^http://s7\.addthis\.com/}
         ],
-        :limit => 10,
-        :top => 5
+        :limit                => 10,
+        :top                  => 5
       )
     end
 
@@ -45,8 +40,8 @@ module LinkThumbnailer
 
     def generate(url, options = {})
       LinkThumbnailer.configure {|config|
-        config.top      = options[:top].to_i    if options[:top]
-        config.limit    = options[:limit].to_i  if options[:limit]
+        config.top          = options[:top].to_i    if options[:top]
+        config.limit        = options[:limit].to_i  if options[:limit]
       }
 
       self.object           = LinkThumbnailer::Object.new

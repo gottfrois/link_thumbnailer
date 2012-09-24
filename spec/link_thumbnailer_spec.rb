@@ -84,7 +84,9 @@ describe LinkThumbnailer do
 
         context "and not valid" do
 
-          specify { LinkThumbnailer.generate('foo').should be_nil }
+          subject { LinkThumbnailer.generate('foo') }
+
+          it { should be_nil }
 
         end
 
@@ -94,7 +96,10 @@ describe LinkThumbnailer do
             stub_request(:get, "http://zerply.com/").to_return(:status => 200, :body => og_example, :headers => {})
           end
 
-          specify { LinkThumbnailer.generate('http://zerply.com').should_not be_nil }
+          subject { LinkThumbnailer.generate('http://zerply.com') }
+
+          it { should_not be_nil }
+          it { subject.valid?.should be_true }
 
         end
 
@@ -108,7 +113,10 @@ describe LinkThumbnailer do
 
         context "and not valid" do
 
-          specify { LinkThumbnailer.generate('foo').should_not be_nil }
+          subject { LinkThumbnailer.generate('foo') }
+
+          it { should_not be_nil }
+          it { subject.valid?.should be_true }
 
         end
 
@@ -118,7 +126,10 @@ describe LinkThumbnailer do
             stub_request(:get, "http://zerply.com/").to_return(:status => 200, :body => og_example, :headers => {})
           end
 
-          specify { LinkThumbnailer.generate('http://zerply.com').should_not be_nil }
+          subject { LinkThumbnailer.generate('http://zerply.com') }
+
+          it { should_not be_nil }
+          it { subject.valid?.should be_true }
 
         end
 
