@@ -17,6 +17,11 @@ module LinkThumbnailer
   class << self
 
     attr_accessor :configuration
+    attr_accessor :object
+    attr_accessor :fetcher
+    attr_accessor :doc_parser
+    attr_accessor :img_url_filters
+    attr_accessor :img_parser
 
     def config
       self.configuration ||= Configuration.new(
@@ -44,29 +49,29 @@ module LinkThumbnailer
         config.limit    = options[:limit].to_i  if options[:limit]
       }
 
-      @object           = LinkThumbnailer::Object.new
-      @fetcher          = LinkThumbnailer::Fetcher.new
-      @doc_parser       = LinkThumbnailer::DocParser.new
+      self.object           = LinkThumbnailer::Object.new
+      self.fetcher          = LinkThumbnailer::Fetcher.new
+      self.doc_parser       = LinkThumbnailer::DocParser.new
 
-      doc_string = @fetcher.fetch(url)
-      doc = @doc_parser.parse(doc_string, url)
+      doc_string = self.fetcher.fetch(url)
+      doc = self.doc_parser.parse(doc_string, url)
 
-      @object[:url] = doc.source_url
+      self.object[:url] = doc.source_url
 
       # Try Opengraph first
-      @object = LinkThumbnailer::Opengraph.parse(@object, doc)
-      return @object if @object.valid?
+      self.object = LinkThumbnailer::Opengraph.parse(self.object, doc)
+      return self.object if self.object.valid?
 
       # Else try manually
-      @img_url_filters  = [LinkThumbnailer::ImgUrlFilter.new]
-      @img_parser       = LinkThumbnailer::ImgParser.new(@fetcher, @img_url_filters)
+      self.img_url_filters  = [LinkThumbnailer::ImgUrlFilter.new]
+      self.img_parser       = LinkThumbnailer::ImgParser.new(self.fetcher, self.img_url_filters)
 
-      @object[:title] = doc.title
-      @object[:description] = doc.description
-      @object[:images] = @img_parser.parse(doc.img_abs_urls.dup)
+      self.object[:title] = doc.title
+      self.object[:description] = doc.description
+      self.object[:images] = self.img_parser.parse(doc.img_abs_urls.dup)
 
-      return nil unless @object.valid?
-      @object
+      return nil unless self.object.valid?
+      self.object
     end
 
   end

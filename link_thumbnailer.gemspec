@@ -21,4 +21,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency(%q{rmagick}, ['~> 2.13.1'])
 
   gem.add_development_dependency(%q{rspec}, ['~> 2.11.0'])
+  gem.add_development_dependency(%q{webmock}, ['~> 1.8.10'])
 end

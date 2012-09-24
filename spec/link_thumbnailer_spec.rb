@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe LinkThumbnailer do
 
+  let(:og_example) { File.open(File.dirname(__FILE__) + '/examples/og_example.html').read() }
+
   it { should respond_to :configuration }
   it { should respond_to :configure }
   it { should respond_to :config }
@@ -64,9 +66,63 @@ describe LinkThumbnailer do
 
   context ".generate" do
 
-    context "with invalid arguments" do
+    context "with valid arguments" do
 
-      specify { LinkThumbnailer.generate('foo').should be_nil }
+      context "and options" do
+
+        it "should set top option" do
+          expect { LinkThumbnailer.generate('foo', :top => 20).to change(LinkThumbnailer.configuration.top).from(5).to(20) }
+        end
+
+        it "should set limit option" do
+          expect { LinkThumbnailer.generate('foo', :limit => 20).to change(LinkThumbnailer.configuration.top).from(10).to(20) }
+        end
+
+      end
+
+      context "when strict" do
+
+        context "and not valid" do
+
+          specify { LinkThumbnailer.generate('foo').should be_nil }
+
+        end
+
+        context "and valid" do
+
+          before do
+            stub_request(:get, "http://zerply.com/").to_return(:status => 200, :body => og_example, :headers => {})
+          end
+
+          specify { LinkThumbnailer.generate('http://zerply.com').should_not be_nil }
+
+        end
+
+      end
+
+      context "when not strict" do
+
+        before do
+          LinkThumbnailer.configure {|config| config.strict = false}
+        end
+
+        context "and not valid" do
+
+          specify { LinkThumbnailer.generate('foo').should_not be_nil }
+
+        end
+
+        context "and valid" do
+
+          before do
+            stub_request(:get, "http://zerply.com/").to_return(:status => 200, :body => og_example, :headers => {})
+          end
+
+          specify { LinkThumbnailer.generate('http://zerply.com').should_not be_nil }
+
+        end
+
+      end
 
     end
 
