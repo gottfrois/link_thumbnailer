@@ -1,3 +1,4 @@
+require 'link_thumbnailer/config'
 require 'link_thumbnailer/object'
 require 'link_thumbnailer/fetcher'
 require 'link_thumbnailer/doc_parser'
@@ -13,60 +14,61 @@ require 'link_thumbnailer/version'
 
 module LinkThumbnailer
 
-  mattr_accessor :mandatory_attributes
-  @@mandatory_attributes = %w(url title images)
+  class << self
 
-  mattr_accessor :strict
-  @@strict = true
+    attr_accessor :configuration
 
-  mattr_accessor :redirect_limit
-  @@redirect_limit = 3
+    def config
+      self.configuration ||= Configuration.new(
+        :mandatory_attributes => %w(url title images),
+        :strict => true,
+        :redirect_limit => 3,
+        :blacklist_urls => [
+          %r{^http://ad\.doubleclick\.net/},
+          %r{^http://b\.scorecardresearch\.com/},
+          %r{^http://pixel\.quantserve\.com/},
+          %r{^http://s7\.addthis\.com/}
+        ],
+        :limit => 10,
+        :top => 5
+      )
+    end
 
-  mattr_accessor :blacklist_urls
-  @@blacklist_urls = [
-    %r{^http://ad\.doubleclick\.net/},
-    %r{^http://b\.scorecardresearch\.com/},
-    %r{^http://pixel\.quantserve\.com/},
-    %r{^http://s7\.addthis\.com/}
-  ]
+    def configure
+      yield config
+    end
 
-  mattr_accessor :max
-  @@max = 10
+    def generate(url, options = {})
+      LinkThumbnailer.configure {|config|
+        config.top      = options[:top].to_i    if options[:top]
+        config.limit    = options[:limit].to_i  if options[:limit]
+      }
 
-  mattr_accessor :top
-  @@top = 5
+      @object           = LinkThumbnailer::Object.new
+      @fetcher          = LinkThumbnailer::Fetcher.new
+      @doc_parser       = LinkThumbnailer::DocParser.new
 
-  def self.configure
-    yield self
-  end
+      doc_string = @fetcher.fetch(url)
+      doc = @doc_parser.parse(doc_string, url)
 
-  def self.generate(url, options = {})
-    @@top = options[:top].to_i if options[:top]
-    @@max = options[:max].to_i if options[:max]
+      @object[:url] = doc.source_url
 
-    @object           = LinkThumbnailer::Object.new
-    @fetcher          = LinkThumbnailer::Fetcher.new
-    @doc_parser       = LinkThumbnailer::DocParser.new
+      # Try Opengraph first
+      @object = LinkThumbnailer::Opengraph.parse(@object, doc)
+      return @object if @object.valid?
 
-    doc_string = @fetcher.fetch(url)
-    doc = @doc_parser.parse(doc_string, url)
+      # Else try manually
+      @img_url_filters  = [LinkThumbnailer::ImgUrlFilter.new]
+      @img_parser       = LinkThumbnailer::ImgParser.new(@fetcher, @img_url_filters)
 
-    @object[:url] = doc.source_url
+      @object[:title] = doc.title
+      @object[:description] = doc.description
+      @object[:images] = @img_parser.parse(doc.img_abs_urls.dup)
 
-    # Try Opengraph first
-    @object = LinkThumbnailer::Opengraph.parse(@object, doc)
-    return @object if @object.valid?
+      return nil unless @object.valid?
+      @object
+    end
 
-    # Else try manually
-    @img_url_filters  = [LinkThumbnailer::ImgUrlFilter.new]
-    @img_parser       = LinkThumbnailer::ImgParser.new(@fetcher, @img_url_filters)
-
-    @object[:title] = doc.title
-    @object[:description] = doc.description
-    @object[:images] = @img_parser.parse(doc.img_abs_urls.dup)
-
-    return nil unless @object.valid?
-    @object
   end
 
 end

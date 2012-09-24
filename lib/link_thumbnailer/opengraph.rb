@@ -1,5 +1,4 @@
 module LinkThumbnailer
-
     class Opengraph
 
       def self.parse(object, doc)
@@ -14,5 +13,4 @@ module LinkThumbnailer
       end
 
     end
-
 end

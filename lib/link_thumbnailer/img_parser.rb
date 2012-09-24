@@ -17,7 +17,7 @@ module LinkThumbnailer
       imgs = []
       count = 0
       img_urls.each { |i|
-        break if count >= LinkThumbnailer.max
+        break if count >= LinkThumbnailer.configuration.limit
         img = parse_one(i)
         img.extend LinkThumbnailer::ImgComparator
         imgs << img
@@ -26,7 +26,7 @@ module LinkThumbnailer
 
       imgs.sort!
 
-      imgs.first(LinkThumbnailer.top)
+      imgs.first(LinkThumbnailer.configuration.top)
     end
 
     def parse_one(img_url)

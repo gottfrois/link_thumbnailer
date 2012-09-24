@@ -16,7 +16,7 @@ module LinkThumbnailer
 
     def valid?
       return false if self.keys.empty?
-      LinkThumbnailer.mandatory_attributes.each {|a| return false if self[a].blank? } if LinkThumbnailer.strict
+      LinkThumbnailer.configuration.mandatory_attributes.each {|a| return false if self[a].blank? } if LinkThumbnailer.configuration.strict
       true
     end
 

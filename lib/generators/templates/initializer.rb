@@ -19,7 +19,7 @@ LinkThumbnailer.configure do |config|
   # ]
 
   # Fetch 10 images maximum.
-  # config.max = 10
+  # config.limit = 10
 
   # Return top 5 images only.
   # config.top = 5

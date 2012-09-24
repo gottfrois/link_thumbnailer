@@ -30,11 +30,11 @@ Run `irb` and require mandatory dependencies:
 	 => true
 	require 'link_thumbnailer'
 	 => true
-	 
+
 This gem can handle [Opengraph](http://ogp.me/) protocol. Here is an example with such a website:
-	
+
 	object = LinkThumbnailer.generate('http://zerply.com')
-	 => #<LinkThumbnailer::Object description="Go beyond the résumé - showcase your work and your talent" image="http://zerply.com/img/front/facebook_icon_green.png" images=["http://zerply.com/img/front/facebook_icon_green.png"] site_name="zerply.com" title="Join Me on Zerply" url="http://zerply.com"> 
+	 => #<LinkThumbnailer::Object description="Go beyond the résumé - showcase your work and your talent" image="http://zerply.com/img/front/facebook_icon_green.png" images=["http://zerply.com/img/front/facebook_icon_green.png"] site_name="zerply.com" title="Join Me on Zerply" url="http://zerply.com">
 
 	object.title?
  	=> true
@@ -54,11 +54,11 @@ This gem can handle [Opengraph](http://ogp.me/) protocol. Here is an example wit
 Now with a regular website with no particular protocol:
 
 	object = LinkThumbnailer.generate('http://foo.com')
-	 => #<LinkThumbnailer::Object description=nil images=[[ JPEG 750x200 750x200+0+0 DirectClass 8-bit 45kb] scene=0] title="Foo.com" url="http://foo.com"> 
+	 => #<LinkThumbnailer::Object description=nil images=[[ JPEG 750x200 750x200+0+0 DirectClass 8-bit 45kb] scene=0] title="Foo.com" url="http://foo.com">
 
 	object.title
 	 => "Foo.com"
-	 
+
 	object.images
 	 => [[ JPEG 750x200 750x200+0+0 DirectClass 8-bit 45kb]
 	scene=0]
@@ -70,10 +70,10 @@ You can check whether this object is valid or not (set mandatory attributes in t
 
 	object.valid?
  	=> true
- 	
- You also can set `max` and `top` options at runtime:
- 
- 	object = LinkThumbnailer.generate('http://foo.com', :top => 10, :max => 20)
+
+ You also can set `limit` and `top` options at runtime:
+
+ 	object = LinkThumbnailer.generate('http://foo.com', :top => 10, :limit => 20)
 
 ## Configuration
 
@@ -99,7 +99,7 @@ In `config/initializers/link_thumbnailer.rb`
 	  # ]
 
 	  # Fetch 10 images maximum.
-	  # config.max = 10
+	  # config.limit = 10
 
 	  # Return top 5 images only.
 	  # config.top = 5

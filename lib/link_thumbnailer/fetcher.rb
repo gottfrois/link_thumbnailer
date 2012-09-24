@@ -5,7 +5,7 @@ module LinkThumbnailer
   class Fetcher
 
     def fetch(url, redirect_count = 0)
-      if redirect_count > LinkThumbnailer.redirect_limit
+      if redirect_count > LinkThumbnailer.configuration.redirect_limit
         raise ArgumentError,
           "too many redirects (#{redirect_count})"
       end
