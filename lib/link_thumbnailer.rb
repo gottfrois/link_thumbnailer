@@ -16,7 +16,8 @@ module LinkThumbnailer
 
   class << self
 
-    attr_accessor :configuration, :object, :fetcher, :doc_parser, :img_url_filters, :img_parser
+    attr_accessor :configuration, :object, :fetcher, :doc_parser,
+                  :img_url_filters, :img_parser
 
     def config
       self.configuration ||= Configuration.new(

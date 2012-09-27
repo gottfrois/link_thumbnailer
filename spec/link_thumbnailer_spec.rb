@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe LinkThumbnailer do
 
-  let(:og_example) { File.open(File.dirname(__FILE__) + '/examples/og_example.html').read() }
+  let(:og_example)  { File.open(File.dirname(__FILE__) + '/examples/og_example.html').read() }
+  let(:example)     { File.open(File.dirname(__FILE__) + '/examples/example.html').read() }
 
   it { should respond_to :configuration }
   it { should respond_to :configure }
@@ -99,7 +100,7 @@ describe LinkThumbnailer do
           subject { LinkThumbnailer.generate('http://zerply.com') }
 
           it { should_not be_nil }
-          it { subject.valid?.should be_true }
+          it { should be_valid }
 
         end
 
@@ -116,7 +117,7 @@ describe LinkThumbnailer do
           subject { LinkThumbnailer.generate('foo') }
 
           it { should_not be_nil }
-          it { subject.valid?.should be_true }
+          it { should be_valid }
 
         end
 
@@ -129,7 +130,7 @@ describe LinkThumbnailer do
           subject { LinkThumbnailer.generate('http://zerply.com') }
 
           it { should_not be_nil }
-          it { subject.valid?.should be_true }
+          it { should be_valid }
 
         end
 

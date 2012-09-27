@@ -14,6 +14,7 @@ module LinkThumbnailer
       end
     end
 
+    # TODO remove blank call. Rails dependent.
     def valid?
       return false if self.keys.empty?
       LinkThumbnailer.configuration.mandatory_attributes.each {|a| return false if self[a].blank? } if LinkThumbnailer.configuration.strict
