@@ -94,10 +94,10 @@ describe LinkThumbnailer do
         context "and valid" do
 
           before do
-            stub_request(:get, "http://zerply.com/").to_return(:status => 200, :body => og_example, :headers => {})
+            stub_request(:get, "http://foo.com/").to_return(:status => 200, :body => og_example, :headers => {})
           end
 
-          subject { LinkThumbnailer.generate('http://zerply.com') }
+          subject { LinkThumbnailer.generate('http://foo.com') }
 
           it { should_not be_nil }
           it { should be_valid }
@@ -124,10 +124,10 @@ describe LinkThumbnailer do
         context "and valid" do
 
           before do
-            stub_request(:get, "http://zerply.com/").to_return(:status => 200, :body => og_example, :headers => {})
+            stub_request(:get, "http://foo.com/").to_return(:status => 200, :body => og_example, :headers => {})
           end
 
-          subject { LinkThumbnailer.generate('http://zerply.com') }
+          subject { LinkThumbnailer.generate('http://foo.com') }
 
           it { should_not be_nil }
           it { should be_valid }

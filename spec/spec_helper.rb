@@ -1,4 +1,3 @@
-require 'rails'
 require 'rspec'
 require 'webmock/rspec'
 

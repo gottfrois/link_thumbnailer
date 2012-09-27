@@ -1,3 +1,10 @@
+# 0.0.5
+
+- Bug fix
+- Remove `require 'rails'` from spec_helper.rb
+- Remove rails dependences (blank? method) in code
+- Spec fix
+
 # 0.0.4
 
 - Add specs for almost all classes
