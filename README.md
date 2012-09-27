@@ -123,6 +123,7 @@ Implemented:
 
 Coming soon:
 
+- Routes and Controllers to handle preview generation
 - Cache results on filesystem
 
 ## Contributing
