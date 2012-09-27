@@ -1,3 +1,10 @@
+# 0.0.6
+
+- Update readme
+- Add `to_a` to WebImage class
+- Refactor `to_json` for WebImage class
+- Add specs corresponding
+
 # 0.0.5
 
 - Bug fix

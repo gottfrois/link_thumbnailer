@@ -64,6 +64,15 @@ Now with a regular website with no particular protocol:
 	object.images.first.source_url
 	 => #<URI::HTTP:0x007ff7a923ef58 URL:http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg>
 
+	object.images.first.to_json
+	 => "{\"source_url\":\"http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg\",\"mime_type\":\"image/jpeg\",\"density\":\"72x72\",\"rows\":200,\"filesize\":46501,\"number_colors\":9490}"
+
+	object.images.first.to_a
+	 => {:source_url=>#<URI::HTTP:0x007f8a4a2561c0 URL:http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg>, :mime_type=>"image/jpeg", :density=>"72x72", :rows=>200, :filesize=>46501, :number_colors=>9490}
+
+	object.images.map(&:to_a)
+	 => [{:source_url=>#<URI::HTTP:0x007f8a4a2561c0 URL:http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg>, :mime_type=>"image/jpeg", :density=>"72x72", :rows=>200, :filesize=>46501, :number_colors=>9490}]
+
 You can check whether this object is valid or not (set mandatory attributes in the initializer, defaults are `[url, title, images]`)
 
 	object.valid?
