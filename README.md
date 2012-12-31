@@ -2,6 +2,8 @@
 
 Ruby gem generating image thumbnails from a given URL. Rank them and give you back an object containing images and website informations. Works like Facebook link previewer.
 
+Demo Application is [here](https://github.com/gottfrois/link_thumbnailer_demo) !
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -25,6 +27,9 @@ This will add `link_thumbnailer.rb` to `config/initializers/`. See [#Configurati
 ## Usage
 
 Run `irb` and require the gem:
+
+	require 'rails'
+	 => true
 
 	require 'link_thumbnailer'
 	 => true
@@ -64,14 +69,11 @@ Now with a regular website with no particular protocol:
 	object.images.first.source_url
 	 => #<URI::HTTP:0x007ff7a923ef58 URL:http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg>
 
-	object.images.first.to_json
-	 => "{\"source_url\":\"http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg\",\"mime_type\":\"image/jpeg\",\"density\":\"72x72\",\"rows\":200,\"filesize\":46501,\"number_colors\":9490}"
+	object.to_hash
+	 => {"url"=>"http://foo.com", "images"=>[{:source_url=>"http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg", :mime_type=>"image/jpeg", :rows=>200, :filesize=>46501, :number_colors=>9490}], "title"=>"Foo.com", "description"=>nil}
 
-	object.images.first.to_a
-	 => {:source_url=>#<URI::HTTP:0x007f8a4a2561c0 URL:http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg>, :mime_type=>"image/jpeg", :density=>"72x72", :rows=>200, :filesize=>46501, :number_colors=>9490}
-
-	object.images.map(&:to_a)
-	 => [{:source_url=>#<URI::HTTP:0x007f8a4a2561c0 URL:http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg>, :mime_type=>"image/jpeg", :density=>"72x72", :rows=>200, :filesize=>46501, :number_colors=>9490}]
+	object.to_json
+	 => "{\"url\":\"http://foo.com\",\"images\":[{\"source_url\":\"http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg\",\"mime_type\":\"image/jpeg\",\"rows\":200,\"filesize\":46501,\"number_colors\":9490}],\"title\":\"Foo.com\",\"description\":null}"
 
 You can check whether this object is valid or not (set mandatory attributes in the initializer, defaults are `[url, title, images]`)
 
@@ -81,6 +83,29 @@ You can check whether this object is valid or not (set mandatory attributes in t
  You also can set `limit` and `top` options at runtime:
 
  	object = LinkThumbnailer.generate('http://foo.com', :top => 10, :limit => 20)
+ 	
+## Preview Controller
+
+For an easy integration into your application, use the builtin `PreviewController`.
+
+Take a look at the demo application [here](https://github.com/gottfrois/link_thumbnailer_demo).
+
+Basically, all you have to do in your view is something like this:
+
+	<%= form_tag '/link/preview', :method => 'post', :remote => true do %>
+		<%= text_field_tag :url %>
+		<%= submit_tag 'Preview' %>
+	<% end %>
+	
+Don't forget to add this anywhere in your `routes.rb` file:
+
+	use_link_thumbnailer
+	
+Note: You won't have to bother with this if you did runned the installer using:
+
+	$ rails g link_thumbnailer:install
+	
+The `PreviewController` will automatically respond to json calls, returning json version of the preview object. Just like in the IRB console above.
 
 ## Configuration
 
@@ -120,10 +145,10 @@ Implemented:
 - Find images and sort them according to how well they represent what the page is about (includes absolute images).
 - Sort images based on their size and color.
 - Blacklist some well known advertisings image urls.
+- Routes and Controllers to handle preview generation
 
 Coming soon:
 
-- Routes and Controllers to handle preview generation
 - Cache results on filesystem
 
 ## Contributing

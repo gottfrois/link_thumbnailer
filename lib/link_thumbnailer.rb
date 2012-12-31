@@ -1,3 +1,4 @@
+require 'link_thumbnailer/engine' if defined? Rails
 require 'link_thumbnailer/config'
 require 'link_thumbnailer/object'
 require 'link_thumbnailer/fetcher'
@@ -7,12 +8,14 @@ require 'link_thumbnailer/img_url_filter'
 require 'link_thumbnailer/img_parser'
 require 'link_thumbnailer/img_comparator'
 require 'link_thumbnailer/web_image'
-
 require 'link_thumbnailer/opengraph'
-
 require 'link_thumbnailer/version'
 
 module LinkThumbnailer
+
+  module Rails
+    autoload :Routes, 'link_thumbnailer/rails/routes'
+  end
 
   class << self
 
@@ -30,6 +33,7 @@ module LinkThumbnailer
           %r{^http://pixel\.quantserve\.com/},
           %r{^http://s7\.addthis\.com/}
         ],
+        :rmagick_attributes   => %w(source_url mime_type colums rows filesize number_colors),
         :limit                => 10,
         :top                  => 5
       )
@@ -48,6 +52,8 @@ module LinkThumbnailer
       self.object           = LinkThumbnailer::Object.new
       self.fetcher          = LinkThumbnailer::Fetcher.new
       self.doc_parser       = LinkThumbnailer::DocParser.new
+      self.img_url_filters  = [LinkThumbnailer::ImgUrlFilter.new]
+      self.img_parser       = LinkThumbnailer::ImgParser.new(self.fetcher, self.img_url_filters)
 
       doc_string = self.fetcher.fetch(url)
       doc = self.doc_parser.parse(doc_string, url)
@@ -56,11 +62,10 @@ module LinkThumbnailer
 
       # Try Opengraph first
       self.object = LinkThumbnailer::Opengraph.parse(self.object, doc)
+
       return self.object if self.object.valid?
 
       # Else try manually
-      self.img_url_filters  = [LinkThumbnailer::ImgUrlFilter.new]
-      self.img_parser       = LinkThumbnailer::ImgParser.new(self.fetcher, self.img_url_filters)
 
       self.object[:title] = doc.title
       self.object[:description] = doc.description

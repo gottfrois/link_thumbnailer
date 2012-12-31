@@ -18,6 +18,12 @@ LinkThumbnailer.configure do |config|
   #   %r{^http://s7\.addthis\.com/}
   # ]
 
+  # Included Rmagick attributes for images. See http://www.imagemagick.org/RMagick/doc/
+  # for more details.
+  # 'source_url' is a custom attribute and should always be included since this
+  # is where you'll find the image url.
+  # config.rmagick_attributes = %w(source_url mime_type colums rows filesize number_colors)
+
   # Fetch 10 images maximum.
   # config.limit = 10
 

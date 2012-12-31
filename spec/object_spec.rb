@@ -3,6 +3,8 @@ require 'spec_helper'
 describe LinkThumbnailer::Object do
 
   it { should respond_to :valid? }
+  it { should respond_to :to_hash }
+  it { should respond_to :to_json }
 
   let(:object) { LinkThumbnailer::Object.new }
 
@@ -87,6 +89,39 @@ describe LinkThumbnailer::Object do
         it { subject.foo.should eq('foo') }
 
       end
+
+    end
+
+  end
+
+  context "dealing with WebImage module" do
+
+    class Foo
+    end
+
+    let(:foo) { Foo.new }
+
+    before do
+      foo.extend LinkThumbnailer::WebImage
+      object['images'] = [foo]
+    end
+
+    describe ".to_hash" do
+
+      subject { object.to_hash }
+
+      it { subject.is_a?(Hash).should be_true }
+      it { should include('images') }
+      it { subject['images'].is_a?(Array).should be_true }
+
+    end
+
+    describe ".to_json" do
+
+      subject { object.to_json }
+
+      it { subject.is_a?(String).should be_true }
+      it { should include('images') }
 
     end
 

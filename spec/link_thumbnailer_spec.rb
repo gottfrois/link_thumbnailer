@@ -25,6 +25,7 @@ describe LinkThumbnailer do
           config.strict = false
           config.redirect_limit = 5
           config.blacklist_urls = []
+          config.rmagick_attributes = []
           config.limit = 5
           config.top = 10
         }
@@ -38,6 +39,7 @@ describe LinkThumbnailer do
       specify { LinkThumbnailer.configuration.strict.should be_false }
       specify { LinkThumbnailer.configuration.redirect_limit.should eq(5) }
       specify { LinkThumbnailer.configuration.blacklist_urls.should eq([]) }
+      specify { LinkThumbnailer.configuration.rmagick_attributes.should eq([]) }
       specify { LinkThumbnailer.configuration.limit.should eq(5) }
       specify { LinkThumbnailer.configuration.top.should eq(10) }
 
@@ -60,6 +62,7 @@ describe LinkThumbnailer do
       %r{^http://pixel\.quantserve\.com/},
       %r{^http://s7\.addthis\.com/}
     ]) }
+    specify { LinkThumbnailer.configuration.rmagick_attributes.should eq(%w(source_url mime_type colums rows filesize number_colors)) }
     specify { LinkThumbnailer.configuration.limit.should eq(10) }
     specify { LinkThumbnailer.configuration.top.should eq(5) }
 

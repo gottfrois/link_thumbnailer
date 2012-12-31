@@ -7,7 +7,11 @@ module LinkThumbnailer
             object[$1.gsub('-', '_')] = m.attribute('content').to_s
           end
         end
-        object[:images] = [object[:image]] if object[:image]
+
+        object[:images] = []
+        if object[:image]
+          object[:images] << { :source_url => object[:image] }
+        end
 
         object
       end
