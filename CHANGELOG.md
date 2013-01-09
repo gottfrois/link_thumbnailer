@@ -1,3 +1,11 @@
+# 1.0.0
+
+- Update readme
+- Add PreviewController for easy integration with user's app
+- Add link_thumbnailer routes for easy integration with user's app
+- Refactor some code
+- Change 'to_a' method to 'to_hash' in object model
+
 # 0.0.6
 
 - Update readme
