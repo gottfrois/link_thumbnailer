@@ -101,7 +101,7 @@ Don't forget to add this anywhere in your `routes.rb` file:
 
 	use_link_thumbnailer
 	
-Note: You won't have to bother with this if you did runned the installer using:
+Note: You won't have to bother with this if you did run the installer using:
 
 	$ rails g link_thumbnailer:install
 	
@@ -149,6 +149,7 @@ Implemented:
 
 Coming soon:
 
+- Use the gem [ruby-readability](https://github.com/iterationlabs/ruby-readability) to parse images and website information
 - Cache results on filesystem
 
 ## Contributing
