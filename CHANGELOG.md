@@ -1,3 +1,7 @@
+# 1.0.1
+
+- Refactor LinkThumbnailer#generate method to have a cleaner code
+
 # 1.0.0
 
 - Update readme
