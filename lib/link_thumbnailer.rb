@@ -44,35 +44,44 @@ module LinkThumbnailer
     end
 
     def generate(url, options = {})
-      LinkThumbnailer.configure {|config|
-        config.top          = options[:top].to_i    if options[:top]
-        config.limit        = options[:limit].to_i  if options[:limit]
-      }
+      set_options(options)
+      instantiate_classes
 
+      doc = self.doc_parser.parse(self.fetcher.fetch(url), url)
+
+      self.object[:url] = doc.source_url
+      opengraph(doc) || custom(doc)
+    end
+
+    private
+
+    def set_options(options)
+      LinkThumbnailer.configure {|config|
+        config.top    = options[:top].to_i    if options[:top]
+        config.limit  = options[:limit].to_i  if options[:limit]
+      }
+    end
+
+    def instantiate_classes
       self.object           = LinkThumbnailer::Object.new
       self.fetcher          = LinkThumbnailer::Fetcher.new
       self.doc_parser       = LinkThumbnailer::DocParser.new
       self.img_url_filters  = [LinkThumbnailer::ImgUrlFilter.new]
       self.img_parser       = LinkThumbnailer::ImgParser.new(self.fetcher, self.img_url_filters)
+    end
 
-      doc_string = self.fetcher.fetch(url)
-      doc = self.doc_parser.parse(doc_string, url)
-
-      self.object[:url] = doc.source_url
-
-      # Try Opengraph first
+    def opengraph(doc)
       self.object = LinkThumbnailer::Opengraph.parse(self.object, doc)
-
       return self.object if self.object.valid?
+      nil
+    end
 
-      # Else try manually
-
+    def custom(doc)
       self.object[:title] = doc.title
       self.object[:description] = doc.description
       self.object[:images] = self.img_parser.parse(doc.img_abs_urls.dup)
-
-      return nil unless self.object.valid?
-      self.object
+      return self.object if self.object.valid?
+      nil
     end
 
   end
