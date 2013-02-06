@@ -1,6 +1,6 @@
 # LinkThumbnailer
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/gottfrois/link_thumbnailer)
+[![Code Climate](https://codeclimate.com/github/gottfrois/link_thumbnailer.png)](https://codeclimate.com/github/gottfrois/link_thumbnailer)
 
 Ruby gem generating image thumbnails from a given URL. Rank them and give you back an object containing images and website informations. Works like Facebook link previewer.
 
