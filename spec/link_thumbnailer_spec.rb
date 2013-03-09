@@ -79,7 +79,27 @@ describe LinkThumbnailer do
         end
 
         it "should set limit option" do
-          expect { LinkThumbnailer.generate('foo', :limit => 20).to change(LinkThumbnailer.configuration.top).from(10).to(20) }
+          expect { LinkThumbnailer.generate('foo', :limit => 20).to change(LinkThumbnailer.configuration.limit).from(10).to(20) }
+        end
+
+        it "should set mandatory_attributes option" do
+          expect { LinkThumbnailer.generate('foo', :mandatory_attributes => %w(one two)).to change(LinkThumbnailer.configuration.mandatory_attributes).from(%w(url title images)).to(%w(one two)) }
+        end
+
+        it "should set strict option" do
+          expect { LinkThumbnailer.generate('foo', :strict => false).to change(LinkThumbnailer.configuration.strict).from(true).to(false) }
+        end
+
+        it "should set redirect_limit option" do
+          expect { LinkThumbnailer.generate('foo', :redirect_limit => 5).to change(LinkThumbnailer.configuration.redirect_limit).from(3).to(5) }
+        end
+
+        it "should set blacklist_urls option" do
+          expect { LinkThumbnailer.generate('foo', :blacklist_urls => [%r{^http://foo\.bar\.com/}]).to change(LinkThumbnailer.configuration.blacklist_urls).to([%r{^http://foo\.bar\.com/}]) }
+        end
+
+        it "should set rmagick_attributes option" do
+          expect { LinkThumbnailer.generate('foo', :rmagick_attributes => %w(one two)).to change(LinkThumbnailer.configuration.rmagick_attributes).to(%w(one two)) }
         end
 
       end
