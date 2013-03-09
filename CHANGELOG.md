@@ -1,3 +1,8 @@
+# 1.0.2
+
+- Feature: User can now set options at runtime by passing valid options to ```generate``` method
+- Bug fix when doing ```rails g link_thumbnailer:install``` by explicitly specifying the scope of Rails
+
 # 1.0.1
 
 - Refactor LinkThumbnailer#generate method to have a cleaner code

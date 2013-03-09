@@ -82,9 +82,9 @@ You can check whether this object is valid or not (set mandatory attributes in t
 	object.valid?
  	=> true
 
- You also can set `limit` and `top` options at runtime:
+ You also can set options at runtime:
 
- 	object = LinkThumbnailer.generate('http://foo.com', :top => 10, :limit => 20)
+ 	object = LinkThumbnailer.generate('http://foo.com', top: 10, limit: 20, redirect_limit: 5)
  	
 ## Preview Controller
 
@@ -94,7 +94,7 @@ Take a look at the demo application [here](https://github.com/gottfrois/link_thu
 
 Basically, all you have to do in your view is something like this:
 
-	<%= form_tag '/link/preview', :method => 'post', :remote => true do %>
+	<%= form_tag '/link/preview', method: :post, remote: true do %>
 		<%= text_field_tag :url %>
 		<%= submit_tag 'Preview' %>
 	<% end %>
