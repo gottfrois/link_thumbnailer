@@ -56,15 +56,7 @@ module LinkThumbnailer
     private
 
     def set_options(options)
-      LinkThumbnailer.configure {|config|
-        config.mandatory_attributes = options[:mandatory_attributes]  if options[:mandatory_attributes]
-        config.strict               = options[:strict]                if options[:strict]
-        config.redirect_limit       = options[:redirect_limit].to_i   if options[:redirect_limit]
-        config.blacklist_urls       = options[:blacklist_urls]        if options[:blacklist_urls]
-        config.rmagick_attributes   = options[:rmagick_attributes]    if options[:rmagick_attributes]
-        config.limit                = options[:limit].to_i            if options[:limit]
-        config.top                  = options[:top].to_i              if options[:top]
-      }
+      options.each {|k, v| config[k] = v }
     end
 
     def instantiate_classes
