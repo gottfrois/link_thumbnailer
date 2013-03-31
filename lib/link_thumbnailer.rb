@@ -49,13 +49,14 @@ module LinkThumbnailer
 
       doc = self.doc_parser.parse(self.fetcher.fetch(url), url)
 
-      self.object[:url] = doc.source_url
+      self.object[:url] = self.fetcher.url.to_s
       opengraph(doc) || custom(doc)
     end
 
     private
 
     def set_options(options)
+      config
       options.each {|k, v| config[k] = v }
     end
 
