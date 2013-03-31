@@ -1,3 +1,7 @@
+# 1.0.3
+
+- Fixe issue #5: Url was incorect in case of HTTP Redirections.
+
 # 1.0.2
 
 - Feature: User can now set options at runtime by passing valid options to ```generate``` method
