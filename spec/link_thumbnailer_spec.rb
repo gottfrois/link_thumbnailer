@@ -26,6 +26,7 @@ describe LinkThumbnailer do
         config.rmagick_attributes = []
         config.limit = 5
         config.top = 10
+        config.user_agent = 'linkthumbnailer'
       }
     end
 
@@ -40,6 +41,7 @@ describe LinkThumbnailer do
     specify { LinkThumbnailer.configuration.rmagick_attributes.should eq([]) }
     specify { LinkThumbnailer.configuration.limit.should eq(5) }
     specify { LinkThumbnailer.configuration.top.should eq(10) }
+    specify { LinkThumbnailer.configuration.user_agent.should eq('linkthumbnailer') }
 
   end
 
@@ -61,6 +63,7 @@ describe LinkThumbnailer do
     specify { LinkThumbnailer.configuration.rmagick_attributes.should eq(%w(source_url mime_type colums rows filesize number_colors)) }
     specify { LinkThumbnailer.configuration.limit.should eq(10) }
     specify { LinkThumbnailer.configuration.top.should eq(5) }
+    specify { LinkThumbnailer.configuration.user_agent.should eq('linkthumbnailer') }
 
   end
 
@@ -101,6 +104,10 @@ describe LinkThumbnailer do
 
         it "should set rmagick_attributes option" do
           expect { LinkThumbnailer.generate('foo', :rmagick_attributes => %w(one two)).to change(LinkThumbnailer.configuration.rmagick_attributes).to(%w(one two)) }
+        end
+
+        it "should set user_agent option" do
+          expect { LinkThumbnailer.generate('foo', :user_agent => 'Mac Safari').to change(LinkThumbnailer.configuration.mandatory_attributes).from('linkthumbnailer').to('Mac Safari') }
         end
 
       end

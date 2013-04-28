@@ -137,6 +137,9 @@ In `config/initializers/link_thumbnailer.rb`
 
 	  # Return top 5 images only.
 	  # config.top = 5
+	  
+	  # Set user agent
+	  # config.user_agent = 'linkthumbnailer'	  
 	end
 
 ## Features

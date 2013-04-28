@@ -35,7 +35,8 @@ module LinkThumbnailer
         ],
         :rmagick_attributes   => %w(source_url mime_type colums rows filesize number_colors),
         :limit                => 10,
-        :top                  => 5
+        :top                  => 5,
+        :user_agent           => 'linkthumbnailer'
       )
     end
 
