@@ -17,6 +17,7 @@ module LinkThumbnailer
       if self.url.is_a?(URI::HTTP)
         http = Net::HTTP::Persistent.new('linkthumbnailer')
         http.headers['User-Agent'] = LinkThumbnailer.configuration.user_agent
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE if not LinkThumbnailer.configuration.verify_ssl
         resp = http.request(self.url)
         case resp
           when Net::HTTPSuccess; resp.body

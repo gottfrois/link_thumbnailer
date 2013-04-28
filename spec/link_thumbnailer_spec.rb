@@ -27,6 +27,7 @@ describe LinkThumbnailer do
         config.limit = 5
         config.top = 10
         config.user_agent = 'linkthumbnailer'
+        config.verify_ssl = true
       }
     end
 
@@ -42,6 +43,7 @@ describe LinkThumbnailer do
     specify { LinkThumbnailer.configuration.limit.should eq(5) }
     specify { LinkThumbnailer.configuration.top.should eq(10) }
     specify { LinkThumbnailer.configuration.user_agent.should eq('linkthumbnailer') }
+    specify { LinkThumbnailer.configuration.verify_ssl.should be_true }
 
   end
 
@@ -64,6 +66,7 @@ describe LinkThumbnailer do
     specify { LinkThumbnailer.configuration.limit.should eq(10) }
     specify { LinkThumbnailer.configuration.top.should eq(5) }
     specify { LinkThumbnailer.configuration.user_agent.should eq('linkthumbnailer') }
+    specify { LinkThumbnailer.configuration.verify_ssl.should be_true }
 
   end
 
@@ -110,6 +113,9 @@ describe LinkThumbnailer do
           expect { LinkThumbnailer.generate('foo', :user_agent => 'Mac Safari').to change(LinkThumbnailer.configuration.mandatory_attributes).from('linkthumbnailer').to('Mac Safari') }
         end
 
+        it "should set verify_ssl option" do
+          expect { LinkThumbnailer.generate('foo', :verify_ssl => false).to change(LinkThumbnailer.configuration.verify_ssl).from(true).to(false) }
+        end
       end
 
       context "when strict" do

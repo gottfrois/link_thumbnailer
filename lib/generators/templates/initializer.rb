@@ -32,4 +32,7 @@ LinkThumbnailer.configure do |config|
   
   # Set user agent
   # config.user_agent = 'linkthumbnailer'
+  
+  # Enable or disable SSL verification 
+  # config.verify_ssl = true
 end
