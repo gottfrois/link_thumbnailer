@@ -29,4 +29,10 @@ LinkThumbnailer.configure do |config|
 
   # Return top 5 images only.
   # config.top = 5
+  
+  # Set user agent
+  # config.user_agent = 'linkthumbnailer'
+  
+  # Enable or disable SSL verification 
+  # config.verify_ssl = true
 end
