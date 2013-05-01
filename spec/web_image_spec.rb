@@ -23,6 +23,10 @@ describe LinkThumbnailer::WebImage do
 
       let(:attributes) { [:source_url] }
 
+      before do
+        LinkThumbnailer.config
+      end
+
       subject { foo.to_hash }
 
       it { subject.keys.should eq(attributes.map(&:to_sym)) }

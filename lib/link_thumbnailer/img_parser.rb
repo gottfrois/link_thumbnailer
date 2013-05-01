@@ -19,27 +19,26 @@ module LinkThumbnailer
       img_urls.each { |i|
         break if count >= LinkThumbnailer.configuration.limit
         img = parse_one(i)
+        next unless img
         img.extend LinkThumbnailer::ImgComparator
         imgs << img
         count += 1
       }
 
-      imgs.sort!
+      imgs.sort! unless imgs.count <= 1
 
       imgs.first(LinkThumbnailer.configuration.top)
     end
 
     def parse_one(img_url)
-      begin
-        img_data = @fetcher.fetch(img_url)
-        img = Magick::ImageList.new.from_blob(img_data).extend(
-          LinkThumbnailer::WebImage
-        )
-        img.source_url = img_url
-        img
-      rescue Exception
-        nil
-      end
+      img_data = @fetcher.fetch(img_url)
+      img = Magick::ImageList.new.from_blob(img_data).extend(
+        LinkThumbnailer::WebImage
+      )
+      img.source_url = img_url
+      img
+    rescue Exception
+      nil
     end
 
   end
