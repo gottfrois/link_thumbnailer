@@ -85,7 +85,7 @@ You can check whether this object is valid or not (set mandatory attributes in t
  You also can set options at runtime:
 
  	object = LinkThumbnailer.generate('http://foo.com', top: 10, limit: 20, redirect_limit: 5)
- 	
+
 ## Preview Controller
 
 For an easy integration into your application, use the builtin `PreviewController`.
@@ -98,15 +98,15 @@ Basically, all you have to do in your view is something like this:
 		<%= text_field_tag :url %>
 		<%= submit_tag 'Preview' %>
 	<% end %>
-	
+
 Don't forget to add this anywhere in your `routes.rb` file:
 
 	use_link_thumbnailer
-	
+
 Note: You won't have to bother with this if you did run the installer using:
 
 	$ rails g link_thumbnailer:install
-	
+
 The `PreviewController` will automatically respond to json calls, returning json version of the preview object. Just like in the IRB console above.
 
 ## Configuration
@@ -137,11 +137,11 @@ In `config/initializers/link_thumbnailer.rb`
 
 	  # Return top 5 images only.
 	  # config.top = 5
-	  
+
 	  # Set user agent
-	  # config.user_agent = 'linkthumbnailer'	  
-	  
-	  # Enable or disable SSL verification 
+	  # config.user_agent = 'linkthumbnailer'
+
+	  # Enable or disable SSL verification
   	# config.verify_ssl = true
 	end
 
@@ -168,3 +168,7 @@ Coming soon:
 4. Commit your changes (`git commit -am 'Added some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
+
+## Contributors
+
+- [phlegx](https://github.com/phlegx)

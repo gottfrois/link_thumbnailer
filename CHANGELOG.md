@@ -1,6 +1,11 @@
+# 1.0.4
+
+- Fix issue #7: nil img was returned when exception is raised. Now skiping nil images in results.
+- Thanks to [phlegx](https://github.com/phlegx), support for SSL and User Agent customization through configurations.
+
 # 1.0.3
 
-- Fixe issue #5: Url was incorect in case of HTTP Redirections.
+- Fix issue #5: Url was incorect in case of HTTP Redirections.
 
 # 1.0.2
 
