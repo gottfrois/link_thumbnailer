@@ -37,7 +37,8 @@ module LinkThumbnailer
         :limit                => 10,
         :top                  => 5,
         :user_agent           => 'linkthumbnailer',
-        :verify_ssl           => true
+        :verify_ssl           => true,
+        :http_timeout         => 5
       )
     end
 
