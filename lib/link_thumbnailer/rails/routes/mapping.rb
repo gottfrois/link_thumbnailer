@@ -7,11 +7,11 @@ module LinkThumbnailer
 
         def initialize
           @controllers = {
-            :previews => 'link_thumbnailer/previews'
+            previews: 'link_thumbnailer/previews'
           }
 
           @as = {
-            :previews => :preview
+            previews: :preview
           }
 
           @skips = []
@@ -19,13 +19,13 @@ module LinkThumbnailer
 
         def [](routes)
           {
-            :controllers => @controllers[routes],
-            :as => @as[routes]
+            controllers:  @controllers[routes],
+            as:           @as[routes]
           }
         end
 
         def skipped?(controller)
-          return @skips.include?(controller)
+          @skips.include?(controller)
         end
       end
     end

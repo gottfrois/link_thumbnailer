@@ -16,13 +16,13 @@ describe LinkThumbnailer::ImgUrlFilter do
 
     context "when img_url does not contain any blacklisted urls" do
 
-      it { img_url_filter.reject?('http://valid.com/foo/bar.png').should be_false }
+      it { expect(img_url_filter.reject?('http://valid.com/foo/bar.png')).to be_false }
 
     end
 
     context "when img_url does contain any blacklisted urls" do
 
-      it { img_url_filter.reject?('http://not_valid.net/foo/bar.png').should be_true }
+      it { expect(img_url_filter.reject?('http://not_valid.net/foo/bar.png')).to be_true }
 
     end
 

@@ -17,14 +17,14 @@ describe LinkThumbnailer::Fetcher do
 
     context "when redirect_count is more than config" do
 
-      it { lambda { fetcher.fetch(url, 10) }.should raise_exception(ArgumentError) }
+      it { expect { fetcher.fetch(url, 10) }.to raise_exception(ArgumentError) }
 
     end
 
     context "when no http error" do
 
       before do
-        stub_request(:get, url).to_return(:status => 200, :body => 'foo', :headers => {})
+        stub_request(:get, url).to_return(status: 200, body: 'foo', headers: {})
       end
 
       it "returns body response" do
@@ -43,8 +43,8 @@ describe LinkThumbnailer::Fetcher do
       let(:another_url) { 'http://bar.com' }
 
       before do
-        stub_request(:get, url).to_return(:status => 300, :body => 'foo', :headers => { 'Location' =>  another_url})
-        stub_request(:get, another_url).to_return(:status => 200, :body => 'bar', :headers => {})
+        stub_request(:get, url).to_return(status: 300, body: 'foo', headers: { 'Location' => another_url})
+        stub_request(:get, another_url).to_return(status: 200, body: 'bar', headers: {})
       end
 
       it "returns body response" do
@@ -61,10 +61,10 @@ describe LinkThumbnailer::Fetcher do
     context "when http error" do
 
       before do
-        stub_request(:get, url).to_return(:status => 500, :body => 'foo', :headers => {})
+        stub_request(:get, url).to_return(status: 500, body: 'foo', headers: {})
       end
 
-      it { lambda { fetcher.fetch(url) }.should raise_exception(Net::HTTPFatalError) }
+      it { expect { fetcher.fetch(url) }.to raise_exception(Net::HTTPFatalError) }
 
     end
 

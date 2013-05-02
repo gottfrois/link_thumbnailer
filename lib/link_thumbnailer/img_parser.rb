@@ -5,8 +5,8 @@ module LinkThumbnailer
   class ImgParser
 
     def initialize(fetcher, img_url_filter)
-      @fetcher = fetcher
-      @img_url_filters = [*img_url_filter]
+      @fetcher          = fetcher
+      @img_url_filters  = [*img_url_filter]
     end
 
     def parse(img_urls)
@@ -14,7 +14,7 @@ module LinkThumbnailer
         img_urls.delete_if { |i| filter.reject?(i) }
       end
 
-      imgs = []
+      imgs  = []
       count = 0
       img_urls.each { |i|
         break if count >= LinkThumbnailer.configuration.limit

@@ -10,7 +10,7 @@ module LinkThumbnailer
 
         object[:images] = []
         if object[:image]
-          object[:images] << { :source_url => object[:image] }
+          object[:images] << { source_url: object[:image] }
         end
 
         object
