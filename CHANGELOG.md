@@ -1,3 +1,7 @@
+# 1.0.5
+
+- Thanks to [phlegx](https://github.com/phlegx), support for timeout http connection through configurations.
+
 # 1.0.4
 
 - Fix issue #7: nil img was returned when exception is raised. Now skiping nil images in results.
