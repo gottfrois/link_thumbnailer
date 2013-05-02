@@ -71,6 +71,7 @@ describe LinkThumbnailer do
     specify { LinkThumbnailer.configuration.user_agent.should           eq('linkthumbnailer') }
     specify { LinkThumbnailer.configuration.verify_ssl.should           be_true }
     specify { LinkThumbnailer.configuration.http_timeout.should         eq(5) }
+
   end
 
   describe ".generate" do
