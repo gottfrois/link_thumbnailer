@@ -33,7 +33,7 @@ module LinkThumbnailer
     end
 
     def description
-      if element = xpath('//meta[@name="description" and @content]').first
+      if element = xpath("//meta[translate(@name,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz') = 'description' and @content]").first
         return element.attributes['content'].value.strip
       end
 
