@@ -43,7 +43,7 @@ describe LinkThumbnailer::Fetcher do
       let(:another_url) { 'http://bar.com' }
 
       before do
-        stub_request(:get, url).to_return(status: 300, body: 'foo', headers: { 'Location' => another_url})
+        stub_request(:get, url).to_return(status: 300, body: 'foo', headers: { 'Location' => another_url })
         stub_request(:get, another_url).to_return(status: 200, body: 'bar', headers: {})
       end
 
