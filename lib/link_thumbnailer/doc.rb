@@ -19,14 +19,9 @@ module LinkThumbnailer
       img_srcs.each do |i|
         begin
           u = URI(i)
+          result << u.is_a?(URI::HTTP) ? u : URI.join(base_url || doc_base_href || source_url, i)
         rescue URI::InvalidURIError
           next
-        end
-
-        result << if u.is_a?(URI::HTTP)
-          u
-        else
-          URI.join(base_url || doc_base_href || source_url, i)
         end
       end
 
