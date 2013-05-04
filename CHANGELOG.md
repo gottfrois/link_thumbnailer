@@ -1,3 +1,7 @@
+# 1.0.7
+
+- Fix: Issue with preview controller
+
 # 1.0.6
 
 - Fix: Issue when setting `strict` option. Always returning OG representation.
