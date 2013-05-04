@@ -37,7 +37,7 @@ module LinkThumbnailer
       )
       img.source_url = img_url
       img
-    rescue Exception
+    rescue StandardError
       nil
     end
 

@@ -1,5 +1,5 @@
 require 'link_thumbnailer/engine' if defined? Rails
-require 'link_thumbnailer/config'
+require 'link_thumbnailer/configuration'
 require 'link_thumbnailer/object'
 require 'link_thumbnailer/fetcher'
 require 'link_thumbnailer/doc_parser'
@@ -24,21 +24,21 @@ module LinkThumbnailer
 
     def config
       self.configuration ||= Configuration.new(
-        :mandatory_attributes => %w(url title images),
-        :strict               => true,
-        :redirect_limit       => 3,
-        :blacklist_urls       => [
+        mandatory_attributes: %w(url title images),
+        strict:               true,
+        redirect_limit:       3,
+        blacklist_urls:       [
           %r{^http://ad\.doubleclick\.net/},
           %r{^http://b\.scorecardresearch\.com/},
           %r{^http://pixel\.quantserve\.com/},
           %r{^http://s7\.addthis\.com/}
         ],
-        :rmagick_attributes   => %w(source_url mime_type colums rows filesize number_colors),
-        :limit                => 10,
-        :top                  => 5,
-        :user_agent           => 'linkthumbnailer',
-        :verify_ssl           => true,
-        :http_timeout         => 5
+        rmagick_attributes:   %w(source_url mime_type colums rows filesize number_colors),
+        limit:                10,
+        top:                  5,
+        user_agent:           'linkthumbnailer',
+        verify_ssl:           true,
+        http_timeout:         5
       )
     end
 
@@ -72,6 +72,7 @@ module LinkThumbnailer
     end
 
     def opengraph(doc)
+      return nil unless opengraph?(doc)
       self.object = LinkThumbnailer::Opengraph.parse(self.object, doc)
       return self.object if self.object.valid?
       nil
@@ -83,6 +84,10 @@ module LinkThumbnailer
       self.object[:images]      = self.img_parser.parse(doc.img_abs_urls.dup)
       return self.object if self.object.valid?
       nil
+    end
+
+    def opengraph?(doc)
+      !doc.xpath('//meta[starts-with(@property, "og:") and @content]').empty?
     end
 
   end
