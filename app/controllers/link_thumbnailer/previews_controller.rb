@@ -5,7 +5,7 @@ module LinkThumbnailer
 
     def create
       @preview = LinkThumbnailer.generate(params[:url])
-      respond_with @preview
+      render json: @preview.to_json
     end
   end
 end
