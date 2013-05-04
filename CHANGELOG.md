@@ -1,3 +1,7 @@
+# 1.0.6
+
+- Fix: Issue when setting `strict` option. Always returning OG representation.
+
 # 1.0.5
 
 - Thanks to [phlegx](https://github.com/phlegx), support for timeout http connection through configurations.
