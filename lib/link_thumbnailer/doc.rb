@@ -51,6 +51,13 @@ module LinkThumbnailer
       nil
     end
 
+    def canonical_url
+      if element = xpath("//link[translate(@rel, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz') = 'canonical' and @href]").first
+        return element.attributes['href'].value.strip
+      end
+      nil
+    end
+
     attr_accessor :source_url
 
   end
