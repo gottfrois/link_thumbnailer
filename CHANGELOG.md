@@ -1,3 +1,8 @@
+# 1.0.8
+
+- Thanks to [juriglx](https://github.com/juriglx), support for canonical urls
+- Bug fixes
+
 # 1.0.7
 
 - Fix: Issue with preview controller

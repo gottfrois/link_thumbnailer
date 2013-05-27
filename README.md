@@ -143,7 +143,7 @@ In `config/initializers/link_thumbnailer.rb`
 
 	  # Enable or disable SSL verification
   	# config.verify_ssl = true
-  	
+
 	  # HTTP open_timeout: The amount of time in seconds to wait for a connection to be opened.
 	  # config.http_timeout = 5
 	end
@@ -175,3 +175,4 @@ Coming soon:
 ## Contributors
 
 - [phlegx](https://github.com/phlegx)
+- [juriglx](https://github.com/juriglx)
