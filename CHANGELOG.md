@@ -1,3 +1,8 @@
+# 1.0.9
+
+- Fix issue when Location header used a relative path instead of an absolute path
+- Update gemfile to be more flexible when using Hashie gem
+
 # 1.0.8
 
 - Thanks to [juriglx](https://github.com/juriglx), support for canonical urls
