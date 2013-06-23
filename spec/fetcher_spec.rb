@@ -40,20 +40,44 @@ describe LinkThumbnailer::Fetcher do
 
     context "when http redirection" do
 
-      let(:another_url) { 'http://bar.com' }
+      context "and relative uri" do
 
-      before do
-        stub_request(:get, url).to_return(status: 300, body: 'foo', headers: { 'Location' => another_url })
-        stub_request(:get, another_url).to_return(status: 200, body: 'bar', headers: {})
+        let(:another_url) { '/bar' }
+
+        before do
+          stub_request(:get, url).to_return(status: 300, body: 'foo', headers: { 'Location' => another_url })
+          stub_request(:get, url + another_url).to_return(status: 200, body: 'bar', headers: {})
+        end
+
+        it "returns body response" do
+          fetcher.fetch(url).should eq('bar')
+        end
+
+        it "sets fetcher url" do
+          fetcher.fetch(url)
+          fetcher.url.to_s.should eq(url + another_url)
+        end
+
       end
 
-      it "returns body response" do
-        fetcher.fetch(url).should eq('bar')
-      end
+      context "and absolute uri" do
 
-      it "sets fetcher url" do
-        fetcher.fetch(url)
-        fetcher.url.to_s.should eq(another_url)
+        let(:another_url) { 'http://bar.com' }
+
+        before do
+          stub_request(:get, url).to_return(status: 300, body: 'foo', headers: { 'Location' => another_url })
+          stub_request(:get, another_url).to_return(status: 200, body: 'bar', headers: {})
+        end
+
+        it "returns body response" do
+          fetcher.fetch(url).should eq('bar')
+        end
+
+        it "sets fetcher url" do
+          fetcher.fetch(url)
+          fetcher.url.to_s.should eq(another_url)
+        end
+
       end
 
     end

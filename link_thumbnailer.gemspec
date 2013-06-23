@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = LinkThumbnailer::VERSION
 
   gem.add_dependency(%q{nokogiri},            ['~> 1.5.5'])
-  gem.add_dependency(%q{hashie},              ['~> 1.2.0'])
+  gem.add_dependency(%q{hashie},              ['>= 1.2.0'])
   gem.add_dependency(%q{net-http-persistent}, ['~> 2.7'])
   gem.add_dependency(%q{rmagick},             ['~> 2.13.1'])
   gem.add_dependency(%q{json},                ['~> 1.7.6'])

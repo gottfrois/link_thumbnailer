@@ -21,7 +21,9 @@ module LinkThumbnailer
         resp                        = http.request(self.url)
         case resp
         when Net::HTTPSuccess     then resp.body
-        when Net::HTTPRedirection then fetch(resp['location'], redirect_count + 1)
+        when Net::HTTPRedirection
+          location = resp['location'].start_with?('http') ? resp['location'] : "#{self.url.scheme}://#{self.url.host}#{resp['location']}"
+          fetch(location, redirect_count + 1)
         else resp.error!
         end
       end
