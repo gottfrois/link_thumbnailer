@@ -2,6 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/gottfrois/link_thumbnailer.png)](https://codeclimate.com/github/gottfrois/link_thumbnailer)
 [![Coverage Status](https://coveralls.io/repos/gottfrois/link_thumbnailer/badge.png?branch=master)](https://coveralls.io/r/gottfrois/link_thumbnailer?branch=master)
+[![Build Status](https://travis-ci.org/gottfrois/link_thumbnailer.png?branch=master)](https://travis-ci.org/gottfrois/link_thumbnailer)
 
 Ruby gem generating image thumbnails from a given URL. Rank them and give you back an object containing images and website informations. Works like Facebook link previewer.
 
