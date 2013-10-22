@@ -15,14 +15,14 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = LinkThumbnailer::VERSION
 
+  gem.add_dependency 'rake',                  '>= 0.9'
   gem.add_dependency 'nokogiri',              '~> 1.5.5'
   gem.add_dependency 'hashie',                '>= 1.2.0'
   gem.add_dependency 'net-http-persistent',   '~> 2.7'
   gem.add_dependency 'rmagick',               '~> 2.13.1'
   gem.add_dependency 'json',                  '~> 1.7.6'
 
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec',     '~> 2.11.0'
-  gem.add_development_dependency 'webmock',   '~> 1.8.10'
-  gem.add_development_dependency 'coveralls'
+  gem.add_development_dependency 'bundler',  '~> 1.3'
+  gem.add_development_dependency 'rspec',    '~> 2.14'
+  gem.add_development_dependency 'pry',      '~> 0.9'
 end
