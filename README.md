@@ -178,3 +178,7 @@ Coming soon:
 
 - [phlegx](https://github.com/phlegx)
 - [juriglx](https://github.com/juriglx)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gottfrois/link_thumbnailer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
