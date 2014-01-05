@@ -5,6 +5,7 @@ describe LinkThumbnailer do
   let(:og_example)    { File.open(File.dirname(__FILE__) + '/examples/og_example.html').read() }
   let(:example)       { File.open(File.dirname(__FILE__) + '/examples/example.html').read() }
   let(:empty_example) { File.open(File.dirname(__FILE__) + '/examples/empty_example.html').read() }
+  let(:og_example_multiple) { File.open(File.dirname(__FILE__) + '/examples/og_example_multiple.html').read() }
 
   it { should respond_to :configuration }
   it { should respond_to :configure }
@@ -159,6 +160,16 @@ describe LinkThumbnailer do
 
         end
 
+        context "and multiple" do
+
+          before do
+            stub_request(:get, 'http://foo.com/').to_return(status: 200, body: og_example_multiple, headers: {})
+          end
+
+          it { expect(LinkThumbnailer.generate('http://foo.com')).to be_valid }
+          it { expect(LinkThumbnailer.generate('http://foo.com/').images.count).to eq(3) }
+        end
+
       end
 
       context "when not strict" do
@@ -194,6 +205,16 @@ describe LinkThumbnailer do
           it { expect(LinkThumbnailer.generate('http://foo.com/')).to_not be_nil }
           it { expect { LinkThumbnailer.generate('http://foo.com/') }.to_not raise_exception }
 
+        end
+
+        context "and multiple" do
+
+          before do
+            stub_request(:get, 'http://foo.com/').to_return(status: 200, body: og_example_multiple, headers: {})
+          end
+
+          it { expect(LinkThumbnailer.generate('http://foo.com')).to be_valid }
+          it { expect(LinkThumbnailer.generate('http://foo.com/').images.count).to eq(3) }
         end
 
       end
