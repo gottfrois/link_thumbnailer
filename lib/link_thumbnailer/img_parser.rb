@@ -1,4 +1,4 @@
-require 'RMagick'
+require 'fastimage'
 
 module LinkThumbnailer
 
@@ -31,11 +31,14 @@ module LinkThumbnailer
     end
 
     def parse_one(img_url)
-      img_data = @fetcher.fetch(img_url)
-      img = Magick::ImageList.new.from_blob(img_data).extend(
-        LinkThumbnailer::WebImage
-      )
-      img.source_url = img_url
+      img = FastImage.new(img_url, :raise_on_failure => false)
+      if !img.respond_to?(:source_url)
+        class <<img
+          def source_url
+            return @parsed_uri
+          end
+        end
+      end
       img
     rescue StandardError
       nil
