@@ -33,7 +33,7 @@ module LinkThumbnailer
           %r{^http://pixel\.quantserve\.com/},
           %r{^http://s7\.addthis\.com/}
         ],
-        rmagick_attributes:   %w(source_url mime_type colums rows filesize number_colors),
+        fastimage_attributes:   %w(source_url size type),
         limit:                10,
         top:                  5,
         user_agent:           'linkthumbnailer',

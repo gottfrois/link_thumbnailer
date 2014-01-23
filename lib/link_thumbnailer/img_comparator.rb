@@ -3,14 +3,13 @@ module LinkThumbnailer
   module ImgComparator
 
     def <=> other
-      result = ([other.rows, other.columns].min ** 2) <=>
-        ([rows, columns].min ** 2)
-
-      if result == 0
-        result = other.number_colors <=> number_colors
+      if other.size != nil && size != nil
+        return (other.size.min ** 2) <=> (size.min ** 2)
+      elsif other.size != nil
+        return 1
+      else
+        return -1
       end
-
-      result
     end
 
   end
