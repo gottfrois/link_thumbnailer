@@ -20,26 +20,18 @@ module LinkThumbnailer
         break if count >= LinkThumbnailer.configuration.limit
         img = parse_one(i)
         next unless img
+        img.extend LinkThumbnailer::WebImage
         img.extend LinkThumbnailer::ImgComparator
         imgs << img
         count += 1
       }
 
       imgs.sort! unless imgs.count <= 1
-
       imgs.first(LinkThumbnailer.configuration.top)
     end
 
     def parse_one(img_url)
-      img = FastImage.new(img_url, :raise_on_failure => false)
-      if !img.respond_to?(:source_url)
-        class <<img
-          def source_url
-            return @parsed_uri
-          end
-        end
-      end
-      img
+      FastImage.new(img_url, raise_on_failure: false)
     rescue StandardError
       nil
     end

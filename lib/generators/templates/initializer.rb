@@ -22,7 +22,7 @@ LinkThumbnailer.configure do |config|
   # for more details.
   # 'source_url' is a custom attribute and should always be included since this
   # is where you'll find the image url.
-  # config.fastimage_attributes = %w(source_url size type)
+  # config.image_attributes = %w(source_url size type)
 
   # Fetch 10 images maximum.
   # config.limit = 10
