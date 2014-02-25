@@ -1,3 +1,8 @@
+# 1.1.0
+
+- Replace RMagick by [FastImage](https://github.com/sdsykes/fastimage)
+- Rename `rmagick_attributes` config into `image_attributes`
+
 # 1.0.9
 
 - Fix issue when Location header used a relative path instead of an absolute path
