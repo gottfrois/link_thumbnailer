@@ -1,9 +1,4 @@
 module LinkThumbnailer
-  class Engine < Rails::Engine
-
-    initializer 'link_thumbnailer.routes' do
-      LinkThumbnailer::Rails::Routes.install!
-    end
-
+  class Engine < ::Rails::Engine
   end
 end
