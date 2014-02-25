@@ -1,3 +1,7 @@
+# 1.1.1
+
+- Fix route helper not working under rails 4.
+
 # 1.1.0
 
 - Replace RMagick by [FastImage](https://github.com/sdsykes/fastimage)
