@@ -35,7 +35,7 @@ describe LinkThumbnailer::WebImage do
 
     context "with all attributes" do
 
-      let(:attributes) { LinkThumbnailer.configuration.rmagick_attributes }
+      let(:attributes) { LinkThumbnailer.configuration.image_attributes }
 
       before do
         attributes.each {|a| foo.class.send(:define_method, a.to_sym) { 'foo' } }

@@ -1,4 +1,4 @@
-require 'RMagick'
+require 'fastimage'
 
 module LinkThumbnailer
 
@@ -20,23 +20,18 @@ module LinkThumbnailer
         break if count >= LinkThumbnailer.configuration.limit
         img = parse_one(i)
         next unless img
+        img.extend LinkThumbnailer::WebImage
         img.extend LinkThumbnailer::ImgComparator
         imgs << img
         count += 1
       }
 
       imgs.sort! unless imgs.count <= 1
-
       imgs.first(LinkThumbnailer.configuration.top)
     end
 
     def parse_one(img_url)
-      img_data = @fetcher.fetch(img_url)
-      img = Magick::ImageList.new.from_blob(img_data).extend(
-        LinkThumbnailer::WebImage
-      )
-      img.source_url = img_url
-      img
+      FastImage.new(img_url, raise_on_failure: false)
     rescue StandardError
       nil
     end

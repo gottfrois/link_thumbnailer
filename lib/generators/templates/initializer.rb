@@ -22,20 +22,20 @@ LinkThumbnailer.configure do |config|
   # for more details.
   # 'source_url' is a custom attribute and should always be included since this
   # is where you'll find the image url.
-  # config.rmagick_attributes = %w(source_url mime_type colums rows filesize number_colors)
+  # config.image_attributes = %w(source_url size type)
 
   # Fetch 10 images maximum.
   # config.limit = 10
 
   # Return top 5 images only.
   # config.top = 5
-  
+
   # Set user agent
   # config.user_agent = 'linkthumbnailer'
-  
-  # Enable or disable SSL verification 
+
+  # Enable or disable SSL verification
   # config.verify_ssl = true
-  
+
   # HTTP open_timeout: The amount of time in seconds to wait for a connection to be opened.
   # config.http_timeout = 5
 end

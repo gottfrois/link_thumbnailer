@@ -20,7 +20,11 @@ module LinkThumbnailer
   class << self
 
     attr_accessor :configuration, :object, :fetcher, :doc_parser,
-                  :img_url_filters, :img_parser
+                  :img_url_filters, :img_parser, :logger
+
+    def logger
+      @logger ||= ::Rails.logger
+    end
 
     def config
       self.configuration ||= Configuration.new(
@@ -33,7 +37,7 @@ module LinkThumbnailer
           %r{^http://pixel\.quantserve\.com/},
           %r{^http://s7\.addthis\.com/}
         ],
-        rmagick_attributes:   %w(source_url mime_type colums rows filesize number_colors),
+        image_attributes:     %w(source_url size type),
         limit:                10,
         top:                  5,
         user_agent:           'linkthumbnailer',
@@ -50,9 +54,9 @@ module LinkThumbnailer
       set_options(options)
       instantiate_classes
 
-      doc = self.doc_parser.parse(self.fetcher.fetch(url), url)
+      doc = doc_parser.parse(fetcher.fetch(url), url)
 
-      self.object[:url] = self.fetcher.url.to_s
+      self.object[:url] = fetcher.url.to_s
       opengraph(doc) || custom(doc)
     end
 
@@ -68,22 +72,22 @@ module LinkThumbnailer
       self.fetcher          = LinkThumbnailer::Fetcher.new
       self.doc_parser       = LinkThumbnailer::DocParser.new
       self.img_url_filters  = [LinkThumbnailer::ImgUrlFilter.new]
-      self.img_parser       = LinkThumbnailer::ImgParser.new(self.fetcher, self.img_url_filters)
+      self.img_parser       = LinkThumbnailer::ImgParser.new(fetcher, img_url_filters)
     end
 
     def opengraph(doc)
-      return nil unless opengraph?(doc)
-      self.object = LinkThumbnailer::Opengraph.parse(self.object, doc)
-      return self.object if self.object.valid?
+      return unless opengraph?(doc)
+      self.object = LinkThumbnailer::Opengraph.parse(object, doc)
+      return object if object.valid?
       nil
     end
 
     def custom(doc)
       self.object[:title]       = doc.title
       self.object[:description] = doc.description
-      self.object[:images]      = self.img_parser.parse(doc.img_abs_urls.dup)
-      self.object[:url]         = doc.canonical_url || self.object[:url]
-      return self.object if self.object.valid?
+      self.object[:images]      = img_parser.parse(doc.img_abs_urls.dup)
+      self.object[:url]         = doc.canonical_url || object[:url]
+      return object if object.valid?
       nil
     end
 
