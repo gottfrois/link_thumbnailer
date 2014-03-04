@@ -31,7 +31,7 @@ module LinkThumbnailer
     end
 
     def parse_one(img_url)
-      FastImage.new(img_url, raise_on_failure: false)
+      FastImage.new(img_url.to_s, raise_on_failure: false)
     rescue StandardError
       nil
     end
