@@ -1,3 +1,7 @@
+# 1.1.2
+
+- Fix issue with FastImage URLs [https://github.com/gottfrois/link_thumbnailer/pull/31](https://github.com/gottfrois/link_thumbnailer/pull/31)
+
 # 1.1.1
 
 - Fix route helper not working under rails 4.
