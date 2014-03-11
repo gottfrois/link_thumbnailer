@@ -17,7 +17,7 @@ module LinkThumbnailer
     private
 
     def size_comparator
-      @size_comparator ||= ::LinkThumbnailer::ImageComparators::Size.new(image)
+      ::LinkThumbnailer::ImageComparators::Size.new(image)
     end
 
   end

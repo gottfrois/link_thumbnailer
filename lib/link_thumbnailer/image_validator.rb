@@ -11,7 +11,7 @@ module LinkThumbnailer
     end
 
     def call
-      blacklist_url.each do |url|
+      blacklist_urls.each do |url|
         return false if image.src && image.src.to_s[url]
       end
 
@@ -20,8 +20,8 @@ module LinkThumbnailer
 
     private
 
-    def blacklist_url
-      config.blacklist_url
+    def blacklist_urls
+      config.blacklist_urls
     end
 
   end

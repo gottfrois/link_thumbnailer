@@ -1,8 +1,10 @@
+require 'fastimage'
+
 module LinkThumbnailer
   module ImageParsers
-    class Type < ::LinkThumbnailer::ImageParsers::Base
+    class Type
 
-      def call
+      def self.perform(image)
         ::FastImage.type(image.src, raise_on_failure: true)
       rescue ::FastImage::ImageFetchFailure
         :jpg

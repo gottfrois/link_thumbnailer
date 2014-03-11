@@ -23,7 +23,7 @@ module LinkThumbnailer
 	class Configuration
 
     attr_accessor :redirect_limit, :blacklist_urls, :user_agent, :verify_ssl,
-                  :http_timeout, :scrapers
+                  :http_timeout, :attributes
 
     # Create a new instance.
     #
@@ -39,7 +39,7 @@ module LinkThumbnailer
         %r{^http://pixel\.quantserve\.com/},
         %r{^http://s7\.addthis\.com/}
       ]
-      @scrapers       = [:opengraph, :text]
+      @attributes = [:title, :description, :images]
     end
 
 	end

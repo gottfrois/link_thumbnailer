@@ -6,8 +6,8 @@ module LinkThumbnailer
 
       def initialize(src)
         @src  = src
-        @size = parser.size
-        @type = parser.type
+        @size = parser.size(self)
+        @type = parser.type(self)
       end
 
       def <=>(other)
@@ -21,15 +21,15 @@ module LinkThumbnailer
       private
 
       def parser
-        @parser ||= ::LinkThumbnailer::ImageParser.new(self)
+        ::LinkThumbnailer::ImageParser
       end
 
       def validator
-        @validator ||= ::LinkThumbnailer::ImageValidator.new(self)
+        ::LinkThumbnailer::ImageValidator.new(self)
       end
 
       def comparator
-        @comparator ||= ::LinkThumbnailer::ImageComparator.new(self)
+        ::LinkThumbnailer::ImageComparator.new(self)
       end
 
     end

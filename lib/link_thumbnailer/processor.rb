@@ -4,17 +4,18 @@ require 'net/http/persistent'
 module LinkThumbnailer
   class Processor < ::SimpleDelegator
 
-    attr_accessor :url, :redirect_count, :config, :http
+    attr_accessor :url
+    attr_reader   :config, :http, :redirect_count
 
     def initialize
-      self.config = ::LinkThumbnailer.config
-      self.http   = ::Net::HTTP::Persistent.new
+      @config = ::LinkThumbnailer.config
+      @http   = ::Net::HTTP::Persistent.new
       super(config)
     end
 
     def call(url = '', redirect_count = 0)
-      self.url            = url
-      self.redirect_count = redirect_count
+      self.url        = url
+      @redirect_count = redirect_count
 
       raise ::LinkThumbnailer::RedirectLimit if too_many_redirections?
 

@@ -189,7 +189,7 @@ describe LinkThumbnailer::Processor do
       let(:new_url)   { 'http://foo.com/bar' }
 
       before do
-        instance.redirect_count = 0
+        instance.stub(:redirect_count).and_return(0)
         instance.stub(:resolve_relative_url).and_return(new_url)
       end
 

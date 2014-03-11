@@ -1,26 +1,36 @@
+require 'pry'
 require 'delegate'
-require 'link_thumbnailer/scrapers/base'
-require 'link_thumbnailer/scrapers/opengraph'
-require 'link_thumbnailer/scrapers/text'
+require 'active_support/inflector'
+
+require 'link_thumbnailer/model'
+require 'link_thumbnailer/scrapers/default/title'
+require 'link_thumbnailer/scrapers/opengraph/title'
+require 'link_thumbnailer/scrapers/default/description'
+require 'link_thumbnailer/scrapers/opengraph/description'
+require 'link_thumbnailer/scrapers/default/image'
+# require 'link_thumbnailer/scrapers/opengraph/image'
 
 module LinkThumbnailer
   class Scraper < ::SimpleDelegator
 
-    attr_reader :document, :source, :config, :scrapers, :website
+    class Exception < StandardError; end
+    class ScraperInvalid < StandardError; end
+
+    attr_reader :document, :source, :config, :website
 
     def initialize(source)
       @source   = source
       @config   = ::LinkThumbnailer.config
       @document = parser.call(source)
-      @scrapers = instantiate_scrapers
       @website  = ::LinkThumbnailer::Models::Website.new
 
       super(config)
     end
 
     def call
-      scrapers.each do |s|
-        s.call(website)
+      config.attributes.each do |name|
+        scraper = scraper_class(name).new(document)
+        scraper.call(website, name.to_s)
       end
 
       website
@@ -28,25 +38,32 @@ module LinkThumbnailer
 
     private
 
-    def instantiate_scrapers
-      available_scrapers.map do |klass|
-        klass.new(document) if selected?(klass)
-      end.compact
+    def scraper_class(name)
+      scraper_class_name(name.to_s.classify).constantize
+    rescue NameError
+      raise ScraperInvalid, "scraper named '#{name}' does not exists."
     end
 
-    def selected?(klass)
-      config.scrapers.include?(scraper_name(klass))
+    def scraper_class_name(class_name)
+      if opengraph?
+        "::LinkThumbnailer::Scrapers::Opengraph::#{class_name}"
+      else
+        "::LinkThumbnailer::Scrapers::Default::#{class_name}"
+      end
     end
 
-    def scraper_name(klass)
-      klass.name.split('::').last.downcase.to_sym
+    def opengraph?
+      meta.any? do |node|
+        opengraph_node?(node)
+      end
     end
 
-    def available_scrapers
-      [
-        ::LinkThumbnailer::Scrapers::Opengraph,
-        ::LinkThumbnailer::Scrapers::Text
-      ]
+    def opengraph_node?(node)
+      node.attribute('property').to_s.start_with?('og:')
+    end
+
+    def meta
+      document.css('meta')
     end
 
     def parser

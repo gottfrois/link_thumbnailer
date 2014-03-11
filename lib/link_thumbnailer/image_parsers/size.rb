@@ -1,8 +1,10 @@
+require 'fastimage'
+
 module LinkThumbnailer
   module ImageParsers
-    class Size < ::LinkThumbnailer::ImageParsers::Base
+    class Size
 
-      def call
+      def self.perform(image)
         ::FastImage.size(image.src, raise_on_failure: true)
       rescue ::FastImage::ImageFetchFailure
         [0, 0]

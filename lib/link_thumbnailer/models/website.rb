@@ -2,30 +2,22 @@ module LinkThumbnailer
   module Models
     class Website
 
-      HEADINGS = [:h1, :h2, :h3, :h4, :h5, :h6]
-
-      attr_accessor :images, :elements
+      attr_accessor :images, :title, :description
 
       def initialize
-        self.images   = []
-        self.elements = []
+        @images = []
       end
 
-      def add_image(image)
-        image.valid? ? images.push(image) : false
+      def images=(images)
+        Array(images).each do |image|
+          next unless image.valid?
+          @images << image
+        end
       end
 
-      def add_element(element)
-        elements.push(element)
-      end
-
-      def headings
-        @headinds ||= elements.select { |e| HEADINGS.include?(e.tag) }
-      end
-
-      def paragraphs
-        @paragraphs ||= elements.select { |e| e.tag == :p }
-      end
+      # def add_image(image)
+      #   image.valid? ? images.push(image) : false
+      # end
 
     end
   end

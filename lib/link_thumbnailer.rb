@@ -6,7 +6,6 @@ require 'link_thumbnailer/parser'
 require 'link_thumbnailer/image_comparator'
 require 'link_thumbnailer/image_validator'
 require 'link_thumbnailer/image_parser'
-require 'link_thumbnailer/model'
 require 'link_thumbnailer/scraper'
 
 module LinkThumbnailer
@@ -33,9 +32,29 @@ module LinkThumbnailer
     end
 
     def scraper
-      @scraper ||= ::LinkThumbnailer::Scraper.new(source)
+      @scraper = ::LinkThumbnailer::Scraper.new(source)
     end
 
   end
 
+end
+
+begin
+  require 'rails'
+rescue LoadError
+end
+
+$stderr.puts <<-EOC if !defined?(Rails)
+warning: no framework detected.
+
+Your Gemfile might not be configured properly.
+---- e.g. ----
+Rails:
+    gem 'link_thumbnailer'
+
+EOC
+
+if defined?(Rails)
+  # require 'link_thumbnailer/engine'
+  # require 'link_thumbnailer/railtie'
 end
