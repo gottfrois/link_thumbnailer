@@ -23,23 +23,24 @@ module LinkThumbnailer
 	class Configuration
 
     attr_accessor :redirect_limit, :blacklist_urls, :user_agent, :verify_ssl,
-                  :http_timeout, :attributes
+                  :http_timeout, :attributes, :min_description_length
 
     # Create a new instance.
     #
     # @return [LinkThumbnailer::Configuration]
     def initialize
-      @redirect_limit = 3
-      @user_agent     = 'link_thumbnailer'
-      @verify_ssl     = true
-      @http_timeout   = 5
-      @blacklist_urls = [
+      @redirect_limit         = 3
+      @user_agent             = 'link_thumbnailer'
+      @verify_ssl             = true
+      @http_timeout           = 5
+      @blacklist_urls         = [
         %r{^http://ad\.doubleclick\.net/},
         %r{^http://b\.scorecardresearch\.com/},
         %r{^http://pixel\.quantserve\.com/},
         %r{^http://s7\.addthis\.com/}
       ]
-      @attributes = [:title, :description, :images]
+      @attributes             = [:title, :images, :description]
+      @min_description_length = 25
     end
 
 	end

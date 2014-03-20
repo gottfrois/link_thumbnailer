@@ -2,7 +2,7 @@
 <!-- saved from url=(0019)http://www.foo.com/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
-<title>Foo.com</title>
+<title>Title</title>
 <link href="./example_files/style-3706572431311a3a4cf5c6f3266c9bce.css" media="all" rel="stylesheet" type="text/css">
 <link href="./example_files/belt_layout1_google-1c8ee8bd905a6121e7a7ac73b7ffb888.css" media="all" rel="stylesheet" type="text/css">
 <script src="./example_files/application-e8b3208729190cb9cc8a800ff3283fd8.js" type="text/javascript"></script>
@@ -111,9 +111,9 @@ function gadlink(ga, inner_text, visible_url){
   visible_url = visible_url.replace(/<b>/gi,'')
   visible_url = visible_url.replace(/<\/b>/gi,'')
   return '<a ' +
-  'href="http://' + visible_url + '"' + 
+  'href="http://' + visible_url + '"' +
   ' onclick="window.open(\'' + ga.url + '\');return false;"' +
-  ' target="_blank" ' + 
+  ' target="_blank" ' +
   '>' +
   inner_text + '</a>';
 
@@ -138,7 +138,7 @@ function google_afd_ad_request_done(google_afd_response) {
        ads="";
        ads +=
           '<div class="listing"><div class="url">' +
-          gadlink(google_ads[i], google_ads[i].line1, google_ads[i].visible_url) + 
+          gadlink(google_ads[i], google_ads[i].line1, google_ads[i].visible_url) +
           '</div>';
        if (seller_ratings) {
          ads += '<div class="ratings">'+seller_ratings.advertiser_info+' <img src="/assets/'+seller_ratings.rating+'star.gif" border="0"> <a href="'+seller_ratings.source_url+'" target="_blank">('+seller_ratings.review_count+')</a></div>';
@@ -147,7 +147,7 @@ function google_afd_ad_request_done(google_afd_response) {
           '<div class="description">' + google_ads[i].line2 + ' ' +
           (google_ads[i].line3 != undefined ? google_ads[i].line3 + '' : '') +
           '</div>' +
-          '<div class="host">' + 
+          '<div class="host">' +
           gadlink(google_ads[i], google_ads[i].visible_url, google_ads[i].visible_url) +
           '</div>';
        if (site_links && site_links.length > 0) {
@@ -156,8 +156,8 @@ function google_afd_ad_request_done(google_afd_response) {
             if(x % 2 == 0){
               ads += '<tr>';
             }
-            ads += 
-              '<td class="sitelink">' + 
+            ads +=
+              '<td class="sitelink">' +
               gadlink(site_links[x], site_links[x].link_text, google_ads[i].visible_url) +
               '</td>';
             if(x % 2 == 1){
@@ -183,26 +183,26 @@ function google_afd_ad_request_done(google_afd_response) {
     var google_categories = google_afd_response.categories;
     for (var i = 0; i < google_categories.length; i++) {
       subcats = google_categories[i].subcategories;
-      popularCategories = 
-        '<div class="termgroup">' + 
-        '<h3><a class="popular_category" ' + 
-        'href="/#' + google_categories[i].term + '"' + 
+      popularCategories =
+        '<div class="termgroup">' +
+        '<h3><a class="popular_category" ' +
+        'href="/#' + google_categories[i].term + '"' +
         ' onclick="window.location=\'/results' +
         '?q=' + encodeURIComponent(google_categories[i].term) +
         '&token=' + google_categories[i].token + '\';return false;"' +
-        '>' + 
-        google_categories[i].term + 
+        '>' +
+        google_categories[i].term +
         '</a></h3>';
         for(var gci =0; gci < subcats.length; gci++){
           popularCategories = popularCategories +
-          '<div class="term">' + 
-          '<a class="popular_category" ' + 
-          'href="/#' + subcats[gci].term + '"' + 
+          '<div class="term">' +
+          '<a class="popular_category" ' +
+          'href="/#' + subcats[gci].term + '"' +
           ' onclick="window.location=\'/results' +
           '?q=' + encodeURIComponent(subcats[gci].term) +
           '&token=' + subcats[gci].token + '\';return false;"' +
-          '>' + 
-          subcats[gci].term + 
+          '>' +
+          subcats[gci].term +
           '</a></div>';
         }
         popularCategories = popularCategories + '</div>';
@@ -214,58 +214,58 @@ function google_afd_ad_request_done(google_afd_response) {
     var google_link_units = google_afd_response.link_units;
     for (var i = 0; i < google_link_units.length; i++) {
       relatedSearches =
-        '<div class="term">' + 
-        '<a class="related_searches" ' + 
-        'href="/#' + google_link_units[i].term + '"' + 
+        '<div class="term">' +
+        '<a class="related_searches" ' +
+        'href="/#' + google_link_units[i].term + '"' +
         ' onclick="window.location=\'/results' +
         '?q=' + encodeURIComponent(google_link_units[i].term) +
         '&token=' + google_link_units[i].token + '\';return false;"' +
         '>' +
-        google_link_units[i].term + 
-        '</a>' + 
+        google_link_units[i].term +
+        '</a>' +
         '</div>';
       relatedSearches_array.push(relatedSearches);
     }
-    
+
   }
 if (google_afd_response.link_units && google_afd_response.link_units.length > 0) {
-  var google_link_units = google_afd_response.link_units;                         
-  for (var i = 0; i < google_link_units.length; i++) {                            
-    relatedSearches = "";                                                       
-    if(i % 5 == 0){                                                               
-      relatedSearches += "<div class='termgroup'>";                             
-    }                                                                             
-    relatedSearches +=                                                            
-      '<div class="term">' +                                                    
-      '<a class="related_searches" ' +                                          
-      'href="/#' + google_link_units[i].term + '"' +                            
-      ' onclick="window.location=\'/results' +                                 
-      '?q=' + encodeURIComponent(google_link_units[i].term) +                     
-      '&token=' + google_link_units[i].token + '\';return false;"' +            
-      '>' +                                                                       
-      google_link_units[i].term +                                                 
-      '</a>' +                                                                    
-      '</div>';                                                                   
+  var google_link_units = google_afd_response.link_units;
+  for (var i = 0; i < google_link_units.length; i++) {
+    relatedSearches = "";
+    if(i % 5 == 0){
+      relatedSearches += "<div class='termgroup'>";
+    }
+    relatedSearches +=
+      '<div class="term">' +
+      '<a class="related_searches" ' +
+      'href="/#' + google_link_units[i].term + '"' +
+      ' onclick="window.location=\'/results' +
+      '?q=' + encodeURIComponent(google_link_units[i].term) +
+      '&token=' + google_link_units[i].token + '\';return false;"' +
+      '>' +
+      google_link_units[i].term +
+      '</a>' +
+      '</div>';
     if(((i % 5) == 4) || ((i-1)==google_link_units.length)){
-      relatedSearches += "</div>";                                              
-    }                                                                             
-    if(((i+1) % 10 == 0)){ 
-      relatedSearches += "<div class='clear'>&nbsp;</div>";                             
-    }                                                                             
-    genCatSearches_array.push(relatedSearches);                                   
-  }                                                                               
-                                                                                  
+      relatedSearches += "</div>";
+    }
+    if(((i+1) % 10 == 0)){
+      relatedSearches += "<div class='clear'>&nbsp;</div>";
+    }
+    genCatSearches_array.push(relatedSearches);
+  }
+
 }
   try{document.getElementById('results').innerHTML = ads_array.join("\n");}catch(error){}
   try{document.getElementById('bottomresults').innerHTML = bottom_ads_array.join("\n");}catch(error){}
-  
+
   if(ads_array.length>1){
     document.getElementById('sponsoredresults').style.display='block';
   }
   if(bottom_ads_array.length>1){
     document.getElementById('bottomsponsoredresults').style.display='block';
   }
-  
+
   try{document.getElementById('keywords').innerHTML = relatedSearches_array.join("\n");}catch(error){}
   try{document.getElementById('gencats').innerHTML = genCatSearches_array.join("\n");}catch(error){}
   // if(genCatSearches_array.length==0){
@@ -325,7 +325,7 @@ function getParam(name) {
 
 <div id="footer">
 <a href="http://www.foo.com/digimedia_privacy_policy.html" target="_blank">Privacy Policy</a>
- - 
+ -
 © 2012 Digimedia.com, L.P.
 </div>
 

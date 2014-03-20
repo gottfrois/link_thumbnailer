@@ -8,7 +8,11 @@ module LinkThumbnailer
         private
 
         def value
-          node.text
+          model.text
+        end
+
+        def model
+          modelize(node)
         end
 
         def node

@@ -1,6 +1,8 @@
+require 'link_thumbnailer/model'
+
 module LinkThumbnailer
   module Models
-    class Image
+    class Image < ::LinkThumbnailer::Model
 
       attr_reader :src, :type, :size
 

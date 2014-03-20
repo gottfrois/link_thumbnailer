@@ -32,7 +32,7 @@ module LinkThumbnailer
     end
 
     def scraper
-      @scraper = ::LinkThumbnailer::Scraper.new(source)
+      @scraper = ::LinkThumbnailer::Scraper.new(source, processor.url)
     end
 
   end

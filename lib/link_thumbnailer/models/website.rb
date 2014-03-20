@@ -1,11 +1,17 @@
+require 'link_thumbnailer/model'
+
 module LinkThumbnailer
   module Models
-    class Website
+    class Website < ::LinkThumbnailer::Model
 
-      attr_accessor :images, :title, :description
+      attr_accessor :url, :title, :description, :images
 
       def initialize
         @images = []
+      end
+
+      def image=(image)
+        self.images = image
       end
 
       def images=(images)
@@ -14,10 +20,6 @@ module LinkThumbnailer
           @images << image
         end
       end
-
-      # def add_image(image)
-      #   image.valid? ? images.push(image) : false
-      # end
 
     end
   end

@@ -1,14 +1,13 @@
-require 'pry'
 require 'delegate'
 require 'active_support/inflector'
 
-require 'link_thumbnailer/model'
+require 'link_thumbnailer/models/website'
 require 'link_thumbnailer/scrapers/default/title'
 require 'link_thumbnailer/scrapers/opengraph/title'
 require 'link_thumbnailer/scrapers/default/description'
 require 'link_thumbnailer/scrapers/opengraph/description'
-require 'link_thumbnailer/scrapers/default/image'
-# require 'link_thumbnailer/scrapers/opengraph/image'
+require 'link_thumbnailer/scrapers/default/images'
+require 'link_thumbnailer/scrapers/opengraph/images'
 
 module LinkThumbnailer
   class Scraper < ::SimpleDelegator
@@ -16,13 +15,15 @@ module LinkThumbnailer
     class Exception < StandardError; end
     class ScraperInvalid < StandardError; end
 
-    attr_reader :document, :source, :config, :website
+    attr_reader :document, :source, :url, :config, :website
 
-    def initialize(source)
-      @source   = source
-      @config   = ::LinkThumbnailer.config
-      @document = parser.call(source)
-      @website  = ::LinkThumbnailer::Models::Website.new
+    def initialize(source, url)
+      @source       = source
+      @url          = url
+      @config       = ::LinkThumbnailer.config
+      @document     = parser.call(source)
+      @website      = ::LinkThumbnailer::Models::Website.new
+      @website.url  = url
 
       super(config)
     end
@@ -39,7 +40,7 @@ module LinkThumbnailer
     private
 
     def scraper_class(name)
-      scraper_class_name(name.to_s.classify).constantize
+      scraper_class_name(name.to_s.camelize).constantize
     rescue NameError
       raise ScraperInvalid, "scraper named '#{name}' does not exists."
     end
@@ -59,7 +60,8 @@ module LinkThumbnailer
     end
 
     def opengraph_node?(node)
-      node.attribute('property').to_s.start_with?('og:')
+      node.attribute('name').to_s.start_with?('og:') ||
+        node.attribute('property').to_s.start_with?('og:')
     end
 
     def meta

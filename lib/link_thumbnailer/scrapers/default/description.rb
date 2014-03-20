@@ -8,33 +8,32 @@ module LinkThumbnailer
         private
 
         def value
-          return node_from_meta.attributes['content'].value if node_from_meta
-          return node_from_body.text                        if node_from_body
-
+          return model_from_meta.text if model_from_meta
+          return model_from_body.text if model_from_body
           nil
         end
 
-        def node
-          node_from_meta
+        def model_from_meta
+          modelize(node_from_meta, node_from_meta.attributes['content'].value) if node_from_meta
+        end
+
+        def model_from_body
+          nodes_from_body.map { |node| modelize(node) }.first
         end
 
         def node_from_meta
-          meta_xpath(key: :name)
+          @node_from_meta ||= meta_xpath(key: :name)
         end
 
-        def node_from_body
-          paragraphs.each do |node|
-            return node if valid_paragraph?(node)
-          end
-
-          nil
+        def nodes_from_body
+          candidates.select { |node| valid_paragraph?(node) }
         end
 
         def valid_paragraph?(node)
           !node.has_attribute?('style') && node.first_element_child.nil?
         end
 
-        def paragraphs
+        def candidates
           document.css('body p')
         end
 

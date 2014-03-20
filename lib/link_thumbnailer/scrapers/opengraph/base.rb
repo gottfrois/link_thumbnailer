@@ -8,20 +8,20 @@ module LinkThumbnailer
         private
 
         def value
-          node.attributes['content'].to_s
+          model.text
+        end
+
+        def model
+          modelize(node, node.attributes['content'].to_s) if node
         end
 
         def node
-          meta_xpath(attribute: attribute) ||
-          meta_xpath(attribute: attribute, key: :name)
+          @node ||= meta_xpath(attribute: attribute) ||
+                      meta_xpath(attribute: attribute, key: :name)
         end
 
         def attribute
           "og:#{attribute_name}"
-        end
-
-        def underscorize(str)
-          str.gsub('-', '_')
         end
 
       end
