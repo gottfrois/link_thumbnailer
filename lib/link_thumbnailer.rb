@@ -12,7 +12,7 @@ module LinkThumbnailer
 
   class << self
 
-    attr_reader :processor, :parser, :source
+    attr_reader :parser, :source
 
     def generate(url, options = {})
       set_options(options)

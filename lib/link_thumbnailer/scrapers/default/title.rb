@@ -8,7 +8,7 @@ module LinkThumbnailer
         private
 
         def value
-          model.text
+          model.to_s
         end
 
         def model

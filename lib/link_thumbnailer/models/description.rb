@@ -11,6 +11,10 @@ module LinkThumbnailer
         @text = sanitize(text || node.text)
       end
 
+      def to_s
+        text
+      end
+
       private
 
       # def compute_score

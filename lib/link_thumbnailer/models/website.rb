@@ -21,6 +21,10 @@ module LinkThumbnailer
         end
       end
 
+      def images
+        @images.sort!
+      end
+
     end
   end
 end

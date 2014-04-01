@@ -22,8 +22,9 @@ module LinkThumbnailer
 
 	class Configuration
 
-    attr_accessor :redirect_limit, :blacklist_urls, :user_agent, :verify_ssl,
-                  :http_timeout, :attributes, :min_description_length
+    attr_accessor :redirect_limit, :blacklist_urls, :user_agent,
+                  :verify_ssl, :http_timeout, :attributes,
+                  :min_description_length
 
     # Create a new instance.
     #

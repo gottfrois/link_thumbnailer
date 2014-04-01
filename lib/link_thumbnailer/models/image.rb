@@ -12,6 +12,10 @@ module LinkThumbnailer
         @type = parser.type(self)
       end
 
+      def to_s
+        src.to_s
+      end
+
       def <=>(other)
         comparator.call(other)
       end

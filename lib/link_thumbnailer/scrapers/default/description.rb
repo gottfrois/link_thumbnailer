@@ -8,8 +8,8 @@ module LinkThumbnailer
         private
 
         def value
-          return model_from_meta.text if model_from_meta
-          return model_from_body.text if model_from_body
+          return model_from_meta.to_s if model_from_meta
+          return model_from_body.to_s if model_from_body
           nil
         end
 

@@ -19,6 +19,3 @@ module LinkThumbnailer
     end
   end
 end
-
-# o = LinkThumbnailer.generate('http://azendoo.com')
-# o = LinkThumbnailer.generate('http://zerply.com')
