@@ -9,7 +9,7 @@ module LinkThumbnailer
         end
 
         object[:images] = []
-        if object[:image]
+        if object[:image] && !object[:image].empty?
           object[:images] << { source_url: object[:image] }
         end
 
