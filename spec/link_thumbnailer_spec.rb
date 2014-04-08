@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe LinkThumbnailer do
 
-  let(:og_example)    { File.open(File.dirname(__FILE__) + '/examples/og_example.html').read() }
-  let(:example)       { File.open(File.dirname(__FILE__) + '/examples/example.html').read() }
-  let(:empty_example) { File.open(File.dirname(__FILE__) + '/examples/empty_example.html').read() }
+  let(:og_example)             { File.open(File.dirname(__FILE__) + '/examples/og_example.html').read() }
+  let(:example)                { File.open(File.dirname(__FILE__) + '/examples/example.html').read() }
+  let(:empty_example)          { File.open(File.dirname(__FILE__) + '/examples/empty_example.html').read() }
+  let(:empty_og_image_example) { File.open(File.dirname(__FILE__) + '/examples/empty_og_image_example.html').read() }
 
   it { should respond_to :configuration }
   it { should respond_to :configure }
@@ -156,6 +157,16 @@ describe LinkThumbnailer do
 
           it { expect(LinkThumbnailer.generate('http://foo.com/')).to be_nil }
           it { expect { LinkThumbnailer.generate('http://foo.com/') }.to_not raise_exception }
+
+        end
+
+        context "and empty og value" do
+
+          before do
+            stub_request(:get, 'http://foo.com/').to_return(status: 200, body: empty_og_image_example, headers: {})
+          end
+
+          it { expect(LinkThumbnailer.generate('http://foo.com/')).to be_nil }
 
         end
 
