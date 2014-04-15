@@ -12,9 +12,6 @@ require 'link_thumbnailer/scrapers/opengraph/images'
 module LinkThumbnailer
   class Scraper < ::SimpleDelegator
 
-    class Exception < StandardError; end
-    class ScraperInvalid < StandardError; end
-
     attr_reader :document, :source, :url, :config, :website
 
     def initialize(source, url)
@@ -42,7 +39,7 @@ module LinkThumbnailer
     def scraper_class(name)
       scraper_class_name(name.to_s.camelize).constantize
     rescue NameError
-      raise ScraperInvalid, "scraper named '#{name}' does not exists."
+      raise ::LinkThumbnailer::ScraperInvalid, "scraper named '#{name}' does not exists."
     end
 
     def scraper_class_name(class_name)
