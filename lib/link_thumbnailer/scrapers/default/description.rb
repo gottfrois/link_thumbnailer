@@ -30,7 +30,7 @@ module LinkThumbnailer
         end
 
         def valid_paragraph?(node)
-          !node.has_attribute?('style') && node.first_element_child.nil?
+          node.has_attribute?('style') && node.first_element_child.present?
         end
 
         def candidates

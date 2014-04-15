@@ -9,6 +9,7 @@ describe LinkThumbnailer::Configuration do
   it { expect(instance.verify_ssl).to         eq(true) }
   it { expect(instance.http_timeout).to       eq(5) }
   it { expect(instance.blacklist_urls).to_not be_empty }
+  it { expect(instance.attributes).to_not     be_empty }
 
   describe '.config' do
 

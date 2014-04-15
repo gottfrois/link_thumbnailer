@@ -31,7 +31,6 @@ describe LinkThumbnailer do
     it { expect { action(http_timeout: 10) }.to change            { described_class.config.http_timeout }.to(10) }
     it { expect { action(blacklist_urls: ['foo']) }.to change     { described_class.config.blacklist_urls }.to(['foo']) }
     it { expect { action(attributes: [:foo]) }.to change          { described_class.config.attributes }.to([:foo]) }
-    it { expect { action(min_description_length: 50) }.to change  { described_class.config.min_description_length }.to(50) }
 
   end
 

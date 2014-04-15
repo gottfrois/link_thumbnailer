@@ -23,8 +23,7 @@ module LinkThumbnailer
 	class Configuration
 
     attr_accessor :redirect_limit, :blacklist_urls, :user_agent,
-                  :verify_ssl, :http_timeout, :attributes,
-                  :min_description_length
+                  :verify_ssl, :http_timeout, :attributes
 
     # Create a new instance.
     #
@@ -41,7 +40,6 @@ module LinkThumbnailer
         %r{^http://s7\.addthis\.com/}
       ]
       @attributes             = [:title, :images, :description]
-      @min_description_length = 25
     end
 
 	end
