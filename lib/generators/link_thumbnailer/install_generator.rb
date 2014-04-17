@@ -6,10 +6,6 @@ module LinkThumbnailer
 
       desc 'Creates a LinkThumbnailer initializer for your application.'
 
-      def install
-        route "use_link_thumbnailer"
-      end
-
       def copy_initializer
         template 'initializer.rb', 'config/initializers/link_thumbnailer.rb'
       end
