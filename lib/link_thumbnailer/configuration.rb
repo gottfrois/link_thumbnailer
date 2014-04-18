@@ -23,7 +23,8 @@ module LinkThumbnailer
 	class Configuration
 
     attr_accessor :redirect_limit, :blacklist_urls, :user_agent,
-                  :verify_ssl, :http_timeout, :attributes
+                  :verify_ssl, :http_timeout, :attributes, :graders,
+                  :description_min_length, :positive_regex, :negative_regex
 
     # Create a new instance.
     #
@@ -40,6 +41,15 @@ module LinkThumbnailer
         %r{^http://s7\.addthis\.com/}
       ]
       @attributes             = [:title, :images, :description]
+      @graders                = [
+        ->(config, desc) { ::LinkThumbnailer::Graders::Length.new(config, desc) },
+        ->(config, desc) { ::LinkThumbnailer::Graders::HtmlAttribute.new(config, desc, :class) },
+        ->(config, desc) { ::LinkThumbnailer::Graders::HtmlAttribute.new(config, desc, :id) },
+        ->(config, desc) { ::LinkThumbnailer::Graders::LinkDensity.new(config, desc) }
+      ]
+      @description_min_length = 25
+      @positive_regex = /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i
+      @negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
     end
 
 	end

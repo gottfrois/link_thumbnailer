@@ -18,7 +18,7 @@ module LinkThumbnailer
         end
 
         def model_from_body
-          nodes_from_body.map { |node| modelize(node) }.first
+          nodes_from_body.map { |node| modelize(node) }.sort.last
         end
 
         def node_from_meta
@@ -30,11 +30,11 @@ module LinkThumbnailer
         end
 
         def valid_paragraph?(node)
-          !node.has_attribute?('style') && node.first_element_child.nil?
+          true
         end
 
         def candidates
-          document.css('body p')
+          document.css('p,td')
         end
 
       end
