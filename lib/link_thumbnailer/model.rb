@@ -1,6 +1,10 @@
 module LinkThumbnailer
   class Model
 
+    def to_json(*args)
+      as_json.to_json(*args)
+    end
+
     private
 
     def config

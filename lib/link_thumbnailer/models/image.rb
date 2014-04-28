@@ -24,6 +24,14 @@ module LinkThumbnailer
         validator.call
       end
 
+      def as_json(*)
+        {
+          src:  src.to_s,
+          size: size,
+          type: type
+        }
+      end
+
       private
 
       def parser

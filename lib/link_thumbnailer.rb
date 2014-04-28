@@ -1,3 +1,4 @@
+require 'json'
 require 'link_thumbnailer/version'
 require 'link_thumbnailer/configuration'
 require 'link_thumbnailer/exceptions'

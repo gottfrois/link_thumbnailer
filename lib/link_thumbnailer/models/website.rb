@@ -25,6 +25,15 @@ module LinkThumbnailer
         @images.sort!
       end
 
+      def as_json(*)
+        {
+          url:          url.to_s,
+          title:        title,
+          description:  description,
+          images:       images
+        }
+      end
+
     end
   end
 end
