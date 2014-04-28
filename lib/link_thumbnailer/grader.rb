@@ -30,5 +30,3 @@ module LinkThumbnailer
 
   end
 end
-
-# LinkThumbnailer.generate('http://programmaticallyspeaking.com/why-i-hate-implicit-return-in-coffeescript.html')

@@ -1,4 +1,3 @@
-require 'pry'
 require 'link_thumbnailer/model'
 require 'link_thumbnailer/grader'
 
@@ -12,7 +11,7 @@ module LinkThumbnailer
       def initialize(node, text = nil)
         @node  = node
         @text  = sanitize(text || node.text)
-        @score = ::LinkThumbnailer::Grader.new(self).call
+        @score = compute_score
       end
 
       def to_s
@@ -25,15 +24,9 @@ module LinkThumbnailer
 
       private
 
-      # def compute_score
-
-      #   @score -= text.split("\n").length
-      #   @score += text.split(',').length
-
-      #   parent.score += score if parent
-      #   parent.parent.score += score / 2.0 if parent && parent.parent
-
-      # end
+      def compute_score
+        ::LinkThumbnailer::Grader.new(self).call
+      end
 
     end
   end

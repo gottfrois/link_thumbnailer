@@ -2,8 +2,13 @@ require 'spec_helper'
 
 describe LinkThumbnailer::Models::Description do
 
+  let(:grader)    { double(call: 0) }
   let(:node)      { double(text: 'bar') }
   let(:instance)  { described_class.new(node, text) }
+
+  before do
+    ::LinkThumbnailer::Grader.should_receive(:new).and_return(grader)
+  end
 
   context 'when text provided' do
 
