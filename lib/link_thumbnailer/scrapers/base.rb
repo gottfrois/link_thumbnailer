@@ -27,11 +27,15 @@ module LinkThumbnailer
       end
 
       def meta_xpath(options = {})
+        meta_xpaths(options).first
+      end
+
+      def meta_xpaths(options = {})
         key       = options.fetch(:key, :property)
         value     = options.fetch(:value, :content)
         attribute = options.fetch(:attribute, attribute_name)
 
-        document.xpath("//meta[translate(@#{key},'#{abc.upcase}','#{abc}') = '#{attribute}' and @#{value}]").first
+        document.xpath("//meta[translate(@#{key},'#{abc.upcase}','#{abc}') = '#{attribute}' and @#{value}]")
       end
 
       def abc

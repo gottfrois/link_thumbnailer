@@ -28,6 +28,24 @@ describe 'Fixture' do
 
     end
 
+    context 'with multi image' do
+
+      let(:png_url_2) { 'http://foo.com/bar.png' }
+      let(:png_2)     { File.open(File.dirname(__FILE__) + '/fixtures/bar.png') }
+      let(:html)      { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_multi_image_example.html').read() }
+
+      before do
+        stub_request(:get, png_url_2).to_return(status: 200, body: png_2, headers: {})
+      end
+
+      it { expect(action.title).to                  eq(title) }
+      it { expect(action.description).to            eq(description) }
+      it { expect(action.images.count).to           eq(2) }
+      it { expect(action.images.first.src.to_s).to  eq(png_url) }
+      it { expect(action.images.last.src.to_s).to   eq(png_url_2) }
+
+    end
+
     context 'when not valid' do
 
       let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/og_not_valid_example.html').read() }
