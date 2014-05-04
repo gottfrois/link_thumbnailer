@@ -51,4 +51,8 @@ LinkThumbnailer.configure do |config|
   # Regex of words considered negative to rate website description.
   #
   # config.negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
+
+  # Numbers of images to fetch. Fetching too many images will be slow.
+  #
+  # config.image_limit = 5
 end

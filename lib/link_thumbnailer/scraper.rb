@@ -1,4 +1,5 @@
 require 'delegate'
+require 'active_support/core_ext/object/blank'
 require 'active_support/inflector'
 
 require 'link_thumbnailer/models/website'
@@ -27,8 +28,12 @@ module LinkThumbnailer
 
     def call
       config.attributes.each do |name|
-        scraper = scraper_class(name).new(document)
-        scraper.call(website, name.to_s)
+        scrapers.each do |scraper_prefix|
+          scraper = scraper_class(scraper_prefix, name).new(document)
+          scraper.call(website, name.to_s) if scraper.applicable?
+
+          break unless website.send(name).blank?
+        end
       end
 
       website
@@ -36,33 +41,18 @@ module LinkThumbnailer
 
     private
 
-    def scraper_class(name)
-      scraper_class_name(name.to_s.camelize).constantize
+    def scrapers
+      [
+        "::LinkThumbnailer::Scrapers::Opengraph",
+        "::LinkThumbnailer::Scrapers::Default"
+      ]
+    end
+
+    def scraper_class(prefix, name)
+      name = name.to_s.camelize
+      "#{prefix}::#{name}".constantize
     rescue NameError
-      raise ::LinkThumbnailer::ScraperInvalid, "scraper named '#{name}' does not exists."
-    end
-
-    def scraper_class_name(class_name)
-      if opengraph?
-        "::LinkThumbnailer::Scrapers::Opengraph::#{class_name}"
-      else
-        "::LinkThumbnailer::Scrapers::Default::#{class_name}"
-      end
-    end
-
-    def opengraph?
-      meta.any? do |node|
-        opengraph_node?(node)
-      end
-    end
-
-    def opengraph_node?(node)
-      node.attribute('name').to_s.start_with?('og:') ||
-        node.attribute('property').to_s.start_with?('og:')
-    end
-
-    def meta
-      document.css('meta')
+      raise ::LinkThumbnailer::ScraperInvalid, "scraper named '#{prefix}::#{name}' does not exists."
     end
 
     def parser

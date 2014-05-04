@@ -24,7 +24,8 @@ module LinkThumbnailer
 
     attr_accessor :redirect_limit, :blacklist_urls, :user_agent,
                   :verify_ssl, :http_timeout, :attributes, :graders,
-                  :description_min_length, :positive_regex, :negative_regex
+                  :description_min_length, :positive_regex, :negative_regex,
+                  :image_limit
 
     # Create a new instance.
     #
@@ -50,6 +51,7 @@ module LinkThumbnailer
       @description_min_length = 25
       @positive_regex = /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i
       @negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
+      @image_limit    = 5
     end
 
 	end

@@ -20,6 +20,10 @@ module LinkThumbnailer
         website
       end
 
+      def applicable?
+        true
+      end
+
       private
 
       def value

@@ -1,4 +1,3 @@
-require 'pry'
 require 'link_thumbnailer/scrapers/opengraph/base'
 
 module LinkThumbnailer

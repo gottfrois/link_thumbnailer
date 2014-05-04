@@ -15,87 +15,78 @@ describe LinkThumbnailer::Scraper do
 
   describe '#call' do
 
-    let(:scraper_class) { double('scraper_class') }
-    let(:scraper)       { double('scraper') }
-    let(:attributes)    { [:foo] }
-    let(:action)        { instance.call }
+    let(:prefix_1)                { 'prefix_1' }
+    let(:prefix_2)                { 'prefix_2' }
+    let(:scraper_class)           { double('scraper_class') }
+    let(:applicable_scraper)      { double(applicable?: true) }
+    let(:not_applicable_scraper)  { double(applicable?: false) }
+    let(:attributes)              { [:bar] }
+    let(:scrapers)                { [prefix_1, prefix_2] }
+    let(:action)                  { instance.call }
 
     before do
       instance.stub_chain(:config, :attributes).and_return(attributes)
-
-      expect(scraper).to receive(:call).with(website, 'foo')
-      expect(scraper_class).to receive(:new).with(document).and_return(scraper)
-      expect(instance).to receive(:scraper_class).with(:foo).and_return(scraper_class)
+      instance.stub(:scrapers).and_return(scrapers)
     end
 
-    it { expect(action).to eq(website) }
-
-  end
-
-  describe '#scraper_class_name' do
-
-    let(:class_name)  { 'Foo' }
-    let(:action)      { instance.send(:scraper_class_name, class_name) }
-
-    context 'when opengraph' do
+    context 'when first scraper not applicable' do
 
       before do
-        instance.stub(:opengraph?).and_return(true)
+        expect(website).to            receive(:bar).and_return('bar')
+        expect(applicable_scraper).to receive(:call).with(website, 'bar')
+        expect(scraper_class).to      receive(:new).with(document).and_return(applicable_scraper)
+        expect(instance).to           receive(:scraper_class).with(prefix_1, :bar).and_return(scraper_class)
       end
 
-      it { expect(action).to eq("::LinkThumbnailer::Scrapers::Opengraph::#{class_name}") }
+      it { expect(action).to eq(website) }
 
     end
 
-    context 'by default' do
+    context 'when first scraper applicable' do
 
       before do
-        instance.stub(:opengraph?).and_return(false)
+        expect(website).to                    receive(:bar).and_return('bar')
+        expect(not_applicable_scraper).to_not receive(:call).with(website, 'bar')
+        expect(scraper_class).to              receive(:new).with(document).and_return(not_applicable_scraper)
+        expect(instance).to                   receive(:scraper_class).with(prefix_1, :bar).and_return(scraper_class)
       end
 
-      it { expect(action).to eq("::LinkThumbnailer::Scrapers::Default::#{class_name}") }
+      it { expect(action).to eq(website) }
 
     end
 
-  end
+    context 'when all scrapers applicable and first one return a result' do
 
-  describe '#opengraph?' do
-
-    let(:node)    { double('node') }
-    let(:meta)    { [node, node] }
-    let(:action)  { instance.send(:opengraph?) }
-
-    before do
-      instance.stub(:meta).and_return(meta)
-    end
-
-    context 'when all node is an opengraph' do
+      let(:valid_scraper)     { double('scraper', applicable?: true) }
+      let(:not_valid_scraper) { double('scraper', applicable?: true) }
 
       before do
-        instance.stub(:opengraph_node?).and_return(true, true)
+        expect(website).to                receive(:bar).once.and_return('bar')
+        expect(valid_scraper).to          receive(:call).once.with(website, 'bar')
+        expect(not_valid_scraper).to_not  receive(:call).with(website, 'bar')
+        expect(scraper_class).to          receive(:new).with(document).once.and_return(valid_scraper)
+        expect(instance).to               receive(:scraper_class).with(prefix_1, :bar).and_return(scraper_class)
       end
 
-      it { expect(action).to be_true }
+      it { expect(action).to eq(website) }
 
     end
 
-    context 'when any node is an opengraph' do
+    context 'when all scrapers applicable but first one do not return any result' do
+
+      let(:valid_scraper)     { double('scraper', applicable?: true) }
+      let(:not_valid_scraper) { double('scraper', applicable?: true) }
 
       before do
-        instance.stub(:opengraph_node?).and_return(true, false)
+        expect(website).to            receive(:bar).and_return('', 'bar')
+        expect(valid_scraper).to      receive(:call).once.with(website, 'bar')
+        expect(not_valid_scraper).to  receive(:call).once.with(website, 'bar')
+        expect(scraper_class).to      receive(:new).with(document).and_return(not_valid_scraper, valid_scraper)
+        expect(instance).to           receive(:scraper_class).with(prefix_1, :bar).and_return(scraper_class)
+        expect(instance).to           receive(:scraper_class).with(prefix_2, :bar).and_return(scraper_class)
       end
 
-      it { expect(action).to be_true }
-
-    end
-
-    context 'when no node is an opengraph' do
-
-      before do
-        instance.stub(:opengraph_node?).and_return(false, false)
-      end
-
-      it { expect(action).to be_false }
+      it { expect(action).to eq(website) }
 
     end
 

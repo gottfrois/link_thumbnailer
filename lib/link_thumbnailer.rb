@@ -54,8 +54,3 @@ Rails:
     gem 'link_thumbnailer'
 
 EOC
-
-if defined?(Rails)
-  # require 'link_thumbnailer/engine'
-  # require 'link_thumbnailer/railtie'
-end
