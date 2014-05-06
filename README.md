@@ -68,7 +68,7 @@ LinkThumbnailer `generate` method return an instance of `LinkThumbnailer::Models
 
 ## Configuration
 
-LinkThumnailer comes with default configuration values. You can always tune them up by overriding them in a rails initializer:
+LinkThumnailer comes with default configuration values. You can change default value by overriding them in a rails initializer:
 
 In `config/initializers/link_thumbnailer.rb`
 
@@ -85,7 +85,11 @@ In `config/initializers/link_thumbnailer.rb`
 	  #
 	  # config.verify_ssl = true
 
-	  # HTTP open_timeout: The amount of time in seconds to wait for a connection to be opened.
+	  # The amount of time in seconds to wait for a connection to be opened.
+	  # If the HTTP object cannot open a connection in this many seconds,
+	  # it raises a Net::OpenTimeout exception.
+	  #
+	  # See http://www.ruby-doc.org/stdlib-2.1.1/libdoc/net/http/rdoc/Net/HTTP.html#open_timeout
 	  #
 	  # config.http_timeout = 5
 
@@ -124,14 +128,19 @@ In `config/initializers/link_thumbnailer.rb`
 	  # Regex of words considered negative to rate website description.
 	  #
 	  # config.negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
+
+	  # Numbers of images to fetch. Fetching too many images will be slow.
+	  #
+	  # config.image_limit = 5
 	end
 
 Or at runtime:
 
 	object = LinkThumbnailer.generate('http://stackoverflow.com', redirect_limit: 5, user_agent: 'foo')
 
-All the configurations are explained in the dummy initializer created when you ran the installer.
-See [#Configuration](https://github.com/gottfrois/link_thumbnailer#configuration) for more details.
+Note that runtime options will override default global configuration.
+
+See [Configuration Options Explained](https://github.com/gottfrois/link_thumbnailer/wiki/Configuration-options-explained) for more details on each configuration options.
 
 ## Contributing
 

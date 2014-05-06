@@ -12,7 +12,11 @@ LinkThumbnailer.configure do |config|
   #
   # config.verify_ssl = true
 
-  # HTTP open_timeout: The amount of time in seconds to wait for a connection to be opened.
+  # The amount of time in seconds to wait for a connection to be opened.
+  # If the HTTP object cannot open a connection in this many seconds,
+  # it raises a Net::OpenTimeout exception.
+  #
+  # See http://www.ruby-doc.org/stdlib-2.1.1/libdoc/net/http/rdoc/Net/HTTP.html#open_timeout
   #
   # config.http_timeout = 5
 
