@@ -1,15 +1,19 @@
+require 'delegate'
 require 'link_thumbnailer/models/title'
 require 'link_thumbnailer/models/description'
 require 'link_thumbnailer/models/image'
 
 module LinkThumbnailer
   module Scrapers
-    class Base
+    class Base < ::SimpleDelegator
 
-      attr_reader :document, :website, :attribute_name
+      attr_reader :config, :document, :website, :attribute_name
 
       def initialize(document)
+        @config   = ::LinkThumbnailer.page.config
         @document = document
+
+        super(config)
       end
 
       def call(website, attribute_name)

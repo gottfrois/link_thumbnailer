@@ -2,6 +2,7 @@ require 'delegate'
 require 'active_support/core_ext/object/blank'
 require 'active_support/inflector'
 
+require 'link_thumbnailer/parser'
 require 'link_thumbnailer/models/website'
 require 'link_thumbnailer/scrapers/default/title'
 require 'link_thumbnailer/scrapers/opengraph/title'
@@ -18,7 +19,7 @@ module LinkThumbnailer
     def initialize(source, url)
       @source       = source
       @url          = url
-      @config       = ::LinkThumbnailer.config
+      @config       = ::LinkThumbnailer.page.config
       @document     = parser.call(source)
       @website      = ::LinkThumbnailer::Models::Website.new
       @website.url  = url

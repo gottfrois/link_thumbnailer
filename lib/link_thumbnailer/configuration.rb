@@ -4,7 +4,7 @@ module LinkThumbnailer
   #
   # @return [LinkThumbnailer::Configuration] a configuration instance.
   def self.config
-    @configuration ||= Configuration.new
+    @config ||= Configuration.new
   end
 
   # Configure hook used in the gem initializer. Convinient way to set all the

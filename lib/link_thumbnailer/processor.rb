@@ -8,8 +8,9 @@ module LinkThumbnailer
     attr_reader   :config, :http, :redirect_count
 
     def initialize
-      @config = ::LinkThumbnailer.config
+      @config = ::LinkThumbnailer.page.config
       @http   = ::Net::HTTP::Persistent.new
+
       super(config)
     end
 

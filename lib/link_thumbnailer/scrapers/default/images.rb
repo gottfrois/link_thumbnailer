@@ -9,7 +9,7 @@ module LinkThumbnailer
         private
 
         def value
-          abs_urls.each_with_index.take_while { |_, i| i < 5 }.map { |e| modelize(e.first) }
+          abs_urls.each_with_index.take_while { |_, i| i < config.image_limit }.map { |e| modelize(e.first) }
         end
 
         def urls

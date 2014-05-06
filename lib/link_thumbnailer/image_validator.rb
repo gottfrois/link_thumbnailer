@@ -6,8 +6,10 @@ module LinkThumbnailer
     attr_reader :config, :image
 
     def initialize(image)
-      @config = ::LinkThumbnailer.config
+      @config = ::LinkThumbnailer.page.config
       @image  = image
+
+      super(config)
     end
 
     def call

@@ -2,38 +2,18 @@ require 'json'
 require 'link_thumbnailer/version'
 require 'link_thumbnailer/configuration'
 require 'link_thumbnailer/exceptions'
-require 'link_thumbnailer/processor'
-require 'link_thumbnailer/parser'
-require 'link_thumbnailer/image_comparator'
-require 'link_thumbnailer/image_validator'
-require 'link_thumbnailer/image_parser'
-require 'link_thumbnailer/scraper'
+require 'link_thumbnailer/page'
 
 module LinkThumbnailer
 
   class << self
 
-    attr_reader :parser, :source
+    attr_reader :page
 
     def generate(url, options = {})
-      set_options(options)
+      @page = ::LinkThumbnailer::Page.new(url, options)
 
-      @source = processor.call(url)
-      scraper.call
-    end
-
-    private
-
-    def set_options(options = {})
-      options.each { |k, v| config.send("#{k}=", v) }
-    end
-
-    def processor
-      @processor ||= ::LinkThumbnailer::Processor.new
-    end
-
-    def scraper
-      @scraper = ::LinkThumbnailer::Scraper.new(source, processor.url)
+      page.generate
     end
 
   end

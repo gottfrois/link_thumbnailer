@@ -10,8 +10,10 @@ module LinkThumbnailer
     attr_reader :config, :description
 
     def initialize(description)
-      @config      = ::LinkThumbnailer.config
+      @config      = ::LinkThumbnailer.page.config
       @description = description
+
+      super(config)
     end
 
     def call
