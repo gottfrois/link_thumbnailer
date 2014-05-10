@@ -3,6 +3,7 @@ require 'link_thumbnailer/graders/base'
 require 'link_thumbnailer/graders/length'
 require 'link_thumbnailer/graders/html_attribute'
 require 'link_thumbnailer/graders/link_density'
+require 'link_thumbnailer/graders/position'
 
 module LinkThumbnailer
   class Grader < ::SimpleDelegator
@@ -18,10 +19,12 @@ module LinkThumbnailer
 
     def call
       score = 0
-      graders.map do |lambda|
+      graders.each do |lambda|
         instance = lambda.call(description)
-        instance.call(score)
-      end.inject(:+)
+        score += instance.call(score)
+      end
+
+      score
     end
 
     private

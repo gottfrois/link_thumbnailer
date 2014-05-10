@@ -9,7 +9,7 @@ module LinkThumbnailer
         @attribute_name = attribute_name.to_sym
       end
 
-      def call(previous_score)
+      def call(current_score)
         return 0 unless attribute?
 
         score = 0

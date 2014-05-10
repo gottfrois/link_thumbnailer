@@ -5,13 +5,14 @@ module LinkThumbnailer
   module Models
     class Description < ::LinkThumbnailer::Model
 
-      attr_reader   :node, :text
+      attr_reader   :node, :text, :position
       attr_accessor :score
 
-      def initialize(node, text = nil)
-        @node  = node
-        @text  = sanitize(text || node.text)
-        @score = compute_score
+      def initialize(node, text = nil, position = 1)
+        @node     = node
+        @text     = sanitize(text || node.text)
+        @position = position
+        @score    = compute_score
       end
 
       def to_s

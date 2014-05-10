@@ -114,6 +114,7 @@ In `config/initializers/link_thumbnailer.rb`
 	  #   ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
     #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
     #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
+    # 	->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
     #   ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
 	  # ]
 

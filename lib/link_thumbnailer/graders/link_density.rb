@@ -2,8 +2,8 @@ module LinkThumbnailer
   module Graders
     class LinkDensity < ::LinkThumbnailer::Graders::Base
 
-      def call(previous_score)
-        previous_score *= (1 - density)
+      def call(current_score)
+        current_score *= (1 - density)
       end
 
       private

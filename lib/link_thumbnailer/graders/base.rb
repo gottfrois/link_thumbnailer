@@ -13,7 +13,7 @@ module LinkThumbnailer
         super(config)
       end
 
-      def call(previous_score)
+      def call(current_score)
         raise 'must implement'
       end
 
