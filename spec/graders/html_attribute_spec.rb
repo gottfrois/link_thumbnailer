@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe LinkThumbnailer::Graders::HtmlAttribute do
 
-  let(:config)      { double('config') }
   let(:description) { double('description') }
-  let(:instance)    { described_class.new(config, description, :class) }
+  let(:instance)    { described_class.new(description, :class) }
 
   describe '#call' do
 

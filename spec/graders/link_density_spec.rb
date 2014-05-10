@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe LinkThumbnailer::Graders::LinkDensity do
 
-  let(:config)      { double('config') }
   let(:description) { double('description') }
-  let(:instance)    { described_class.new(config, description) }
+  let(:instance)    { described_class.new(description) }
 
   describe '#call' do
 

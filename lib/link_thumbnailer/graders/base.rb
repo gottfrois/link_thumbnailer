@@ -1,12 +1,16 @@
+require 'delegate'
+
 module LinkThumbnailer
   module Graders
-    class Base
+    class Base < ::SimpleDelegator
 
       attr_reader :config, :description
 
-      def initialize(config, description)
-        @config      = config
+      def initialize(description)
+        @config      = ::LinkThumbnailer.page.config
         @description = description
+
+        super(config)
       end
 
       def call(previous_score)

@@ -4,7 +4,11 @@ describe LinkThumbnailer::Graders::Length do
 
   let(:config)      { double('config') }
   let(:description) { double('description') }
-  let(:instance)    { described_class.new(config, description) }
+  let(:instance)    { described_class.new(description) }
+
+  before do
+    instance.stub(:config).and_return(config)
+  end
 
   describe '#call' do
 

@@ -4,8 +4,8 @@ module LinkThumbnailer
 
       attr_reader :attribute_name
 
-      def initialize(config, description, attribute_name)
-        super(config, description)
+      def initialize(description, attribute_name)
+        super(description)
         @attribute_name = attribute_name.to_sym
       end
 

@@ -19,7 +19,7 @@ module LinkThumbnailer
     def call
       score = 0
       graders.map do |lambda|
-        instance = lambda.call(config, description)
+        instance = lambda.call(description)
         instance.call(score)
       end.inject(:+)
     end

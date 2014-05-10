@@ -43,10 +43,10 @@ module LinkThumbnailer
       ]
       @attributes             = [:title, :images, :description]
       @graders                = [
-        ->(config, desc) { ::LinkThumbnailer::Graders::Length.new(config, desc) },
-        ->(config, desc) { ::LinkThumbnailer::Graders::HtmlAttribute.new(config, desc, :class) },
-        ->(config, desc) { ::LinkThumbnailer::Graders::HtmlAttribute.new(config, desc, :id) },
-        ->(config, desc) { ::LinkThumbnailer::Graders::LinkDensity.new(config, desc) }
+        ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
+        ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
+        ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
+        ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
       ]
       @description_min_length = 25
       @positive_regex = /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i

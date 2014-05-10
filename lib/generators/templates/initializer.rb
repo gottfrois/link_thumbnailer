@@ -38,10 +38,10 @@ LinkThumbnailer.configure do |config|
   # on how to build your own graders.
   #
   # config.graders = [
-  #   ->(config, desc) { ::LinkThumbnailer::Graders::Length.new(config, desc) },
-  #   ->(config, desc) { ::LinkThumbnailer::Graders::HtmlAttribute.new(config, desc, :class) },
-  #   ->(config, desc) { ::LinkThumbnailer::Graders::HtmlAttribute.new(config, desc, :id) },
-  #   ->(config, desc) { ::LinkThumbnailer::Graders::LinkDensity.new(config, desc) }
+  #   ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
+  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
+  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
+  #   ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
   # ]
 
   # Minimum description length for a website.

@@ -9,7 +9,7 @@ describe LinkThumbnailer::Grader do
 
     let(:score)   { 10 }
     let(:grader)  { double('grader', call: score) }
-    let(:lambda)  { ->(_, _) { grader } }
+    let(:lambda)  { ->(_) { grader } }
     let(:graders) { [lambda, lambda] }
     let(:action)  { instance.call }
 
