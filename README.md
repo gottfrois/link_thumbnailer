@@ -73,7 +73,7 @@ LinkThumnailer comes with default configuration values. You can change default v
 In `config/initializers/link_thumbnailer.rb`
 
 	LinkThumbnailer.configure do |config|
-    	  # Numbers of redirects before raising an exception when trying to parse given url.
+	  # Numbers of redirects before raising an exception when trying to parse given url.
 	  #
 	  # config.redirect_limit = 3
 
@@ -113,9 +113,9 @@ In `config/initializers/link_thumbnailer.rb`
 	  # config.graders = [
 	  #   ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
 	  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
-    	  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
-    	  # 	->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
-    	  #   ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
+	  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
+	  #   ->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
+	  #   ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
 	  # ]
 
 	  # Minimum description length for a website.
