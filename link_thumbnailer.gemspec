@@ -22,5 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rake',                   '>= 0.9'
   spec.add_dependency 'nokogiri',               '~> 1.6'
   spec.add_dependency 'net-http-persistent',    '~> 2.9'
-  spec.add_dependency 'fastimage',              '~> 1.5'
+  spec.add_dependency 'fastimage',              '~> 1.6'
 end
