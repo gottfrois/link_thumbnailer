@@ -8,6 +8,18 @@ Ruby gem generating image thumbnails from a given URL. Rank them and give you ba
 
 Demo Application is [here](http://link-thumbnailer-demo.herokuapp.com/) !
 
+## Features
+
+- Dead simple.
+- Support [OpenGraph](http://ogp.me/) protocol.
+- Find and sort images that best represent what the page is about.
+- Find and rate description that best represent what the page is about.
+- Allow for custom class to sort the website descriptions yourself.
+- Support image urls blacklisting (advertisements).
+- Works with and without Rails.
+- Fully customizable.
+- Fully tested.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -26,107 +38,63 @@ Run:
 
 	$ rails g link_thumbnailer:install
 
-This will add `link_thumbnailer.rb` to `config/initializers/`. See [#Configuration](https://github.com/gottfrois/link_thumbnailer#configuration) for more details.
+This will add `link_thumbnailer.rb` to `config/initializers/`.
 
 ## Usage
 
 Run `irb` and require the gem:
 
-	require 'rails'
-	 => true
-
 	require 'link_thumbnailer'
-	 => true
 
-This gem can handle [Opengraph](http://ogp.me/) protocol. Here is an example with such a website:
+The gem handle regular website but also website that use the [Opengraph](http://ogp.me/) protocol.
 
-	object = LinkThumbnailer.generate('http://zerply.com')
-	 => #<LinkThumbnailer::Object description="Go beyond the résumé - showcase your work and your talent" image="http://zerply.com/img/front/facebook_icon_green.png" images=["http://zerply.com/img/front/facebook_icon_green.png"] site_name="zerply.com" title="Join Me on Zerply" url="http://zerply.com">
-
-	object.title?
- 	=> true
- 	object.title
- 	=> "Join Me on Zerply"
-
- 	object.url?
-	=> true
-	object.url
-	=> "http://zerply.com"
-
-	object.foo?
-	=> false
-	object.foo
-	=> nil
-
-Now with a regular website with no particular protocol:
-
-	object = LinkThumbnailer.generate('http://foo.com')
-	 => #<LinkThumbnailer::Object description=nil images=[[ JPEG 750x200 750x200+0+0 DirectClass 8-bit 45kb] scene=0] title="Foo.com" url="http://foo.com">
+	object = LinkThumbnailer.generate('http://stackoverflow.com')
+	 => #<LinkThumbnailer::Models::Website:...>
 
 	object.title
-	 => "Foo.com"
+	 => "Stack Overflow"
 
-	object.images
-	 => [[ JPEG 750x200 750x200+0+0 DirectClass 8-bit 45kb]
-	scene=0]
+	object.description
+	 => "Q&A for professional and enthusiast programmers"
 
-	object.images.first.source_url
-	 => #<URI::HTTP:0x007ff7a923ef58 URL:http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg>
+	object.images.first.src.to_s
+	 => "http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6"
 
-	object.to_hash
-	 => {"url"=>"http://foo.com", "images"=>[{:source_url=>"http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg", :mime_type=>"image/jpeg", :rows=>200, :filesize=>46501, :number_colors=>9490}], "title"=>"Foo.com", "description"=>nil}
+LinkThumbnailer `generate` method return an instance of `LinkThumbnailer::Models::Website` that respond to `to_json` and `as_json` as you would expect:
 
 	object.to_json
-	 => "{\"url\":\"http://foo.com\",\"images\":[{\"source_url\":\"http://foo.com/media/BAhbB1sHOgZmSSItMjAxMi8wNC8yNi8yMC8xMS80OS80MjYvY29yZG92YWJlYWNoLmpwZwY6BkVUWwg6BnA6CnRodW1iSSINNzUweDIwMCMGOwZU/cordovabeach.jpg\",\"mime_type\":\"image/jpeg\",\"rows\":200,\"filesize\":46501,\"number_colors\":9490}],\"title\":\"Foo.com\",\"description\":null}"
+	 => "{\"url\":\"http://stackoverflow.com\",\"title\":\"Stack Overflow\",\"description\":\"Q&A for professional and enthusiast programmers\",\"images\":[{\"src\":\"http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6\",\"size\":[316,316],\"type\":\"png\"}]}"
 
-You can check whether this object is valid or not (set mandatory attributes in the initializer, defaults are `[url, title, images]`)
-
-	object.valid?
- 	=> true
-
- You also can set options at runtime:
-
- 	object = LinkThumbnailer.generate('http://foo.com', top: 10, limit: 20, redirect_limit: 5)
-
-## Preview Controller
-
-For an easy integration into your application, use the builtin `PreviewController`.
-
-Take a look at the demo application [here](https://github.com/gottfrois/link_thumbnailer_demo).
-
-Basically, all you have to do in your view is something like this:
-
-	<%= form_tag '/link/preview', method: :post, remote: true do %>
-		<%= text_field_tag :url %>
-		<%= submit_tag 'Preview' %>
-	<% end %>
-
-Don't forget to add this anywhere in your `routes.rb` file:
-
-	use_link_thumbnailer
-
-Note: You won't have to bother with this if you did run the installer using:
-
-	$ rails g link_thumbnailer:install
-
-The `PreviewController` will automatically respond to json calls, returning json version of the preview object. Just like in the IRB console above.
 
 ## Configuration
+
+LinkThumnailer comes with default configuration values. You can change default value by overriding them in a rails initializer:
 
 In `config/initializers/link_thumbnailer.rb`
 
 	LinkThumbnailer.configure do |config|
-	  # Set mandatory attributes require for the website to be valid.
-	  # You can set `strict` to false if you want to skip this validation.
-	  # config.mandatory_attributes = %w(url title image)
-
-	  # Whether you want to validate given website against mandatory attributes or not.
-	  # config.strict = true
-
 	  # Numbers of redirects before raising an exception when trying to parse given url.
+	  #
 	  # config.redirect_limit = 3
 
+	  # Set user agent
+	  #
+	  # config.user_agent = 'link_thumbnailer'
+
+	  # Enable or disable SSL verification
+	  #
+	  # config.verify_ssl = true
+
+	  # The amount of time in seconds to wait for a connection to be opened.
+	  # If the HTTP object cannot open a connection in this many seconds,
+	  # it raises a Net::OpenTimeout exception.
+	  #
+	  # See http://www.ruby-doc.org/stdlib-2.1.1/libdoc/net/http/rdoc/Net/HTTP.html#open_timeout
+	  #
+	  # config.http_timeout = 5
+
 	  # List of blacklisted urls you want to skip when searching for images.
+	  #
 	  # config.blacklist_urls = [
 	  #   %r{^http://ad\.doubleclick\.net/},
 	  #   %r{^http://b\.scorecardresearch\.com/},
@@ -134,36 +102,46 @@ In `config/initializers/link_thumbnailer.rb`
 	  #   %r{^http://s7\.addthis\.com/}
 	  # ]
 
-	  # Fetch 10 images maximum.
-	  # config.limit = 10
+	  # List of attributes you want LinkThumbnailer to fetch on a website.
+	  #
+	  # config.attributes = [:title, :images, :description]
 
-	  # Return top 5 images only.
-	  # config.top = 5
+	  # List of procedures used to rate the website description. Add you custom class
+	  # here. Note that the order matter to compute the score. See wiki for more details
+	  # on how to build your own graders.
+	  #
+	  # config.graders = [
+	  #   ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
+	  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
+	  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
+	  #   ->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
+	  #   ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
+	  # ]
 
-	  # Set user agent
-	  # config.user_agent = 'linkthumbnailer'
+	  # Minimum description length for a website.
+	  #
+	  # config.description_min_length = 25
 
-	  # Enable or disable SSL verification
-  	# config.verify_ssl = true
+	  # Regex of words considered positive to rate website description.
+	  #
+	  # config.positive_regex = /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i
 
-	  # HTTP open_timeout: The amount of time in seconds to wait for a connection to be opened.
-	  # config.http_timeout = 5
+	  # Regex of words considered negative to rate website description.
+	  #
+	  # config.negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
+
+	  # Numbers of images to fetch. Fetching too many images will be slow.
+	  #
+	  # config.image_limit = 5
 	end
 
-## Features
+Or at runtime:
 
-Implemented:
+	object = LinkThumbnailer.generate('http://stackoverflow.com', redirect_limit: 5, user_agent: 'foo')
 
-- Implements [OpenGraph](http://ogp.me/) protocol.
-- Find images and sort them according to how well they represent what the page is about (includes absolute images).
-- Sort images based on their size and color.
-- Blacklist some well known advertisings image urls.
-- Routes and Controllers to handle preview generation
+Note that runtime options will override default global configuration.
 
-Coming soon:
-
-- Use the gem [ruby-readability](https://github.com/iterationlabs/ruby-readability) to parse images and website information
-- Cache results on filesystem
+See [Configuration Options Explained](https://github.com/gottfrois/link_thumbnailer/wiki/Configuration-options-explained) for more details on each configuration options.
 
 ## Contributing
 
@@ -173,12 +151,3 @@ Coming soon:
 4. Commit your changes (`git commit -am 'Added some feature'`)
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
-
-## Contributors
-
-- [phlegx](https://github.com/phlegx)
-- [juriglx](https://github.com/juriglx)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gottfrois/link_thumbnailer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-

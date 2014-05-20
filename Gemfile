@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in link_thumbnailer.gemspec
 gemspec
 
-group :test do
+group :development, :test do
   gem 'coveralls',  require: false
   gem 'simplecov',  require: false
   gem 'rspec',      '~> 2.14'

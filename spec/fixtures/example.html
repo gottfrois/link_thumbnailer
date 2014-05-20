@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!-- saved from url=(0019)http://www.foo.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Title</title>
+<link href="./example_files/style-3706572431311a3a4cf5c6f3266c9bce.css" media="all" rel="stylesheet" type="text/css">
+<link href="./example_files/belt_layout1_google-1c8ee8bd905a6121e7a7ac73b7ffb888.css" media="all" rel="stylesheet" type="text/css">
+<script src="./example_files/application-e8b3208729190cb9cc8a800ff3283fd8.js" type="text/javascript"></script>
+<link href="./example_files/load_style.css" media="all" rel="stylesheet" type="text/css">
+<meta content="authenticity_token" name="csrf-param">
+<meta content="Mh9Ervhd7HlDNhhJdZ+nKec9RE0sn2FO8nyJXUrKUng=" name="csrf-token">
+</head>
+<body>
+
+
+<style>
+.listing .sitelinks{
+  padding:5px 15px;
+}
+
+.listing .sitelinks td{
+  padding-right:16px;
+
+}
+.listing .sitelinks a, .listing .ratings a{
+  color:#0000DE;
+}
+.listing .url a:hover{
+  color:#a02934;
+}
+.ratings{
+  color: #666666;
+}
+.listing{
+  margin-bottom:15px;
+}
+.listing .url {
+  font-size:16px;
+}
+.listing .host {
+  color:#a02934;
+  display:block;
+  font-size:16px;
+  text-decoration:none;
+}
+
+.listing .url a{
+  color:#0000DE;
+  line-height:auto;
+}
+.listing .description a{
+  text-decoration:none;
+  color:black;
+  font-size:16px;
+  line-height:12pt;
+}
+.listing .host a{
+  text-decoration:none;
+  color:#008000;
+  font-size:16px;
+  line-height:12pt;
+}
+</style>
+<script src="./example_files/jquery-1.5.js"></script>
+<script>
+var google_about_url = '';
+var ads_array = new Array();
+var bottom_ads_array = new Array();
+var webSearch = "";
+var google_tag = "";
+
+var genCatSearches_array=new Array();
+var relatedSearches_array=new Array();
+var popularCategories_array = new Array();
+var digi_keyword_links_array = new Array();
+var global_afd_response = "";
+
+var call_num = 1;
+function redirect(){
+  document.getElementById('results').innerHTML = "No results found";
+}
+
+function jscript_log(name, severity, message, page){
+  $.ajax({
+    type: "POST",
+    url: "/log_error",
+    data: {
+      name: name,
+      severity: severity,
+      domain: window.location.hostname,
+      message: message,
+      tag: google_tag,
+      page: page
+    },
+    context: document.body
+  })
+}
+
+function token_link(keyword){
+  window.location = '/results' + '?q=' + encodeURIComponent(keyword) + '&token=' + global_afd_response.token;
+  return false;
+}
+
+function link_to_google(){
+  if(google_about_url!=''){
+    window.open(google_about_url,'_blank');
+  }
+}
+
+function gadlink(ga, inner_text, visible_url){
+  visible_url = visible_url.replace(/<b>/gi,'')
+  visible_url = visible_url.replace(/<\/b>/gi,'')
+  return '<a ' +
+  'href="http://' + visible_url + '"' +
+  ' onclick="window.open(\'' + ga.url + '\');return false;"' +
+  ' target="_blank" ' +
+  '>' +
+  inner_text + '</a>';
+
+}
+
+function google_afd_ad_request_done(google_afd_response) {
+  if(google_afd_response.faillisted==true){
+    jscript_log('faillisted', 10, JSON.stringify(google_afd_response), "/")
+  }
+  if(google_afd_response.token || google_afd_response.ads){
+
+  global_afd_response = google_afd_response;
+  if(google_afd_response.feedback_url){
+    google_about_url = google_afd_response.feedback_url;
+  }
+
+  if (google_afd_response.ads && google_afd_response.ads.length > 0) {
+     var google_ads = google_afd_response.ads;
+     for (var i = 0; i < google_ads.length; i++) {
+       seller_ratings = google_ads[i].seller_ratings;
+       site_links = google_ads[i].sitelinks;
+       ads="";
+       ads +=
+          '<div class="listing"><div class="url">' +
+          gadlink(google_ads[i], google_ads[i].line1, google_ads[i].visible_url) +
+          '</div>';
+       if (seller_ratings) {
+         ads += '<div class="ratings">'+seller_ratings.advertiser_info+' <img src="/assets/'+seller_ratings.rating+'star.gif" border="0"> <a href="'+seller_ratings.source_url+'" target="_blank">('+seller_ratings.review_count+')</a></div>';
+       }
+       ads +=
+          '<div class="description">' + google_ads[i].line2 + ' ' +
+          (google_ads[i].line3 != undefined ? google_ads[i].line3 + '' : '') +
+          '</div>' +
+          '<div class="host">' +
+          gadlink(google_ads[i], google_ads[i].visible_url, google_ads[i].visible_url) +
+          '</div>';
+       if (site_links && site_links.length > 0) {
+         ads += '<table class="sitelinks" cellpadding=0 cellspacing=0 border=0>';
+         for (var x = 0; x < site_links.length; x++) {
+            if(x % 2 == 0){
+              ads += '<tr>';
+            }
+            ads +=
+              '<td class="sitelink">' +
+              gadlink(site_links[x], site_links[x].link_text, google_ads[i].visible_url) +
+              '</td>';
+            if(x % 2 == 1){
+              ads += '</tr>';
+            }
+         }
+         if(x % 2 == 0){
+           ads += '</tr>';
+         }
+         ads += '</table>';
+       }
+
+       ads += '</div>';
+       if(google_ads[i].position=="Top"){
+         ads_array.push(ads);
+       }else{
+         bottom_ads_array.push(ads);
+       }
+     }
+  }
+
+  if (google_afd_response.categories && google_afd_response.categories.length > 0) {
+    var google_categories = google_afd_response.categories;
+    for (var i = 0; i < google_categories.length; i++) {
+      subcats = google_categories[i].subcategories;
+      popularCategories =
+        '<div class="termgroup">' +
+        '<h3><a class="popular_category" ' +
+        'href="/#' + google_categories[i].term + '"' +
+        ' onclick="window.location=\'/results' +
+        '?q=' + encodeURIComponent(google_categories[i].term) +
+        '&token=' + google_categories[i].token + '\';return false;"' +
+        '>' +
+        google_categories[i].term +
+        '</a></h3>';
+        for(var gci =0; gci < subcats.length; gci++){
+          popularCategories = popularCategories +
+          '<div class="term">' +
+          '<a class="popular_category" ' +
+          'href="/#' + subcats[gci].term + '"' +
+          ' onclick="window.location=\'/results' +
+          '?q=' + encodeURIComponent(subcats[gci].term) +
+          '&token=' + subcats[gci].token + '\';return false;"' +
+          '>' +
+          subcats[gci].term +
+          '</a></div>';
+        }
+        popularCategories = popularCategories + '</div>';
+      popularCategories_array.push(popularCategories);
+    }
+  }
+
+  if (google_afd_response.link_units && google_afd_response.link_units.length > 0) {
+    var google_link_units = google_afd_response.link_units;
+    for (var i = 0; i < google_link_units.length; i++) {
+      relatedSearches =
+        '<div class="term">' +
+        '<a class="related_searches" ' +
+        'href="/#' + google_link_units[i].term + '"' +
+        ' onclick="window.location=\'/results' +
+        '?q=' + encodeURIComponent(google_link_units[i].term) +
+        '&token=' + google_link_units[i].token + '\';return false;"' +
+        '>' +
+        google_link_units[i].term +
+        '</a>' +
+        '</div>';
+      relatedSearches_array.push(relatedSearches);
+    }
+
+  }
+if (google_afd_response.link_units && google_afd_response.link_units.length > 0) {
+  var google_link_units = google_afd_response.link_units;
+  for (var i = 0; i < google_link_units.length; i++) {
+    relatedSearches = "";
+    if(i % 5 == 0){
+      relatedSearches += "<div class='termgroup'>";
+    }
+    relatedSearches +=
+      '<div class="term">' +
+      '<a class="related_searches" ' +
+      'href="/#' + google_link_units[i].term + '"' +
+      ' onclick="window.location=\'/results' +
+      '?q=' + encodeURIComponent(google_link_units[i].term) +
+      '&token=' + google_link_units[i].token + '\';return false;"' +
+      '>' +
+      google_link_units[i].term +
+      '</a>' +
+      '</div>';
+    if(((i % 5) == 4) || ((i-1)==google_link_units.length)){
+      relatedSearches += "</div>";
+    }
+    if(((i+1) % 10 == 0)){
+      relatedSearches += "<div class='clear'>&nbsp;</div>";
+    }
+    genCatSearches_array.push(relatedSearches);
+  }
+
+}
+  try{document.getElementById('results').innerHTML = ads_array.join("\n");}catch(error){}
+  try{document.getElementById('bottomresults').innerHTML = bottom_ads_array.join("\n");}catch(error){}
+
+  if(ads_array.length>1){
+    document.getElementById('sponsoredresults').style.display='block';
+  }
+  if(bottom_ads_array.length>1){
+    document.getElementById('bottomsponsoredresults').style.display='block';
+  }
+
+  try{document.getElementById('keywords').innerHTML = relatedSearches_array.join("\n");}catch(error){}
+  try{document.getElementById('gencats').innerHTML = genCatSearches_array.join("\n");}catch(error){}
+  // if(genCatSearches_array.length==0){
+  //   try{
+  //     document.getElementById('gencats').innerHTML = popularCategories_array.join("\n");
+  //   }catch(error){}
+  // }
+  try{document.getElementById('popcats').innerHTML = popularCategories_array.join("\n");}catch(error){}
+  try{document.getElementById('token').value = google_afd_response.search_token;}catch(error){}
+  console.log(google_afd_response);
+  try{document.getElementById('token2').value = google_afd_response.search_token;}catch(error){}
+  }
+}
+
+function getParam(name) {
+  var match = new RegExp('[\?&]' + name + "=([^&]+)","i").exec(location.search);
+  if (match==null) return null;
+  else return decodeURIComponent(match[1]).replace(/\+/g,' ');
+}
+</script>
+
+
+
+<center>
+<div id="container">
+<div id="header">
+<div class="logo">
+<a href="./example_files/example.html">Foo.com</a>
+</div>
+</div>
+
+
+
+
+
+
+
+<div id="main">
+<div class="image">
+<img alt="Cordovabeach" border="0" src="./example_files/cordovabeach.jpg">
+</div>
+<div class="search">
+<div class="catch_phrase">
+<div id="wysiwyg_id_322" class="mercury-region" data-type="editable">Search FOO.com
+</div>
+</div>
+<div id="search">
+<form action="http://www.foo.com/results" method="/get">
+<input class="search_field" name="q" type="text">
+<input id="token" name="token" type="hidden" value="AG06ipADDhq1IogUPtnbN7KiSVdr6HlXngoTCITm8PO41bICFSENtAodnwEA0RgDIAA4AUCwAlCUjqIBUIO6sAhQ4a65DlDN_pgPUOK53A9Qqo3jD1C1q_YPUM3B_g9QivCIEVCU-qcTUIfrhBtQx4yNHVCsxv8eUPD02SBQ1PXZIFDd2ZEhUIOcrSlQu5ytKVDSsa0pUPKxrSlQ3KCvKVCTnKYtULKU5y1QsKX8U1CTtJSVAVDL74OWAVDqp6KyAVCslfPAAVC6lfPAAVCOl_PAAVCYrMGbA1DlhNOdA2iUjqIBcQL5qk1K1hZJggETCOW09_O41bICFfILtAodzTkAq5EBp8Lq2utL_VI">
+<input class="search_button" type="submit" value="Search">
+</form>
+</div>
+
+</div>
+</div>
+
+<div id="footer">
+<a href="http://www.foo.com/digimedia_privacy_policy.html" target="_blank">Privacy Policy</a>
+ -
+© 2012 Digimedia.com, L.P.
+</div>
+
+</div>
+</center>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./example_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker('UA-1726084-83');
+pageTracker._initData();
+pageTracker._setDomainName('foo.com');
+pageTracker._trackPageview('/');
+</script>
+
+<script>
+google_tag = 'dp-digimedia_js';
+var google_afd_request = {
+client: 'ca-dp-digimedia-rs_js',
+domain_name: 'www.foo.com',
+num_ads: 0,
+num_radlinks: 10,
+token: getParam('token'),
+q: getParam('q'),
+kw: 'foo',
+channel: 'afsonly'
+}
+</script>
+<script language="JavaScript" src="./example_files/show_afd_ads.js" type="text/javascript"></script><script src="./example_files/domainpark.cgi"></script>
+
+
+
+
+</body></html>
