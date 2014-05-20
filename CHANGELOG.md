@@ -1,3 +1,16 @@
+# 1.1.2
+
+- Fix issue with FastImage URLs [https://github.com/gottfrois/link_thumbnailer/pull/31](https://github.com/gottfrois/link_thumbnailer/pull/31)
+
+# 1.1.1
+
+- Fix route helper not working under rails 4.
+
+# 1.1.0
+
+- Replace RMagick by [FastImage](https://github.com/sdsykes/fastimage)
+- Rename `rmagick_attributes` config into `image_attributes`
+
 # 1.0.9
 
 - Fix issue when Location header used a relative path instead of an absolute path
