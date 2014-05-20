@@ -1,3 +1,16 @@
+# 2.0.0
+
+- Fully refactored LinkThumbnailer
+- Introduced [Graders](https://github.com/gottfrois/link_thumbnailer/wiki/How-to-build-your-own-Grader%3F)
+- Introduced [Scrapers](https://github.com/gottfrois/link_thumbnailer/wiki/Attributes-option-explained)
+- Ability to score descriptions
+- Ability to fetch multiple `og:image`
+- Fixed memoized run-time options
+- Fixed some website urls not working
+- Refactor ugly code
+- More specs
+- Removed `PreviewsController` since it does not add much value. Simply create your own and use the `to_json` method.
+
 # 1.1.2
 
 - Fix issue with FastImage URLs [https://github.com/gottfrois/link_thumbnailer/pull/31](https://github.com/gottfrois/link_thumbnailer/pull/31)
