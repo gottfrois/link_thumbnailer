@@ -18,7 +18,7 @@ module LinkThumbnailer
         end
 
         def model_from_body
-          nodes_from_body.each_with_index.map { |node, i| modelize(node, nil, i + 1) }.sort.last
+          nodes_from_body.each_with_index.map { |node, i| modelize(node, node.text, i + 1) }.sort.last
         end
 
         def node_from_meta
@@ -37,7 +37,7 @@ module LinkThumbnailer
           document.css('p,td')
         end
 
-        def modelize(node, text = nil, i = 1)
+        def modelize(node, text, i = 1)
           model_class.new(node, text, i)
         end
 

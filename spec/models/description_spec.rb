@@ -2,27 +2,62 @@ require 'spec_helper'
 
 describe LinkThumbnailer::Models::Description do
 
+  let(:text)      { 'bar' }
   let(:grader)    { double(call: 0) }
   let(:node)      { double(text: 'bar') }
   let(:instance)  { described_class.new(node, text) }
 
   before do
-    ::LinkThumbnailer::Grader.should_receive(:new).and_return(grader)
+    ::LinkThumbnailer::Grader.should_receive(:new).at_least(1).and_return(grader)
   end
 
-  context 'when text provided' do
+  describe '#to_s' do
 
-    let(:text) { 'foo' }
+    let(:action) { instance.to_s }
 
-    it { expect(instance.to_s).to eq(text) }
+    it { expect(action).to eq(text) }
 
   end
 
-  context 'when text not provided' do
+  describe '#<=>' do
 
-    let(:text) { nil }
+    let(:another_instance)  { described_class.new(node, text) }
+    let(:score)             { 5 }
+    let(:action)            { instance <=> another_instance }
 
-    it { expect(instance.to_s).to eq(node.text) }
+    before do
+      another_instance.score = score
+    end
+
+    context 'when instance score is lower' do
+
+      before do
+        instance.score = score - 1
+      end
+
+      it { expect(action).to eq(-1) }
+
+    end
+
+    context 'when instance score is equal' do
+
+      before do
+        instance.score = score
+      end
+
+      it { expect(action).to eq(0) }
+
+    end
+
+    context 'when instance score is greater' do
+
+      before do
+        instance.score = score + 1
+      end
+
+      it { expect(action).to eq(1) }
+
+    end
 
   end
 

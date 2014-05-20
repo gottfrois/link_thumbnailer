@@ -8,9 +8,9 @@ module LinkThumbnailer
       attr_reader   :node, :text, :position
       attr_accessor :score
 
-      def initialize(node, text = nil, position = 1)
+      def initialize(node, text, position = 1)
         @node     = node
-        @text     = sanitize(text || node.text)
+        @text     = sanitize(text)
         @position = position
         @score    = compute_score
       end
