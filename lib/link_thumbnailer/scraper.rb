@@ -10,6 +10,8 @@ require 'link_thumbnailer/scrapers/default/description'
 require 'link_thumbnailer/scrapers/opengraph/description'
 require 'link_thumbnailer/scrapers/default/images'
 require 'link_thumbnailer/scrapers/opengraph/images'
+require 'link_thumbnailer/scrapers/default/videos'
+require 'link_thumbnailer/scrapers/opengraph/videos'
 
 module LinkThumbnailer
   class Scraper < ::SimpleDelegator

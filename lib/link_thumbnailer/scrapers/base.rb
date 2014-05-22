@@ -2,6 +2,7 @@ require 'delegate'
 require 'link_thumbnailer/models/title'
 require 'link_thumbnailer/models/description'
 require 'link_thumbnailer/models/image'
+require 'link_thumbnailer/models/video'
 
 module LinkThumbnailer
   module Scrapers

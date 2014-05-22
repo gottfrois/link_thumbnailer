@@ -4,10 +4,21 @@ module LinkThumbnailer
   module Models
     class Website < ::LinkThumbnailer::Model
 
-      attr_accessor :url, :title, :description, :images
+      attr_accessor :url, :title, :description, :images, :videos
 
       def initialize
         @images = []
+        @videos = []
+      end
+
+      def video=(video)
+        self.videos = video
+      end
+
+      def videos=(videos)
+        Array(videos).each do |video|
+          @videos << video
+        end
       end
 
       def image=(image)
@@ -30,7 +41,8 @@ module LinkThumbnailer
           url:          url.to_s,
           title:        title,
           description:  description,
-          images:       images
+          images:       images,
+          videos:       videos
         }
       end
 
