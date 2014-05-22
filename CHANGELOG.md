@@ -15,6 +15,9 @@
 - More specs
 - Removed `PreviewsController` since it does not add much value. Simply create your own and use the `to_json` method.
 
+To update from `1.x.x` to `2.x.x` you need to run `rails g link_thumbnailer:install` to get the new configuration file.
+If you used the `PreviewsController` feature, you need to build it yourself since it is not supported anymore.
+
 # 1.1.2
 
 - Fix issue with FastImage URLs [https://github.com/gottfrois/link_thumbnailer/pull/31](https://github.com/gottfrois/link_thumbnailer/pull/31)
