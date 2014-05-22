@@ -5,7 +5,7 @@ module LinkThumbnailer
     class Size
 
       def self.perform(image)
-        ::FastImage.size(image.src, raise_on_failure: true)
+        ::FastImage.size(image.src.to_s, raise_on_failure: true)
       rescue ::FastImage::FastImageException
         [0, 0]
       end
