@@ -31,13 +31,13 @@ module LinkThumbnailer
 
     def provider
       parser.provider
-    rescue NoMethodError, VideoInfo::UrlError
+    rescue NoMethodError
       nil
     end
 
     def embed_code
       parser.embed_code
-    rescue NoMethodError, VideoInfo::UrlError
+    rescue NoMethodError
       nil
     end
 
