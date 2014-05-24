@@ -1,3 +1,7 @@
+# 2.0.2
+
+- Fix couple of issues with `URI` class namespace
+
 # 2.0.1
 
 - Fix issue with image parser (fastimage) when given an URI instance instead of a string
