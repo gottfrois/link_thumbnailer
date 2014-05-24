@@ -1,4 +1,5 @@
 require 'delegate'
+require 'uri'
 require 'net/http/persistent'
 
 module LinkThumbnailer
@@ -83,11 +84,11 @@ module LinkThumbnailer
     end
 
     def valid_url_format?
-      url.is_a?(URI::HTTP)
+      url.is_a?(::URI::HTTP)
     end
 
     def url=(url)
-      @url = URI(url)
+      @url = ::URI.parse(url.to_s)
     end
 
   end

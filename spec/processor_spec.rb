@@ -2,8 +2,13 @@ require 'spec_helper'
 
 describe LinkThumbnailer::Processor do
 
+  let(:page)      { ::LinkThumbnailer::Page.new(url, {}) }
   let(:instance)  { described_class.new }
   let(:url)       { 'http://foo.com' }
+
+  before do
+    LinkThumbnailer.stub(:page).and_return(page)
+  end
 
   describe '#call' do
 

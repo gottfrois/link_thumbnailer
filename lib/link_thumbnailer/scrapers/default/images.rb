@@ -28,17 +28,17 @@ module LinkThumbnailer
         end
 
         def validate_url(url)
-          URI(url)
-        rescue URI::InvalidURIError
+          ::URI.parse(url.to_s)
+        rescue ::URI::InvalidURIError
           nil
         end
 
         def needs_prefix?(uri)
-          !uri.is_a?(URI::HTTP)
+          !uri.is_a?(::URI::HTTP)
         end
 
         def prefix_uri(uri)
-          URI.join(prefix_url, uri)
+          ::URI.join(prefix_url, uri)
         end
 
         def prefix_url
