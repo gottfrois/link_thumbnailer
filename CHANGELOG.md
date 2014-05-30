@@ -1,3 +1,7 @@
+# 2.0.3
+
+- Fixes #37
+
 # 2.0.2
 
 - Fix couple of issues with `URI` class namespace
