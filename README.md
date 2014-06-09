@@ -10,6 +10,8 @@ Ruby gem generating image thumbnails from a given URL. Rank them and give you ba
 
 Demo Application is [here](http://link-thumbnailer-demo.herokuapp.com/) !
 
+**OpenSource** and **Free** API available [here](https://github.com/gottfrois/link_thumbnailer_api) !
+
 ## Features
 
 - Dead simple.
