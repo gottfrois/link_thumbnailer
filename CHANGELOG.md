@@ -1,6 +1,10 @@
+# 2.0.4
+
+- Fixes [#39](https://github.com/gottfrois/link_thumbnailer/issues/39)
+
 # 2.0.3
 
-- Fixes #37
+- Fixes [#37](https://github.com/gottfrois/link_thumbnailer/issues/37)
 
 # 2.0.2
 
