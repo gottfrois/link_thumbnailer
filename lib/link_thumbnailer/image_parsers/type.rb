@@ -6,7 +6,7 @@ module LinkThumbnailer
 
       def self.perform(image)
         ::FastImage.type(image.src.to_s, raise_on_failure: true)
-      rescue ::FastImage::FastImageException
+      rescue ::FastImage::FastImageException, ::Errno::ENAMETOOLONG
         :jpg
       end
 
