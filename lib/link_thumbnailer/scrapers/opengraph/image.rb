@@ -16,12 +16,52 @@ module LinkThumbnailer
         end
 
         def modelize(node, text = nil)
-          model_class.new(text)
+          model_class.new(text, size)
         end
 
         def nodes
           nodes = meta_xpaths(attribute: attribute)
           nodes.empty? ? meta_xpaths(attribute: attribute, key: :name) : nodes
+        end
+
+        def size
+          [width.to_i, height.to_i] if width && height
+        end
+
+        def width
+          Width.new(document).value
+        end
+
+        def height
+          Height.new(document).value
+        end
+
+        class Width < ::LinkThumbnailer::Scrapers::Opengraph::Base
+
+          def value
+            node.attributes['content'].to_s if node
+          end
+
+          private
+
+          def attribute
+            "og:image:width"
+          end
+
+        end
+
+        class Height < ::LinkThumbnailer::Scrapers::Opengraph::Base
+
+          def value
+            node.attributes['content'].to_s if node
+          end
+
+          private
+
+          def attribute
+            "og:image:height"
+          end
+
         end
 
       end

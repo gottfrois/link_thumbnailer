@@ -28,11 +28,11 @@ module LinkThumbnailer
         true
       end
 
-      private
-
       def value
         raise 'must implement'
       end
+
+      private
 
       def meta_xpath(options = {})
         meta_xpaths(options).first

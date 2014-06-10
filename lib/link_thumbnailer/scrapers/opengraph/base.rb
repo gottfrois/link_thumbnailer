@@ -9,11 +9,11 @@ module LinkThumbnailer
           meta.any? { |node| opengraph_node?(node) }
         end
 
-        private
-
         def value
           model.to_s
         end
+
+        private
 
         def model
           modelize(node, node.attributes['content'].to_s) if node

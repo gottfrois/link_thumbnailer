@@ -5,13 +5,13 @@ module LinkThumbnailer
     module Default
       class Description < ::LinkThumbnailer::Scrapers::Default::Base
 
-        private
-
         def value
           return model_from_meta.to_s if model_from_meta
           return model_from_body.to_s if model_from_body
           nil
         end
+
+        private
 
         def model_from_meta
           modelize(node_from_meta, node_from_meta.attributes['content'].value) if node_from_meta
