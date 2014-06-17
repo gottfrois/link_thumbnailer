@@ -1,3 +1,18 @@
+# 2.1.0
+
+- Increased `og:image` scraping performance by parsing `og:image:width` and `og:image:height` attribute if specified
+- Introduced `image_stats` option to allow disabling image size and type parsing causing performance issues.
+
+When disabled, size will be `[0, 0]` and type will be `nil`
+
+# 2.0.4
+
+- Fixes [#39](https://github.com/gottfrois/link_thumbnailer/issues/39)
+
+# 2.0.3
+
+- Fixes [#37](https://github.com/gottfrois/link_thumbnailer/issues/37)
+
 # 2.0.2
 
 - Fix couple of issues with `URI` class namespace

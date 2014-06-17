@@ -5,11 +5,11 @@ module LinkThumbnailer
     module Default
       class Title < ::LinkThumbnailer::Scrapers::Default::Base
 
-        private
-
         def value
           model.to_s
         end
+
+        private
 
         def model
           modelize(node)

@@ -9,6 +9,7 @@ module LinkThumbnailer
       private
 
       def density
+        return 0 if text.length == 0
         links.length / text.length.to_f
       end
 

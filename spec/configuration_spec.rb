@@ -15,6 +15,7 @@ describe LinkThumbnailer::Configuration do
   it { expect(instance.positive_regex).to_not     be_nil }
   it { expect(instance.negative_regex).to_not     be_nil }
   it { expect(instance.image_limit).to            eq(5) }
+  it { expect(instance.image_stats).to            eq(true) }
 
   describe '.config' do
 

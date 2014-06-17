@@ -10,6 +10,8 @@ Ruby gem generating image thumbnails from a given URL. Rank them and give you ba
 
 Demo Application is [here](http://link-thumbnailer-demo.herokuapp.com/) !
 
+**OpenSource** and **Free** API available [here](https://github.com/gottfrois/link_thumbnailer_api) !
+
 ## Features
 
 - Dead simple.
@@ -135,6 +137,12 @@ In `config/initializers/link_thumbnailer.rb`
 	  # Numbers of images to fetch. Fetching too many images will be slow.
 	  #
 	  # config.image_limit = 5
+
+	  # Whether you want LinkThumbnailer to return image size and type or not.
+	  # Setting this value to false will increase performance since for each images, LinkThumbnailer
+	  # does not have to fetch its size and type.
+	  #
+	  # config.image_stats = true
 	end
 
 Or at runtime:

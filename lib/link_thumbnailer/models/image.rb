@@ -9,10 +9,10 @@ module LinkThumbnailer
 
       attr_reader :src, :type, :size
 
-      def initialize(src)
+      def initialize(src, size = nil, type = nil)
         @src  = src
-        @size = parser.size(self)
-        @type = parser.type(self)
+        @size = size || parser.size(self)
+        @type = type || parser.type(self)
       end
 
       def to_s

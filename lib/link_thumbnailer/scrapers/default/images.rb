@@ -6,11 +6,11 @@ module LinkThumbnailer
     module Default
       class Images < ::LinkThumbnailer::Scrapers::Default::Base
 
-        private
-
         def value
           abs_urls.each_with_index.take_while { |_, i| i < config.image_limit }.map { |e| modelize(e.first) }
         end
+
+        private
 
         def urls
           document.search('//img').map { |i| i['src'] }.compact

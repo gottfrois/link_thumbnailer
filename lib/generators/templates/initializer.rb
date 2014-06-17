@@ -60,4 +60,10 @@ LinkThumbnailer.configure do |config|
   # Numbers of images to fetch. Fetching too many images will be slow.
   #
   # config.image_limit = 5
+
+  # Whether you want LinkThumbnailer to return image size and type or not.
+  # Setting this value to false will increase performance since for each images, LinkThumbnailer
+  # does not have to fetch its size and type.
+  #
+  # config.image_stats = true
 end

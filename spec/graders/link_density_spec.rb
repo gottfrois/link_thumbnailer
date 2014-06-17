@@ -19,4 +19,32 @@ describe LinkThumbnailer::Graders::LinkDensity do
 
   end
 
+  describe '#density' do
+
+    let(:links)   { ['foo'] }
+    let(:action)  { instance.send(:density) }
+
+    before do
+      instance.stub(:links).and_return(links)
+      instance.stub(:text).and_return(text)
+    end
+
+    context 'with text' do
+
+      let(:text)    { 'abcd' }
+
+      it { expect(action).to eq(0.25) }
+
+    end
+
+    context 'without text' do
+
+      let(:text)    { '' }
+
+      it { expect(action).to eq(0) }
+
+    end
+
+  end
+
 end

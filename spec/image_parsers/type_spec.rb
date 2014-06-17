@@ -25,7 +25,7 @@ describe LinkThumbnailer::ImageParsers::Type do
         expect(FastImage).to receive(:type).with(src, raise_on_failure: true).and_raise(FastImage::FastImageException)
       end
 
-      it { expect(action).to eq(:jpg) }
+      it { expect(action).to be_nil }
 
     end
 
