@@ -1,3 +1,29 @@
+# 2.2.0
+
+- Add support for `og:video`
+- Add support for multiple `og:video` as well
+
+LinkThumbnailer will return the following json for example:
+
+```ruby
+{
+  id:         'x7lni3',
+  src:        'http://www.dailymotion.com/video/x7lni3',
+  size:       [640, 360],
+  duration:   136,
+  provider:   'Dailymotion',
+  embed_code: '<iframe src="//www.dailymotion.com/embed/video/x7lni3" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
+}
+```
+
+Add `:videos` into your `config/initializers/link_thumbnailer.rb` `attributes` config in order to start scraping videos.
+
+Ex:
+
+```ruby
+config.attributes = [:title, :images, :description, :videos]
+```
+
 # 2.1.0
 
 - Increased `og:image` scraping performance by parsing `og:image:width` and `og:image:height` attribute if specified
