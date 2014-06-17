@@ -32,9 +32,7 @@ module LinkThumbnailer
     def call
       config.attributes.each do |name|
         scrapers.each do |scraper_prefix|
-          scraper = scraper_class(scraper_prefix, name).new(document)
-          scraper.call(website, name.to_s) if scraper.applicable?
-
+          scraper_class(scraper_prefix, name).new(document).call(website, name.to_s)
           break unless website.send(name).blank?
         end
       end
@@ -46,8 +44,8 @@ module LinkThumbnailer
 
     def scrapers
       [
-        "::LinkThumbnailer::Scrapers::Opengraph",
-        "::LinkThumbnailer::Scrapers::Default"
+        '::LinkThumbnailer::Scrapers::Opengraph',
+        '::LinkThumbnailer::Scrapers::Default'
       ]
     end
 

@@ -5,11 +5,11 @@ module LinkThumbnailer
     module Opengraph
       class Video < ::LinkThumbnailer::Scrapers::Opengraph::Base
 
-        private
-
         def value
           model
         end
+
+        private
 
         def model
           nodes.map { |n| modelize(n, n.attributes['content'].to_s) }

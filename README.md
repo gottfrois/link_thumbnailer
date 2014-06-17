@@ -108,7 +108,7 @@ In `config/initializers/link_thumbnailer.rb`
 
 	  # List of attributes you want LinkThumbnailer to fetch on a website.
 	  #
-	  # config.attributes = [:title, :images, :description]
+	  # config.attributes = [:title, :images, :description, :videos]
 
 	  # List of procedures used to rate the website description. Add you custom class
 	  # here. Note that the order matter to compute the score. See wiki for more details
@@ -152,6 +152,13 @@ Or at runtime:
 Note that runtime options will override default global configuration.
 
 See [Configuration Options Explained](https://github.com/gottfrois/link_thumbnailer/wiki/Configuration-options-explained) for more details on each configuration options.
+
+## Exceptions
+
+LinkThumbnailer defines a list of custom exceptions you may want to rescue in your code. All the following exceptions inherit from `LinkThumbnailer::Exceptions`:
+
+* `RedirectLimit` -- raised when redirection threshold defined in config is reached
+* `BadUriFormat` -- raised when url given is not a valid HTTP url
 
 ## Contributing
 

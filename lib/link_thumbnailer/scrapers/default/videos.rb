@@ -6,8 +6,6 @@ module LinkThumbnailer
     module Default
       class Videos < ::LinkThumbnailer::Scrapers::Default::Base
 
-        private
-
         def value
           nil
         end

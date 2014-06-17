@@ -68,4 +68,26 @@ describe LinkThumbnailer::Models::Image do
 
   end
 
+  describe '#as_json' do
+
+    let(:action)  { instance.as_json }
+    let(:size)    { [1, 1] }
+    let(:type)    { 'foo' }
+    let(:result)  {
+      {
+        src:  src,
+        size: size,
+        type: type
+      }
+    }
+
+    before do
+      instance.stub(:size).and_return(size)
+      instance.stub(:type).and_return(type)
+    end
+
+    it { expect(action).to eq(result) }
+
+  end
+
 end

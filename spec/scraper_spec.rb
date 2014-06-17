@@ -18,8 +18,7 @@ describe LinkThumbnailer::Scraper do
     let(:prefix_1)                { 'prefix_1' }
     let(:prefix_2)                { 'prefix_2' }
     let(:scraper_class)           { double('scraper_class') }
-    let(:applicable_scraper)      { double(applicable?: true) }
-    let(:not_applicable_scraper)  { double(applicable?: false) }
+    let(:scraper)                 { double('scraper', call: true) }
     let(:attributes)              { [:bar] }
     let(:scrapers)                { [prefix_1, prefix_2] }
     let(:action)                  { instance.call }
@@ -29,36 +28,10 @@ describe LinkThumbnailer::Scraper do
       instance.stub(:scrapers).and_return(scrapers)
     end
 
-    context 'when first scraper not applicable' do
+    context 'when first one return a result' do
 
-      before do
-        expect(website).to            receive(:bar).and_return('bar')
-        expect(applicable_scraper).to receive(:call).with(website, 'bar')
-        expect(scraper_class).to      receive(:new).with(document).and_return(applicable_scraper)
-        expect(instance).to           receive(:scraper_class).with(prefix_1, :bar).and_return(scraper_class)
-      end
-
-      it { expect(action).to eq(website) }
-
-    end
-
-    context 'when first scraper applicable' do
-
-      before do
-        expect(website).to                    receive(:bar).and_return('bar')
-        expect(not_applicable_scraper).to_not receive(:call).with(website, 'bar')
-        expect(scraper_class).to              receive(:new).with(document).and_return(not_applicable_scraper)
-        expect(instance).to                   receive(:scraper_class).with(prefix_1, :bar).and_return(scraper_class)
-      end
-
-      it { expect(action).to eq(website) }
-
-    end
-
-    context 'when all scrapers applicable and first one return a result' do
-
-      let(:valid_scraper)     { double('scraper', applicable?: true) }
-      let(:not_valid_scraper) { double('scraper', applicable?: true) }
+      let(:valid_scraper)     { double('scraper') }
+      let(:not_valid_scraper) { double('scraper') }
 
       before do
         expect(website).to                receive(:bar).once.and_return('bar')
@@ -72,10 +45,10 @@ describe LinkThumbnailer::Scraper do
 
     end
 
-    context 'when all scrapers applicable but first one do not return any result' do
+    context 'when first one does not return any result' do
 
-      let(:valid_scraper)     { double('scraper', applicable?: true) }
-      let(:not_valid_scraper) { double('scraper', applicable?: true) }
+      let(:valid_scraper)     { double('scraper') }
+      let(:not_valid_scraper) { double('scraper') }
 
       before do
         expect(website).to            receive(:bar).and_return('', 'bar')

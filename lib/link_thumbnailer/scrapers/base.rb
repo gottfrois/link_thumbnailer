@@ -18,6 +18,7 @@ module LinkThumbnailer
       end
 
       def call(website, attribute_name)
+        return false unless applicable?
         @website        = website
         @attribute_name = attribute_name
 

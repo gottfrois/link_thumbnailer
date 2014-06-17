@@ -4,6 +4,7 @@ describe 'Fixture' do
 
   let(:url)         { 'http://foo.com' }
   let(:png_url)     { 'http://foo.com/foo.png' }
+  let(:video_url)   { 'http://foo.com/foo.swf' }
   let(:png)         { File.open(File.dirname(__FILE__) + '/fixtures/foo.png') }
   let(:action)      { LinkThumbnailer.generate(url) }
 
@@ -26,6 +27,8 @@ describe 'Fixture' do
       it { expect(action.images.count).to           eq(1) }
       it { expect(action.images.first.src.to_s).to  eq(png_url) }
       it { expect(action.images.first.size).to      eq([100, 100]) }
+      it { expect(action.videos.count).to           eq(1) }
+      it { expect(action.videos.first.src.to_s).to  eq(video_url) }
 
     end
 
@@ -44,6 +47,19 @@ describe 'Fixture' do
       it { expect(action.images.count).to           eq(2) }
       it { expect(action.images.first.src.to_s).to  eq(png_url) }
       it { expect(action.images.last.src.to_s).to   eq(png_url_2) }
+
+    end
+
+    context 'with multi video' do
+
+      let(:video_url_2) { 'http://foo.com/bar.swf' }
+      let(:html)        { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_multi_video_example.html').read() }
+
+      it { expect(action.title).to                  eq(title) }
+      it { expect(action.description).to            eq(description) }
+      it { expect(action.videos.count).to           eq(2) }
+      it { expect(action.videos.first.src.to_s).to  eq(video_url) }
+      it { expect(action.videos.last.src.to_s).to   eq(video_url_2) }
 
     end
 

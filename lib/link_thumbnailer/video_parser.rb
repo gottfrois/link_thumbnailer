@@ -6,7 +6,7 @@ module LinkThumbnailer
     attr_reader :parser
 
     def initialize(video)
-      @parser = ::VideoInfo.new(video.src)
+      @parser = ::VideoInfo.new(video.src.to_s)
     rescue ::VideoInfo::UrlError
       @parser = nil
     end

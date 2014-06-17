@@ -5,11 +5,11 @@ module LinkThumbnailer
     module Opengraph
       class Image < ::LinkThumbnailer::Scrapers::Opengraph::Base
 
-        private
-
         def value
           model
         end
+
+        private
 
         def model
           nodes.map { |n| modelize(n, n.attributes['content'].to_s) }
@@ -36,11 +36,15 @@ module LinkThumbnailer
           Height.new(document).value
         end
 
-        class Width < ::LinkThumbnailer::Scrapers::Opengraph::Base
+        class Base < ::LinkThumbnailer::Scrapers::Opengraph::Base
 
           def value
             node.attributes['content'].to_s if node
           end
+
+        end
+
+        class Width < Base
 
           private
 
@@ -50,11 +54,7 @@ module LinkThumbnailer
 
         end
 
-        class Height < ::LinkThumbnailer::Scrapers::Opengraph::Base
-
-          def value
-            node.attributes['content'].to_s if node
-          end
+        class Height < Base
 
           private
 
