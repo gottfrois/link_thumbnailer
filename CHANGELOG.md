@@ -1,3 +1,7 @@
+# 2.2.1
+
+- Fix issue when computing link density ratio
+
 # 2.2.0
 
 - Add support for `og:video`
