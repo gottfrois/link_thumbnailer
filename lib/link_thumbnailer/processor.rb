@@ -36,7 +36,8 @@ module LinkThumbnailer
     end
 
     def set_http_headers
-      http.headers['User-Agent'] = user_agent
+      http.headers['User-Agent']      = user_agent
+      http.headers['Accept-Encoding'] = 'none'
     end
 
     def set_http_options
