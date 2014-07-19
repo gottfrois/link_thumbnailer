@@ -9,7 +9,7 @@ module LinkThumbnailer
       end
 
       def call
-        raise 'you must implement this method'
+        fail NotImplementedError
       end
 
     end

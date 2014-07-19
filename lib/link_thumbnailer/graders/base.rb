@@ -14,7 +14,7 @@ module LinkThumbnailer
       end
 
       def call(current_score)
-        raise 'must implement'
+        fail NotImplementedError
       end
 
       private
