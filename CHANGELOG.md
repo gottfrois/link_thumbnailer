@@ -1,3 +1,7 @@
+# 2.2.2
+
+- Fixes [#41](https://github.com/gottfrois/link_thumbnailer/issues/41)
+
 # 2.2.1
 
 - Fix issue when computing link density ratio
