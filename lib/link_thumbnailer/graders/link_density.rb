@@ -3,7 +3,8 @@ module LinkThumbnailer
     class LinkDensity < ::LinkThumbnailer::Graders::Base
 
       def call(current_score)
-        current_score *= (1 - density)
+        return 0 if density_ratio == 0
+        current_score *= density_ratio
       end
 
       private
@@ -11,6 +12,10 @@ module LinkThumbnailer
       def density
         return 0 if text.length == 0
         links.length / text.length.to_f
+      end
+
+      def density_ratio
+        1 - density
       end
 
       def links

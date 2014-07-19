@@ -8,14 +8,27 @@ describe LinkThumbnailer::Graders::LinkDensity do
   describe '#call' do
 
     let(:previous_score)  { 1 }
-    let(:density)         { 10 }
     let(:action)          { instance.call(previous_score) }
 
-    before do
-      instance.stub(:density).and_return(density)
+    context 'when density_ratio is 0' do
+
+      before do
+        instance.stub(:density_ratio).and_return(0)
+      end
+
+      it { expect(action).to eq(0) }
+
     end
 
-    it { expect(action).to eq(-9) }
+    context 'when density is not 0' do
+
+      before do
+        instance.stub(:density_ratio).and_return(10)
+      end
+
+      it { expect(action).to eq(10) }
+
+    end
 
   end
 
