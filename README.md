@@ -138,6 +138,8 @@ In `config/initializers/link_thumbnailer.rb`
 	  # config.negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
 
 	  # Numbers of images to fetch. Fetching too many images will be slow.
+	  # Note that LinkThumbnailer will only sort fetched images between each other.
+	  # Meaning that they could be a "better" image on the page.
 	  #
 	  # config.image_limit = 5
 
