@@ -41,7 +41,7 @@ module LinkThumbnailer
         %r{^http://pixel\.quantserve\.com/},
         %r{^http://s7\.addthis\.com/}
       ]
-      @attributes             = [:title, :images, :description, :videos]
+      @attributes             = [:title, :images, :description, :videos, :favicon]
       @graders                = [
         ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
         ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },

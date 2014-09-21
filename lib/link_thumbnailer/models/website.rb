@@ -4,7 +4,7 @@ module LinkThumbnailer
   module Models
     class Website < ::LinkThumbnailer::Model
 
-      attr_accessor :url, :title, :description, :images, :videos
+      attr_accessor :url, :title, :description, :images, :videos, :favicon
 
       def initialize
         @images = []
@@ -39,6 +39,7 @@ module LinkThumbnailer
       def as_json(*)
         {
           url:          url.to_s,
+          favicon:      favicon,
           title:        title,
           description:  description,
           images:       images,
