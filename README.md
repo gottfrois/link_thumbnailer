@@ -58,6 +58,9 @@ The gem handle regular website but also website that use the [Opengraph](http://
 	object.title
 	 => "Stack Overflow"
 
+	object.favicon
+	 => "//cdn.sstatic.net/stackoverflow/img/favicon.ico?v=038622610830"
+
 	object.description
 	 => "Q&A for professional and enthusiast programmers"
 
@@ -108,7 +111,7 @@ In `config/initializers/link_thumbnailer.rb`
 
 	  # List of attributes you want LinkThumbnailer to fetch on a website.
 	  #
-	  # config.attributes = [:title, :images, :description, :videos]
+	  # config.attributes = [:title, :images, :description, :videos, :favicon]
 
 	  # List of procedures used to rate the website description. Add you custom class
 	  # here. Note that the order matter to compute the score. See wiki for more details

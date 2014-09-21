@@ -1,3 +1,21 @@
+# 2.3.0
+
+- Add requested favicon scraper [#40](https://github.com/gottfrois/link_thumbnailer/issues/40)
+
+Add `:favicon` to `config.attributes` in LinkThumbnailer initializer:
+
+```ruby
+config.attributes = [:title, :images, :description, :videos, :favicon]
+```
+
+Then
+
+```ruby
+o = LinkThumbnailer.generate('https://github.com')
+o.favicon
+ => "https://github.com/fluidicon.png"
+```
+
 # 2.2.3
 
 - Fixes [#41](https://github.com/gottfrois/link_thumbnailer/issues/41)
