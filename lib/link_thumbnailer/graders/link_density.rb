@@ -19,7 +19,7 @@ module LinkThumbnailer
       end
 
       def links
-        node.css('a').map(&:text)
+        node.css('a').map(&:text).compact.reject(&:empty?)
       end
 
     end
