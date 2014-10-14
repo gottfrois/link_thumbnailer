@@ -10,6 +10,14 @@ module LinkThumbnailer
         end
 
         private
+        
+        def attribute
+          if website.url.host =~ /vimeo/
+            'og:url'
+          else
+            super
+          end
+        end
 
         def model
           nodes.map { |n| modelize(n, n.attributes['content'].to_s) }
