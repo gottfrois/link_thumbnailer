@@ -13,6 +13,10 @@ module LinkThumbnailer
         
         def attribute
           if website.url.host =~ /vimeo/
+            # Vimeo uses a SWF file for its og:video property which doesn't
+            # provide any metadata for the VideoInfo gem downstream. Using
+            # og:url means VideoInfo is passed a webpage URL with metadata
+            # it can parse:
             'og:url'
           else
             super
