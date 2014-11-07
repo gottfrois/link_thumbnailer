@@ -1,3 +1,7 @@
+# 2.3.2
+
+- Fix an issue with vimeo opengraph urls. Fixes [#46](https://github.com/gottfrois/link_thumbnailer/pull/46)
+
 # 2.3.1
 
 - Fix an issue with the link density grader caused by links with image instead of text. Fixes [#45](https://github.com/gottfrois/link_thumbnailer/issues/45)
