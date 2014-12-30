@@ -43,6 +43,7 @@ module LinkThumbnailer
     def set_http_options
       http.verify_mode  = ::OpenSSL::SSL::VERIFY_NONE unless ssl_required?
       http.open_timeout = http_timeout
+      http.proxy = :ENV
     end
 
     def perform_request
