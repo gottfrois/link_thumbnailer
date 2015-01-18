@@ -1,3 +1,7 @@
+# 2.4.0
+
+- Handle connection through proxy automatically using the `ENV['HTTP_PROXY']` variable thanks to [taganaka](https://github.com/taganaka).
+
 # 2.3.2
 
 - Fix an issue with vimeo opengraph urls. Fixes [#46](https://github.com/gottfrois/link_thumbnailer/pull/46)
