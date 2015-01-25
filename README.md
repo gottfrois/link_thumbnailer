@@ -28,7 +28,9 @@ Demo Application is [here](http://link-thumbnailer-demo.herokuapp.com/) !
 
 Add this line to your application's Gemfile:
 
-    gem 'link_thumbnailer'
+```ruby
+gem 'link_thumbnailer'
+```
 
 And then execute:
 
@@ -48,24 +50,28 @@ This will add `link_thumbnailer.rb` to `config/initializers/`.
 
 Run `irb` and require the gem:
 
-	require 'link_thumbnailer'
+```ruby
+require 'link_thumbnailer'
+```
 
 The gem handle regular website but also website that use the [Opengraph](http://ogp.me/) protocol.
 
-	object = LinkThumbnailer.generate('http://stackoverflow.com')
-	 => #<LinkThumbnailer::Models::Website:...>
+```ruby
+object = LinkThumbnailer.generate('http://stackoverflow.com')
+ => #<LinkThumbnailer::Models::Website:...>
 
-	object.title
-	 => "Stack Overflow"
+object.title
+ => "Stack Overflow"
 
-	object.favicon
-	 => "//cdn.sstatic.net/stackoverflow/img/favicon.ico?v=038622610830"
+object.favicon
+ => "//cdn.sstatic.net/stackoverflow/img/favicon.ico?v=038622610830"
 
-	object.description
-	 => "Q&A for professional and enthusiast programmers"
+object.description
+ => "Q&A for professional and enthusiast programmers"
 
-	object.images.first.src.to_s
-	 => "http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6"
+object.images.first.src.to_s
+ => "http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6"
+```
 
 LinkThumbnailer `generate` method return an instance of `LinkThumbnailer::Models::Website` that respond to `to_json` and `as_json` as you would expect:
 
@@ -79,80 +85,84 @@ LinkThumnailer comes with default configuration values. You can change default v
 
 In `config/initializers/link_thumbnailer.rb`
 
-	LinkThumbnailer.configure do |config|
-	  # Numbers of redirects before raising an exception when trying to parse given url.
-	  #
-	  # config.redirect_limit = 3
+```ruby
+LinkThumbnailer.configure do |config|
+  # Numbers of redirects before raising an exception when trying to parse given url.
+  #
+  # config.redirect_limit = 3
 
-	  # Set user agent
-	  #
-	  # config.user_agent = 'link_thumbnailer'
+  # Set user agent
+  #
+  # config.user_agent = 'link_thumbnailer'
 
-	  # Enable or disable SSL verification
-	  #
-	  # config.verify_ssl = true
+  # Enable or disable SSL verification
+  #
+  # config.verify_ssl = true
 
-	  # The amount of time in seconds to wait for a connection to be opened.
-	  # If the HTTP object cannot open a connection in this many seconds,
-	  # it raises a Net::OpenTimeout exception.
-	  #
-	  # See http://www.ruby-doc.org/stdlib-2.1.1/libdoc/net/http/rdoc/Net/HTTP.html#open_timeout
-	  #
-	  # config.http_timeout = 5
+  # The amount of time in seconds to wait for a connection to be opened.
+  # If the HTTP object cannot open a connection in this many seconds,
+  # it raises a Net::OpenTimeout exception.
+  #
+  # See http://www.ruby-doc.org/stdlib-2.1.1/libdoc/net/http/rdoc/Net/HTTP.html#open_timeout
+  #
+  # config.http_timeout = 5
 
-	  # List of blacklisted urls you want to skip when searching for images.
-	  #
-	  # config.blacklist_urls = [
-	  #   %r{^http://ad\.doubleclick\.net/},
-	  #   %r{^http://b\.scorecardresearch\.com/},
-	  #   %r{^http://pixel\.quantserve\.com/},
-	  #   %r{^http://s7\.addthis\.com/}
-	  # ]
+  # List of blacklisted urls you want to skip when searching for images.
+  #
+  # config.blacklist_urls = [
+  #   %r{^http://ad\.doubleclick\.net/},
+  #   %r{^http://b\.scorecardresearch\.com/},
+  #   %r{^http://pixel\.quantserve\.com/},
+  #   %r{^http://s7\.addthis\.com/}
+  # ]
 
-	  # List of attributes you want LinkThumbnailer to fetch on a website.
-	  #
-	  # config.attributes = [:title, :images, :description, :videos, :favicon]
+  # List of attributes you want LinkThumbnailer to fetch on a website.
+  #
+  # config.attributes = [:title, :images, :description, :videos, :favicon]
 
-	  # List of procedures used to rate the website description. Add you custom class
-	  # here. Note that the order matter to compute the score. See wiki for more details
-	  # on how to build your own graders.
-	  #
-	  # config.graders = [
-	  #   ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
-	  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
-	  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
-	  #   ->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
-	  #   ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
-	  # ]
+  # List of procedures used to rate the website description. Add you custom class
+  # here. Note that the order matter to compute the score. See wiki for more details
+  # on how to build your own graders.
+  #
+  # config.graders = [
+  #   ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
+  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
+  #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
+  #   ->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
+  #   ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
+  # ]
 
-	  # Minimum description length for a website.
-	  #
-	  # config.description_min_length = 25
+  # Minimum description length for a website.
+  #
+  # config.description_min_length = 25
 
-	  # Regex of words considered positive to rate website description.
-	  #
-	  # config.positive_regex = /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i
+  # Regex of words considered positive to rate website description.
+  #
+  # config.positive_regex = /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i
 
-	  # Regex of words considered negative to rate website description.
-	  #
-	  # config.negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
+  # Regex of words considered negative to rate website description.
+  #
+  # config.negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
 
-	  # Numbers of images to fetch. Fetching too many images will be slow.
-	  # Note that LinkThumbnailer will only sort fetched images between each other.
-	  # Meaning that they could be a "better" image on the page.
-	  #
-	  # config.image_limit = 5
+  # Numbers of images to fetch. Fetching too many images will be slow.
+  # Note that LinkThumbnailer will only sort fetched images between each other.
+  # Meaning that they could be a "better" image on the page.
+  #
+  # config.image_limit = 5
 
-	  # Whether you want LinkThumbnailer to return image size and type or not.
-	  # Setting this value to false will increase performance since for each images, LinkThumbnailer
-	  # does not have to fetch its size and type.
-	  #
-	  # config.image_stats = true
-	end
+  # Whether you want LinkThumbnailer to return image size and type or not.
+  # Setting this value to false will increase performance since for each images, LinkThumbnailer
+  # does not have to fetch its size and type.
+  #
+  # config.image_stats = true
+end
+```
 
 Or at runtime:
 
-	object = LinkThumbnailer.generate('http://stackoverflow.com', redirect_limit: 5, user_agent: 'foo')
+```ruby
+object = LinkThumbnailer.generate('http://stackoverflow.com', redirect_limit: 5, user_agent: 'foo')
+```
 
 Note that runtime options will override default global configuration.
 
