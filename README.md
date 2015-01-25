@@ -75,8 +75,10 @@ object.images.first.src.to_s
 
 LinkThumbnailer `generate` method return an instance of `LinkThumbnailer::Models::Website` that respond to `to_json` and `as_json` as you would expect:
 
-	object.to_json
-	 => "{\"url\":\"http://stackoverflow.com\",\"title\":\"Stack Overflow\",\"description\":\"Q&A for professional and enthusiast programmers\",\"images\":[{\"src\":\"http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6\",\"size\":[316,316],\"type\":\"png\"}]}"
+```ruby
+object.to_json
+ => "{\"url\":\"http://stackoverflow.com\",\"title\":\"Stack Overflow\",\"description\":\"Q&A for professional and enthusiast programmers\",\"images\":[{\"src\":\"http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6\",\"size\":[316,316],\"type\":\"png\"}]}"
+```
 
 
 ## Configuration
