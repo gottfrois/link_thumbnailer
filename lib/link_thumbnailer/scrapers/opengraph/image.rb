@@ -6,60 +6,91 @@ module LinkThumbnailer
       class Image < ::LinkThumbnailer::Scrapers::Opengraph::Base
 
         def value
-          model
+          ::LinkThumbnailer::Scrapers::Opengraph::Image::Base.new(document, website).value +
+          ::LinkThumbnailer::Scrapers::Opengraph::Image::Url.new(document, website).value
         end
 
         private
 
-        def model
-          nodes.map { |n| modelize(n, n.attributes['content'].to_s) }
-        end
-
-        def modelize(node, text = nil)
-          model_class.new(text, size)
-        end
-
-        def nodes
-          nodes = meta_xpaths(attribute: attribute)
-          nodes.empty? ? meta_xpaths(attribute: attribute, key: :name) : nodes
-        end
-
-        def size
-          [width.to_i, height.to_i] if width && height
-        end
-
-        def width
-          Width.new(document).value
-        end
-
-        def height
-          Height.new(document).value
-        end
-
+        # Handles `og:image` attributes.
         class Base < ::LinkThumbnailer::Scrapers::Opengraph::Base
+
+          def value
+            model
+          end
+
+          def model
+            nodes.map { |n| modelize(n, n.attributes['content'].to_s) }
+          end
+
+          def modelize(node, text = nil)
+            model_class.new(text, size)
+          end
+
+          def model_class
+            ::LinkThumbnailer::Models::Image
+          end
+
+          def nodes
+            nodes = meta_xpaths(attribute: attribute)
+            nodes.empty? ? meta_xpaths(attribute: attribute, key: :name) : nodes
+          end
+
+          def attribute
+            'og:image'
+          end
+
+          def size
+            [width.to_i, height.to_i] if width && height
+          end
+
+          def width
+            ::LinkThumbnailer::Scrapers::Opengraph::Image::Width.new(document).value
+          end
+
+          def height
+            ::LinkThumbnailer::Scrapers::Opengraph::Image::Height.new(document).value
+          end
+
+        end
+
+        # Handles `og:image:url` attributes.
+        class Url < ::LinkThumbnailer::Scrapers::Opengraph::Image::Base
+
+          private
+
+          def attribute
+            'og:image:url'
+          end
+
+        end
+
+        # Handles `og:image:width` attributes.
+        class Width < ::LinkThumbnailer::Scrapers::Opengraph::Base
 
           def value
             node.attributes['content'].to_s if node
           end
 
-        end
-
-        class Width < Base
-
           private
 
           def attribute
-            "og:image:width"
+            'og:image:width'
           end
 
         end
 
-        class Height < Base
+        # Handles `og:image:height` attributes.
+        class Height < ::LinkThumbnailer::Scrapers::Opengraph::Base
+
+          def value
+            node.attributes['content'].to_s if node
+          end
 
           private
 
           def attribute
-            "og:image:height"
+            'og:image:height'
           end
 
         end

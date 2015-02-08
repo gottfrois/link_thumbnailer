@@ -10,16 +10,18 @@ module LinkThumbnailer
 
       attr_reader :config, :document, :website, :attribute_name
 
-      def initialize(document)
+      def initialize(document, website = nil)
         @config   = ::LinkThumbnailer.page.config
         @document = document
+        @website  = website
 
         super(config)
       end
 
-      def call(website, attribute_name)
+      def call(attribute_name)
+        return false unless website.present?
         return false unless applicable?
-        @website        = website
+
         @attribute_name = attribute_name
 
         website.send("#{attribute_name}=", value)
@@ -31,7 +33,7 @@ module LinkThumbnailer
       end
 
       def value
-        raise 'must implement'
+        fail NotImplementedError
       end
 
       private

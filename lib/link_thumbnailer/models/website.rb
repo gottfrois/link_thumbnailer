@@ -42,8 +42,8 @@ module LinkThumbnailer
           favicon:      favicon,
           title:        title,
           description:  description,
-          images:       images,
-          videos:       videos
+          images:       images.map(&:as_json),
+          videos:       videos.map(&:as_json)
         }
       end
 

@@ -7,10 +7,10 @@ module LinkThumbnailer
 
       attr_reader :src, :size, :duration, :provider, :id, :embed_code
 
-      def initialize(src)
+      def initialize(src, size = nil)
         @src        = src
         @id         = parser.id
-        @size       = parser.size
+        @size       = size || parser.size
         @duration   = parser.duration
         @provider   = parser.provider
         @embed_code = parser.embed_code

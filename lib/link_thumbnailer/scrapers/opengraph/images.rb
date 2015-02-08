@@ -6,8 +6,8 @@ module LinkThumbnailer
     module Opengraph
       class Images < ::LinkThumbnailer::Scrapers::Opengraph::Base
 
-        def call(website, attribute_name)
-          ::LinkThumbnailer::Scrapers::Opengraph::Image.new(document).call(website, 'image')
+        def call(attribute_name)
+          ::LinkThumbnailer::Scrapers::Opengraph::Image.new(document, website).call('image')
         end
 
       end

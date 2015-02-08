@@ -31,6 +31,7 @@ describe 'Fixture' do
       it { expect(action.images.first.size).to      eq([100, 100]) }
       it { expect(action.videos.count).to           eq(1) }
       it { expect(action.videos.first.src.to_s).to  eq(video_url) }
+      it { expect(action.videos.first.size).to      eq([100, 100]) }
 
     end
 

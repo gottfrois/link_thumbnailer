@@ -6,8 +6,8 @@ module LinkThumbnailer
     module Opengraph
       class Videos < ::LinkThumbnailer::Scrapers::Opengraph::Base
 
-        def call(website, attribute_name)
-          ::LinkThumbnailer::Scrapers::Opengraph::Video.new(document).call(website, 'video')
+        def call(attribute_name)
+          ::LinkThumbnailer::Scrapers::Opengraph::Video.new(document, website).call('video')
         end
 
       end

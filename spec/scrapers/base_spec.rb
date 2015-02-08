@@ -3,14 +3,14 @@ require 'spec_helper'
 describe LinkThumbnailer::Scrapers::Base do
 
   let(:document) { double('document') }
-  let(:instance) { described_class.new(document) }
+  let(:website)  { LinkThumbnailer::Models::Website.new }
+  let(:instance) { described_class.new(document, website) }
 
   describe '#call' do
 
-    let(:website) { LinkThumbnailer::Models::Website.new }
     let(:attr)    { :title }
     let(:value)   { 'foo' }
-    let(:action)  { instance.call(website, attr) }
+    let(:action)  { instance.call(attr) }
 
     before do
       instance.stub(:value).and_return(value)

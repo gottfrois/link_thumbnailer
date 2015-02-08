@@ -35,9 +35,9 @@ describe LinkThumbnailer::Scraper do
 
       before do
         expect(website).to                receive(:bar).once.and_return('bar')
-        expect(valid_scraper).to          receive(:call).once.with(website, 'bar')
-        expect(not_valid_scraper).to_not  receive(:call).with(website, 'bar')
-        expect(scraper_class).to          receive(:new).with(document).once.and_return(valid_scraper)
+        expect(valid_scraper).to          receive(:call).once.with('bar')
+        expect(not_valid_scraper).to_not  receive(:call).with('bar')
+        expect(scraper_class).to          receive(:new).with(document, website).once.and_return(valid_scraper)
         expect(instance).to               receive(:scraper_class).with(prefix_1, :bar).and_return(scraper_class)
       end
 
@@ -52,9 +52,9 @@ describe LinkThumbnailer::Scraper do
 
       before do
         expect(website).to            receive(:bar).and_return('', 'bar')
-        expect(valid_scraper).to      receive(:call).once.with(website, 'bar')
-        expect(not_valid_scraper).to  receive(:call).once.with(website, 'bar')
-        expect(scraper_class).to      receive(:new).with(document).and_return(not_valid_scraper, valid_scraper)
+        expect(valid_scraper).to      receive(:call).once.with('bar')
+        expect(not_valid_scraper).to  receive(:call).once.with('bar')
+        expect(scraper_class).to      receive(:new).with(document, website).and_return(not_valid_scraper, valid_scraper)
         expect(instance).to           receive(:scraper_class).with(prefix_1, :bar).and_return(scraper_class)
         expect(instance).to           receive(:scraper_class).with(prefix_2, :bar).and_return(scraper_class)
       end
