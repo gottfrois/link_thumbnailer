@@ -1,3 +1,11 @@
+# 2.5.0
+
+- Handles seamlessly `og:image` and `og:image:url`
+- Handles seamlessly `og:video` and `og:video:url`
+- Handles `og:video:width` and `og:video:height` for one video only (please create a ticket if you want support for multiple videos/images width & height)
+- Fix calling `as_json` on `website` to return `as_json` representation of videos and images, not just their urls
+- Gem updates and fix rspec deprecation warnings
+
 # 2.4.0
 
 - Handle connection through proxy automatically using the `ENV['HTTP_PROXY']` variable thanks to [taganaka](https://github.com/taganaka).
