@@ -21,7 +21,7 @@ describe LinkThumbnailer::Scrapers::Opengraph::Base do
         instance.stub(:opengraph_node?).and_return(true, true)
       end
 
-      it { expect(action).to be_true }
+      it { expect(action).to be_truthy }
 
     end
 
@@ -31,7 +31,7 @@ describe LinkThumbnailer::Scrapers::Opengraph::Base do
         instance.stub(:opengraph_node?).and_return(true, false)
       end
 
-      it { expect(action).to be_true }
+      it { expect(action).to be_truthy }
 
     end
 
@@ -41,7 +41,7 @@ describe LinkThumbnailer::Scrapers::Opengraph::Base do
         instance.stub(:opengraph_node?).and_return(false, false)
       end
 
-      it { expect(action).to be_false }
+      it { expect(action).to be_falsey }
 
     end
 
@@ -59,7 +59,7 @@ describe LinkThumbnailer::Scrapers::Opengraph::Base do
 
       let(:attribute_from_name) { 'og:foo' }
 
-      it { expect(action).to be_true }
+      it { expect(action).to be_truthy }
 
     end
 
@@ -75,7 +75,7 @@ describe LinkThumbnailer::Scrapers::Opengraph::Base do
 
         let(:attribute_from_property) { 'og:bar' }
 
-        it { expect(action).to be_true }
+        it { expect(action).to be_truthy }
 
       end
 
@@ -83,7 +83,7 @@ describe LinkThumbnailer::Scrapers::Opengraph::Base do
 
         let(:attribute_from_property) { 'bar' }
 
-        it { expect(action).to be_false }
+        it { expect(action).to be_falsey }
 
       end
 

@@ -40,7 +40,7 @@ describe LinkThumbnailer::Models::Website do
         image.stub(:valid?).and_return(false)
       end
 
-      it { expect { action }.to_not change { instance.images.size }.by(1) }
+      it { expect { action }.to_not change { instance.images.size } }
 
     end
 

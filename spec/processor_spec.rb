@@ -286,7 +286,7 @@ describe LinkThumbnailer::Processor do
         instance.stub(:url).and_return("http://foo.com")
       end
 
-      it { expect(action).to be_false }
+      it { expect(action).to be_falsey }
 
     end
 
@@ -296,7 +296,7 @@ describe LinkThumbnailer::Processor do
         instance.stub(:url).and_return(URI("http://foo.com"))
       end
 
-      it { expect(action).to be_true }
+      it { expect(action).to be_truthy }
 
     end
 
@@ -313,7 +313,7 @@ describe LinkThumbnailer::Processor do
         instance.stub(:redirect_limit).and_return(4)
       end
 
-      it { expect(action).to be_true }
+      it { expect(action).to be_truthy }
 
     end
 
@@ -324,7 +324,7 @@ describe LinkThumbnailer::Processor do
         instance.stub(:redirect_limit).and_return(5)
       end
 
-      it { expect(action).to be_false }
+      it { expect(action).to be_falsey }
 
     end
 
@@ -335,7 +335,7 @@ describe LinkThumbnailer::Processor do
         instance.stub(:redirect_limit).and_return(5)
       end
 
-      it { expect(action).to be_false }
+      it { expect(action).to be_falsey }
 
     end
 

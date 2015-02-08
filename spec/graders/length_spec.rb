@@ -64,7 +64,7 @@ describe LinkThumbnailer::Graders::Length do
 
       let(:text) { 'f' * 9 }
 
-      it { expect(action).to be_true }
+      it { expect(action).to be_truthy }
 
     end
 
@@ -72,7 +72,7 @@ describe LinkThumbnailer::Graders::Length do
 
       let(:text) { 'f' * 10 }
 
-      it { expect(action).to be_false }
+      it { expect(action).to be_falsey }
 
     end
 

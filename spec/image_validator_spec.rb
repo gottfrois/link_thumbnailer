@@ -18,7 +18,7 @@ describe LinkThumbnailer::ImageValidator do
 
       let(:blacklist_urls) { [src] }
 
-      it { expect(action).to be_false }
+      it { expect(action).to be_falsey }
 
     end
 
@@ -26,7 +26,7 @@ describe LinkThumbnailer::ImageValidator do
 
       let(:blacklist_urls) { [] }
 
-      it { expect(action).to be_true }
+      it { expect(action).to be_truthy }
 
     end
 
