@@ -9,7 +9,7 @@ module LinkThumbnailer
 
     def sanitize(str)
       return unless str
-      str.strip.gsub(/[\r\n\f]+/, "\n")
+      str.strip.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '').gsub(/[\r\n\f]+/, "\n")
     end
 
   end
