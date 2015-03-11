@@ -7,7 +7,8 @@ describe LinkThumbnailer::Configuration do
   it { expect(instance.redirect_limit).to         eq(3) }
   it { expect(instance.user_agent).to             eq('link_thumbnailer') }
   it { expect(instance.verify_ssl).to             eq(true) }
-  it { expect(instance.http_timeout).to           eq(5) }
+  it { expect(instance.http_open_timeout).to      eq(5) }
+  it { expect(instance.http_read_timeout).to      eq(5) }
   it { expect(instance.blacklist_urls).to_not     be_empty }
   it { expect(instance.attributes).to             eq([:title, :images, :description, :videos, :favicon]) }
   it { expect(instance.graders).to_not            be_empty }

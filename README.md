@@ -107,7 +107,7 @@ LinkThumbnailer.configure do |config|
   #
   # See http://www.ruby-doc.org/stdlib-2.1.1/libdoc/net/http/rdoc/Net/HTTP.html#open_timeout
   #
-  # config.http_timeout = 5
+  # config.http_open_timeout = 5
 
   # List of blacklisted urls you want to skip when searching for images.
   #
