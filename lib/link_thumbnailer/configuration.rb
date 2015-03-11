@@ -27,6 +27,9 @@ module LinkThumbnailer
                   :graders, :description_min_length, :positive_regex, :negative_regex,
                   :image_limit, :image_stats
 
+    alias_method :http_timeout, :http_open_timeout
+    alias_method :http_timeout=, :http_open_timeout=
+
     # Create a new instance.
     #
     # @return [LinkThumbnailer::Configuration]

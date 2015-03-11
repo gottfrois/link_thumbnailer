@@ -18,6 +18,11 @@ describe LinkThumbnailer::Configuration do
   it { expect(instance.image_limit).to            eq(5) }
   it { expect(instance.image_stats).to            eq(true) }
 
+  describe "#http_timeout" do
+    it { expect(instance.method(:http_timeout)).to eq(instance.method(:http_open_timeout)) }
+    it { expect(instance.method(:http_timeout=)).to eq(instance.method(:http_open_timeout=)) }
+  end
+
   describe '.config' do
 
     it { expect(LinkThumbnailer.config).to be_a(described_class) }
