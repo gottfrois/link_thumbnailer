@@ -23,9 +23,12 @@ module LinkThumbnailer
 	class Configuration
 
     attr_accessor :redirect_limit, :blacklist_urls, :user_agent,
-                  :verify_ssl, :http_timeout, :attributes, :graders,
-                  :description_min_length, :positive_regex, :negative_regex,
+                  :verify_ssl, :http_open_timeout, :http_read_timeout, :attributes,
+                  :graders, :description_min_length, :positive_regex, :negative_regex,
                   :image_limit, :image_stats
+
+    alias_method :http_timeout, :http_open_timeout
+    alias_method :http_timeout=, :http_open_timeout=
 
     # Create a new instance.
     #
@@ -34,7 +37,8 @@ module LinkThumbnailer
       @redirect_limit         = 3
       @user_agent             = 'link_thumbnailer'
       @verify_ssl             = true
-      @http_timeout           = 5
+      @http_open_timeout      = 5
+      @http_read_timeout      = 5
       @blacklist_urls         = [
         %r{^http://ad\.doubleclick\.net/},
         %r{^http://b\.scorecardresearch\.com/},
