@@ -177,6 +177,16 @@ LinkThumbnailer defines a list of custom exceptions you may want to rescue in yo
 * `RedirectLimit` -- raised when redirection threshold defined in config is reached
 * `BadUriFormat` -- raised when url given is not a valid HTTP url
 
+You can rescue from any LinkThumbnailer exceptions using the following code:
+
+```ruby
+begin
+  LinkThumbnailer.generate('http://foo.com')
+rescue LinkThumbnailer::Exceptions => e
+  # do something
+end
+```
+
 ## Contributing
 
 1. Fork it
