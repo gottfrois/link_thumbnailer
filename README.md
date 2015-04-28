@@ -83,7 +83,7 @@ object.to_json
 
 ## Configuration
 
-LinkThumnailer comes with default configuration values. You can change default value by overriding them in a rails initializer:
+LinkThumbnailer comes with default configuration values. You can change default value by overriding them in a rails initializer:
 
 In `config/initializers/link_thumbnailer.rb`
 
