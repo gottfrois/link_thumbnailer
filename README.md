@@ -83,7 +83,7 @@ object.to_json
 
 ## Configuration
 
-LinkThumnailer comes with default configuration values. You can change default value by overriding them in a rails initializer:
+LinkThumbnailer comes with default configuration values. You can change default value by overriding them in a rails initializer:
 
 In `config/initializers/link_thumbnailer.rb`
 
@@ -107,7 +107,7 @@ LinkThumbnailer.configure do |config|
   #
   # See http://www.ruby-doc.org/stdlib-2.1.1/libdoc/net/http/rdoc/Net/HTTP.html#open_timeout
   #
-  # config.http_timeout = 5
+  # config.http_open_timeout = 5
 
   # List of blacklisted urls you want to skip when searching for images.
   #
@@ -176,6 +176,16 @@ LinkThumbnailer defines a list of custom exceptions you may want to rescue in yo
 
 * `RedirectLimit` -- raised when redirection threshold defined in config is reached
 * `BadUriFormat` -- raised when url given is not a valid HTTP url
+
+You can rescue from any LinkThumbnailer exceptions using the following code:
+
+```ruby
+begin
+  LinkThumbnailer.generate('http://foo.com')
+rescue LinkThumbnailer::Exceptions => e
+  # do something
+end
+```
 
 ## Contributing
 

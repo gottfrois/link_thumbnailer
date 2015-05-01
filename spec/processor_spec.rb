@@ -151,17 +151,29 @@ describe LinkThumbnailer::Processor do
 
     describe 'open_timeout' do
 
-      let(:http_timeout) { 1 }
+      let(:http_open_timeout) { 1 }
 
       before do
-        instance.stub(:http_timeout).and_return(http_timeout)
+        instance.stub(:http_open_timeout).and_return(http_open_timeout)
         action
       end
 
-      it { expect(http.open_timeout).to eq(http_timeout) }
+      it { expect(http.open_timeout).to eq(http_open_timeout) }
 
     end
 
+    describe 'read_timeout' do
+
+      let(:http_read_timeout) { 1 }
+
+      before do
+        instance.stub(:http_read_timeout).and_return(http_read_timeout)
+        action
+      end
+
+      it { expect(http.read_timeout).to eq(http_read_timeout) }
+
+    end
   end
 
   describe '#perform_request' do
@@ -250,16 +262,29 @@ describe LinkThumbnailer::Processor do
 
   end
 
-  describe '#http_timeout' do
+  describe '#http_open_timeout' do
 
-    let(:http_timeout)  { 1 }
-    let(:action)        { instance.send(:http_timeout) }
+    let(:http_open_timeout)  { 1 }
+    let(:action)        { instance.send(:http_open_timeout) }
 
     before do
-      instance.config.http_timeout = http_timeout
+      instance.config.http_open_timeout = http_open_timeout
     end
 
-    it { expect(action).to eq(http_timeout) }
+    it { expect(action).to eq(http_open_timeout) }
+
+  end
+
+  describe '#http_read_timeout' do
+
+    let(:http_read_timeout)  { 1 }
+    let(:action)        { instance.send(:http_read_timeout) }
+
+    before do
+      instance.config.http_read_timeout = http_read_timeout
+    end
+
+    it { expect(action).to eq(http_read_timeout) }
 
   end
 
