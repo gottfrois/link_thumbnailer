@@ -200,7 +200,7 @@ describe LinkThumbnailer::Processor do
 
       it 'calls call method' do
         expect(instance).to receive(:resolve_relative_url)
-        expect(instance).to receive(:call).with(new_url, instance.redirect_count + 1)
+        expect(instance).to receive(:call).with(new_url, instance.redirect_count + 1, {})
         action
       end
 

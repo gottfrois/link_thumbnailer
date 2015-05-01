@@ -15,14 +15,14 @@ module LinkThumbnailer
       super(config)
     end
 
-    def call(url = '', redirect_count = 0)
+    def call(url = '', redirect_count = 0, headers = {})
       self.url        = url
       @redirect_count = redirect_count
 
       raise ::LinkThumbnailer::RedirectLimit if too_many_redirections?
 
       with_valid_url do
-        set_http_headers
+        set_http_headers(headers)
         set_http_options
         perform_request
       end
@@ -35,7 +35,8 @@ module LinkThumbnailer
       yield if block_given?
     end
 
-    def set_http_headers
+    def set_http_headers(headers = {})
+      headers.each { |k, v| http.headers[k] = v }
       http.headers['User-Agent']               = user_agent
       http.override_headers['Accept-Encoding'] = 'none'
     end
@@ -43,15 +44,22 @@ module LinkThumbnailer
     def set_http_options
       http.verify_mode  = ::OpenSSL::SSL::VERIFY_NONE unless ssl_required?
       http.open_timeout = http_timeout
-      http.proxy = :ENV
+      http.proxy        = :ENV
     end
 
     def perform_request
-      response = http.request(url)
+      response          = http.request(url)
+      headers           = {}
+      headers['Cookie'] = response['Set-Cookie'] if response['Set-Cookie'].present?
+
       case response
       when ::Net::HTTPSuccess then response.body
       when ::Net::HTTPRedirection
-        call resolve_relative_url(response['location']), redirect_count + 1
+        call(
+          resolve_relative_url(response['location']),
+          redirect_count + 1,
+          headers
+        )
       else
         response.error!
       end
@@ -62,7 +70,7 @@ module LinkThumbnailer
     end
 
     def build_absolute_url_for(relative_url)
-      URI("#{url.scheme}://#{url.host}#{relative_url}")
+      ::URI.parse("#{url.scheme}://#{url.host}#{relative_url}")
     end
 
     def redirect_limit
