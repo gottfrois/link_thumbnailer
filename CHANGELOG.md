@@ -1,3 +1,7 @@
+# 2.5.1
+
+- Implement `Set-Cookie` header between http redirections to set cookies when site requires it. Fixes #55.
+
 # 2.5.0
 
 - Handles seamlessly `og:image` and `og:image:url`
