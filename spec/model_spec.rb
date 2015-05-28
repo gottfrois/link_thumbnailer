@@ -12,6 +12,13 @@ describe LinkThumbnailer::Model do
 
     it { expect(action).to eq(result) }
 
+    context "when string includes utf-8 characters" do
+      let(:str) { "中文" }
+
+      it "should keeps those characters" do
+        expect(instance.send(:sanitize, str)).to eq(str)
+      end
+    end
   end
 
 end
