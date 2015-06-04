@@ -1,3 +1,7 @@
+# 2.5.2
+
+- Fix OpenURI::HTTPError exception raised when video_info gem is not able to parse video metadata. Fixes #60.
+
 # 2.5.1
 
 - Implement `Set-Cookie` header between http redirections to set cookies when site requires it. Fixes #55.
