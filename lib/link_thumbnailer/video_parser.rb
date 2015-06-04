@@ -19,25 +19,25 @@ module LinkThumbnailer
 
     def size
       [parser.width, parser.height]
-    rescue NoMethodError
+    rescue NoMethodError, ::OpenURI::HTTPError
       []
     end
 
     def duration
       parser.duration
-    rescue NoMethodError
+    rescue NoMethodError, ::OpenURI::HTTPError
       nil
     end
 
     def provider
       parser.provider
-    rescue NoMethodError
+    rescue NoMethodError, ::OpenURI::HTTPError
       nil
     end
 
     def embed_code
       parser.embed_code
-    rescue NoMethodError
+    rescue NoMethodError, ::OpenURI::HTTPError
       nil
     end
 
