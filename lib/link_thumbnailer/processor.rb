@@ -1,3 +1,4 @@
+require 'pry'
 require 'delegate'
 require 'uri'
 require 'net/http/persistent'
@@ -53,8 +54,11 @@ module LinkThumbnailer
       headers           = {}
       headers['Cookie'] = response['Set-Cookie'] if response['Set-Cookie'].present?
 
+      raise ::LinkThumbnailer::FormatNotSupported.new(response['Content-Type']) unless valid_response_format?(response)
+
       case response
-      when ::Net::HTTPSuccess then response.body
+      when ::Net::HTTPSuccess
+        response.body
       when ::Net::HTTPRedirection
         call(
           resolve_relative_url(response['location']),
@@ -100,6 +104,17 @@ module LinkThumbnailer
 
     def valid_url_format?
       url.is_a?(::URI::HTTP)
+    end
+
+    def valid_response_format?(response)
+      return true unless config.raise_on_invalid_format
+      return true if response['Content-Type'] =~ /text\/html/
+      return true if response['Content-Type'] =~ /application\/html/
+      return true if response['Content-Type'] =~ /application\/xhtml\+xml/
+      return true if response['Content-Type'] =~ /application\/xml/
+      return true if response['Content-Type'] =~ /text\/xml/
+      return true if response['Content-Type'] =~ /text\/plain/
+      false
     end
 
     def url=(url)
