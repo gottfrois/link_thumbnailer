@@ -1,4 +1,3 @@
-require 'pry'
 require 'delegate'
 require 'uri'
 require 'net/http/persistent'
