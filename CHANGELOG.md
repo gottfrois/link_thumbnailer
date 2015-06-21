@@ -1,3 +1,7 @@
+# 2.6.0
+
+- Introduce new `raise_on_invalid_format` option (false by default) to raise `LinkThumbnailer::FormatNotSupported` if http `Content-Type` is invalid. Fixes #61 and #64.
+
 # 2.5.2
 
 - Fix OpenURI::HTTPError exception raised when video_info gem is not able to parse video metadata. Fixes #60.
