@@ -5,13 +5,13 @@ module LinkThumbnailer
       def call
         return 0.0 if too_short?
 
-        y * 1.0 / get_gaussian_value_for(x_pos)
+        y * 1.0 / get_gaussian_value_for(ideal_description_length)
       end
 
       private
 
       def get_gaussian_value_for(x)
-        (1.0 / 1.0 * Math.sqrt(2.0 * Math::PI ** 2)) * Math.exp(-(x - x_pos) ** 2 / 2.0 * 0.005 ** 2)
+        (1.0 / 1.0 * Math.sqrt(2.0 * Math::PI ** 2)) * Math.exp(-(x - ideal_description_length) ** 2 / 2.0 * 0.005 ** 2)
       end
 
       def x
@@ -22,8 +22,8 @@ module LinkThumbnailer
         get_gaussian_value_for(x)
       end
 
-      def x_pos
-        80.0
+      def ideal_description_length
+        120.0
       end
 
       def too_short?
