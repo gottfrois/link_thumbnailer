@@ -1,3 +1,7 @@
+# 2.6.1
+
+- Fix remove useless dependency
+
 # 2.6.0
 
 - Introduce new `raise_on_invalid_format` option (false by default) to raise `LinkThumbnailer::FormatNotSupported` if http `Content-Type` is invalid. Fixes #61 and #64.
