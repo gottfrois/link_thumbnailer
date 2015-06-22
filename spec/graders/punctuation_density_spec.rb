@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe LinkThumbnailer::Graders::LinkDensity do
+describe LinkThumbnailer::Graders::PunctuationDensity do
 
   let(:description) { double('description') }
   let(:instance)    { described_class.new(description) }
@@ -11,13 +11,13 @@ describe LinkThumbnailer::Graders::LinkDensity do
 
     before do
       instance.stub(:text).and_return(text)
-      instance.stub(:links).and_return(links)
+      instance.stub(:punctuations).and_return(punctuations)
     end
 
     context 'when text length is 0' do
 
       let(:text) { '' }
-      let(:links) { [] }
+      let(:punctuations) { [] }
 
       it { expect(action).to eq(0.0) }
 
@@ -27,17 +27,17 @@ describe LinkThumbnailer::Graders::LinkDensity do
 
       let(:text) { 'foo' }
 
-      context 'and links is 0' do
+      context 'and punctuations is 0' do
 
-        let(:links) { [] }
+        let(:punctuations) { [] }
 
         it { expect(action).to eq(1.0) }
 
       end
 
-      context 'and links is > 0' do
+      context 'and punctuations is > 0' do
 
-        let(:links) { [1] }
+        let(:punctuations) { [1] }
 
         it { expect(action).to be_within(0.001).of(0.666) }
 

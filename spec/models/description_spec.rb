@@ -22,37 +22,37 @@ describe LinkThumbnailer::Models::Description do
   describe '#<=>' do
 
     let(:another_instance)  { described_class.new(node, text) }
-    let(:score)             { 5 }
+    let(:probability)       { 0.5 }
     let(:action)            { instance <=> another_instance }
 
     before do
-      another_instance.score = score
+      another_instance.probability = probability
     end
 
-    context 'when instance score is lower' do
+    context 'when instance probability is lower' do
 
       before do
-        instance.score = score - 1
+        instance.probability = probability - 0.5
       end
 
       it { expect(action).to eq(-1) }
 
     end
 
-    context 'when instance score is equal' do
+    context 'when instance probability is equal' do
 
       before do
-        instance.score = score
+        instance.probability = probability
       end
 
       it { expect(action).to eq(0) }
 
     end
 
-    context 'when instance score is greater' do
+    context 'when instance probability is greater' do
 
       before do
-        instance.score = score + 1
+        instance.probability = probability + 0.5
       end
 
       it { expect(action).to eq(1) }

@@ -5,14 +5,15 @@ module LinkThumbnailer
   module Models
     class Description < ::LinkThumbnailer::Model
 
-      attr_reader   :node, :text, :position
-      attr_accessor :score
+      attr_reader   :node, :text, :position, :candidates_number
+      attr_accessor :probability
 
-      def initialize(node, text, position = 1)
-        @node     = node
-        @text     = sanitize(text)
-        @position = position
-        @score    = compute_score
+      def initialize(node, text, position = 1, candidates_number = 1)
+        @node              = node
+        @text              = sanitize(text)
+        @position          = position
+        @candidates_number = candidates_number
+        @probability       = compute_probability
       end
 
       def to_s
@@ -20,12 +21,12 @@ module LinkThumbnailer
       end
 
       def <=>(other)
-        score <=> other.score
+        probability <=> other.probability
       end
 
       private
 
-      def compute_score
+      def compute_probability
         ::LinkThumbnailer::Grader.new(self).call
       end
 

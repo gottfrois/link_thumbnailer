@@ -9,13 +9,10 @@ module LinkThumbnailer
         @attribute_name = attribute_name.to_sym
       end
 
-      def call(current_score)
-        return 0 unless attribute?
-
-        score = 0
-        score -= 25 if negative?
-        score += 25 if positive?
-        score
+      def call
+        return 1.0 if positive?
+        return 0.0 if negative?
+        1.0
       end
 
       private
@@ -29,11 +26,11 @@ module LinkThumbnailer
       end
 
       def negative?
-        attribute =~ negative_regex
+        attribute? && attribute =~ negative_regex
       end
 
       def positive?
-        attribute =~ positive_regex
+        attribute? && attribute =~ positive_regex
       end
 
       def negative_regex

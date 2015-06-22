@@ -2,8 +2,8 @@ module LinkThumbnailer
   module Graders
     class Position < ::LinkThumbnailer::Graders::Base
 
-      def call(current_score)
-        2.0 / description.position
+      def call
+        1.0 - (description.position.to_f / description.candidates_number.to_f)
       end
 
     end

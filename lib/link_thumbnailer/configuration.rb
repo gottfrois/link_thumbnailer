@@ -51,9 +51,10 @@ module LinkThumbnailer
         ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
         ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
         ->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
-        ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
+        ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) },
+        ->(description) { ::LinkThumbnailer::Graders::PunctuationDensity.new(description) },
       ]
-      @description_min_length = 25
+      @description_min_length = 50
       @positive_regex = /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i
       @negative_regex = /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget|modal/i
       @image_limit    = 5

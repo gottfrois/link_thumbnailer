@@ -7,7 +7,7 @@ describe LinkThumbnailer::Graders::HtmlAttribute do
 
   describe '#call' do
 
-    let(:action) { instance.call(0) }
+    let(:action) { instance.call }
 
     context 'when current node does not match attribute' do
 
@@ -15,7 +15,7 @@ describe LinkThumbnailer::Graders::HtmlAttribute do
         instance.stub(:attribute?).and_return(false)
       end
 
-      it { expect(action).to eq(0) }
+      it { expect(action).to eq(1.0) }
 
     end
 
@@ -27,7 +27,7 @@ describe LinkThumbnailer::Graders::HtmlAttribute do
         instance.stub(:positive?).and_return(false)
       end
 
-      it { expect(action).to eq(-25) }
+      it { expect(action).to eq(0.0) }
 
     end
 
@@ -39,7 +39,7 @@ describe LinkThumbnailer::Graders::HtmlAttribute do
         instance.stub(:positive?).and_return(true)
       end
 
-      it { expect(action).to eq(25) }
+      it { expect(action).to eq(1.0) }
 
     end
 

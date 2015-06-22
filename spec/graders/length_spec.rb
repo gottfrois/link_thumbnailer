@@ -12,7 +12,7 @@ describe LinkThumbnailer::Graders::Length do
 
   describe '#call' do
 
-    let(:action) { instance.call(0) }
+    let(:action) { instance.call }
 
     context 'when text is too short' do
 
@@ -20,7 +20,7 @@ describe LinkThumbnailer::Graders::Length do
         instance.stub(:too_short?).and_return(true)
       end
 
-      it { expect(action).to eq(-Float::INFINITY) }
+      it { expect(action).to eq(0.0) }
 
     end
 
@@ -31,19 +31,27 @@ describe LinkThumbnailer::Graders::Length do
         instance.stub(:text).and_return(text)
       end
 
-      context 'when text length is greater than 400' do
+      context 'when text length is 80' do
 
-        let(:text) { 'f' * 400 }
+        let(:text) { 'f' * 80 }
 
-        it { expect(action).to eq(3) }
+        it { expect(action).to eq(1.0) }
 
       end
 
-      context 'when text length is less than 300' do
+      context 'when text length is 100' do
 
-        let(:text) { 'f' * 299 }
+        let(:text) { 'f' * 100 }
 
-        it { expect(action).to eq(2) }
+        it { expect(action).to be < 1.0 }
+
+      end
+
+      context 'when text length is 60' do
+
+        let(:text) { 'f' * 60 }
+
+        it { expect(action).to be < 1.0 }
 
       end
 

@@ -13,7 +13,7 @@ module LinkThumbnailer
         super(config)
       end
 
-      def call(current_score)
+      def call
         fail NotImplementedError
       end
 
@@ -24,7 +24,7 @@ module LinkThumbnailer
       end
 
       def text
-        node.text
+        description.text
       end
 
     end
