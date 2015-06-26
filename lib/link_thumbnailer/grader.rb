@@ -3,7 +3,6 @@ require 'link_thumbnailer/graders/base'
 require 'link_thumbnailer/graders/length'
 require 'link_thumbnailer/graders/html_attribute'
 require 'link_thumbnailer/graders/link_density'
-require 'link_thumbnailer/graders/punctuation_density'
 require 'link_thumbnailer/graders/position'
 
 module LinkThumbnailer

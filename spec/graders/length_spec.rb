@@ -31,9 +31,9 @@ describe LinkThumbnailer::Graders::Length do
         instance.stub(:text).and_return(text)
       end
 
-      context 'when text length is 80' do
+      context 'when text length is 120' do
 
-        let(:text) { 'f' * 80 }
+        let(:text) { 'f' * 120 }
 
         it { expect(action).to eq(1.0) }
 
