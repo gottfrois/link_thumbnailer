@@ -181,6 +181,7 @@ LinkThumbnailer defines a list of custom exceptions you may want to rescue in yo
 
 * `RedirectLimit` -- raised when redirection threshold defined in config is reached
 * `BadUriFormat` -- raised when url given is not a valid HTTP url
+* `FormatNotSupported` -- raised when the `Content-Type` of the HTTP request is not supported (not `html`)
 
 You can rescue from any LinkThumbnailer exceptions using the following code:
 
