@@ -1,3 +1,7 @@
+# 3.0.1
+
+- Remove useless dependencies
+
 # 3.0.0
 
 - Improved description sorting.
