@@ -52,7 +52,6 @@ module LinkThumbnailer
         ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
         ->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
         ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) },
-        ->(description) { ::LinkThumbnailer::Graders::PunctuationDensity.new(description) },
       ]
       @description_min_length = 50
       @positive_regex = /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i
