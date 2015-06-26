@@ -158,6 +158,11 @@ LinkThumbnailer.configure do |config|
   # does not have to fetch its size and type.
   #
   # config.image_stats = true
+  #
+  # Whether you want LinkThumbnailer to raise an exception if the Content-Type of the HTTP request
+  # is not an html or xml.
+  #
+  # config.raise_on_invalid_format = false
 end
 ```
 
