@@ -34,8 +34,7 @@ LinkThumbnailer.configure do |config|
   # config.attributes = [:title, :images, :description, :videos, :favicon]
 
   # List of procedures used to rate the website description. Add you custom class
-  # here. Note that the order matter to compute the score. See wiki for more details
-  # on how to build your own graders.
+  # here. See wiki for more details on how to build your own graders.
   #
   # config.graders = [
   #   ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
