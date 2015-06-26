@@ -1,3 +1,8 @@
+# 3.0.0
+
+- Improved description sorting.
+- Refactored how graders work. More information [here](https://github.com/gottfrois/link_thumbnailer/wiki/How-to-build-your-own-Grader%3F)
+
 # 2.6.1
 
 - Fix remove useless dependency
