@@ -72,4 +72,8 @@ LinkThumbnailer.configure do |config|
   # is not an html or xml.
   #
   # config.raise_on_invalid_format = false
+  #
+  # Sets number of concurrent http connections that can be opened to fetch images informations such as size and type.
+  #
+  # config.max_concurrency = 20
 end

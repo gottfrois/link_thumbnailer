@@ -6,7 +6,7 @@ module LinkThumbnailer
     attr_reader :images
 
     def initialize(urls)
-      @images = perform? ? ::ImageInfo.from(urls) : Array(urls).map(&method(:build_default_image))
+      @images = perform? ? ::ImageInfo.from(urls, max_concurrency: max_concurrency) : Array(urls).map(&method(:build_default_image))
     end
 
     def size
@@ -25,6 +25,10 @@ module LinkThumbnailer
 
     def perform?
       ::LinkThumbnailer.page.config.image_stats
+    end
+
+    def max_concurrency
+      ::LinkThumbnailer.page.config.max_concurrency
     end
 
     class NullImage
