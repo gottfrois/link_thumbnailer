@@ -1,3 +1,9 @@
+# 3.0.2
+
+- Replace FastImage gem dependency by [ImageInfo](https://github.com/gottfrois/image_info) to improve performances when
+fetching multiple images size information. Benchmark shows an order of magnitude improvement response time.
+- Fixes [#57](https://github.com/gottfrois/link_thumbnailer/issues/57)
+
 # 3.0.1
 
 - Remove useless dependencies
