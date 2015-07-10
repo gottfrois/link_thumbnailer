@@ -1,7 +1,6 @@
 # LinkThumbnailer
 
 [![Code Climate](https://codeclimate.com/github/gottfrois/link_thumbnailer.png)](https://codeclimate.com/github/gottfrois/link_thumbnailer)
-[![Coverage Status](https://coveralls.io/repos/gottfrois/link_thumbnailer/badge.png?branch=master)](https://coveralls.io/r/gottfrois/link_thumbnailer?branch=master)
 [![Build Status](https://travis-ci.org/gottfrois/link_thumbnailer.png?branch=master)](https://travis-ci.org/gottfrois/link_thumbnailer)
 [![Gem Version](https://badge.fury.io/rb/link_thumbnailer.svg)](http://badge.fury.io/rb/link_thumbnailer)
 [![Dependency Status](https://gemnasium.com/gottfrois/link_thumbnailer.svg)](https://gemnasium.com/gottfrois/link_thumbnailer)
