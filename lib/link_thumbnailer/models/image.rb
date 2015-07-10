@@ -11,8 +11,8 @@ module LinkThumbnailer
 
       def initialize(src, size = nil, type = nil)
         @src  = src
-        @size = size || parser.size(self)
-        @type = type || parser.type(self)
+        @size = size || parser.size
+        @type = type || parser.type
       end
 
       def to_s
@@ -38,7 +38,7 @@ module LinkThumbnailer
       private
 
       def parser
-        ::LinkThumbnailer::ImageParser
+        @parser ||= ::LinkThumbnailer::ImageParser.new(src)
       end
 
       def validator

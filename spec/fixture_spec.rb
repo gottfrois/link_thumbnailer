@@ -21,7 +21,7 @@ describe 'Fixture' do
 
     context 'when valid' do
 
-      let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_example.html').read() }
+      let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_example.html').read }
 
       it { expect(action.favicon).to                eq(favicon) }
       it { expect(action.title).to                  eq(title) }
@@ -38,8 +38,8 @@ describe 'Fixture' do
     context 'with multi image' do
 
       let(:png_url_2) { 'http://foo.com/bar.png' }
-      let(:png_2)     { File.open(File.dirname(__FILE__) + '/fixtures/bar.png') }
-      let(:html)      { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_multi_image_example.html').read() }
+      let(:png_2)     { File.open(File.dirname(__FILE__) + '/fixtures/foo.png') }
+      let(:html)      { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_multi_image_example.html').read }
 
       before do
         stub_request(:get, png_url_2).to_return(status: 200, body: png_2, headers: {})
@@ -57,7 +57,7 @@ describe 'Fixture' do
     context 'with multi video' do
 
       let(:video_url_2) { 'http://foo.com/bar.swf' }
-      let(:html)        { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_multi_video_example.html').read() }
+      let(:html)        { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_multi_video_example.html').read }
 
       it { expect(action.favicon).to                eq('') }
       it { expect(action.title).to                  eq(title) }
@@ -70,7 +70,7 @@ describe 'Fixture' do
 
     context 'when not valid' do
 
-      let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/og_not_valid_example.html').read() }
+      let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/og_not_valid_example.html').read }
 
       it { expect(action.title).to                  eq(title) }
       it { expect(action.description).to            eq(description) }
@@ -85,7 +85,7 @@ describe 'Fixture' do
 
     context 'from meta' do
 
-      let(:html)        { File.open(File.dirname(__FILE__) + '/fixtures/default_from_meta.html').read() }
+      let(:html)        { File.open(File.dirname(__FILE__) + '/fixtures/default_from_meta.html').read }
       let(:title)       { 'Title from meta' }
       let(:description) { 'Description from meta' }
 
@@ -97,7 +97,7 @@ describe 'Fixture' do
 
     context 'from body' do
 
-      let(:html)        { File.open(File.dirname(__FILE__) + '/fixtures/default_from_body.html').read() }
+      let(:html)        { File.open(File.dirname(__FILE__) + '/fixtures/default_from_body.html').read }
       let(:description) { 'Description from body' }
 
       it { expect(action.favicon).to                eq(favicon) }

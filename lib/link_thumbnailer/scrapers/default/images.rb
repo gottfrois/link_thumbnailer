@@ -7,10 +7,20 @@ module LinkThumbnailer
       class Images < ::LinkThumbnailer::Scrapers::Default::Base
 
         def value
-          abs_urls.each_with_index.take_while { |_, i| i < config.image_limit }.map { |e| modelize(e.first) }
+          images.map do |image|
+            modelize(image.uri, image.size, image.type)
+          end
         end
 
         private
+
+        def images
+          ::LinkThumbnailer::ImageParser.new(allowed_urls).images
+        end
+
+        def allowed_urls
+          abs_urls.shift(config.image_limit)
+        end
 
         def urls
           document.search('//img').map { |i| i['src'] }.compact
@@ -54,8 +64,8 @@ module LinkThumbnailer
           ::LinkThumbnailer::Models::Image
         end
 
-        def modelize(uri)
-          model_class.new(uri)
+        def modelize(uri, size = nil, type = nil)
+          model_class.new(uri, size, type)
         end
 
       end
