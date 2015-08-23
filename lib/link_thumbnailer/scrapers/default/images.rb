@@ -44,7 +44,7 @@ module LinkThumbnailer
         end
 
         def needs_prefix?(uri)
-          !uri.is_a?(::URI::HTTP)
+          !uri.host
         end
 
         def prefix_uri(uri)
