@@ -26,6 +26,8 @@ module LinkThumbnailer
         set_http_options
         perform_request
       end
+    rescue ::Net::HTTPExceptions, ::SocketError, ::Timeout::Error => e
+      raise ::LinkThumbnailer::HTTPError.new(e.message)
     end
 
     private

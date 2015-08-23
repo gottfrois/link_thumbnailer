@@ -1,7 +1,9 @@
 module LinkThumbnailer
-  class Exceptions      < StandardError; end
-  class RedirectLimit   < Exceptions; end
-  class BadUriFormat    < Exceptions; end
-  class FormatNotSupported < Exceptions; end
-  class ScraperInvalid  < Exceptions; end
+  Exceptions         = Class.new(StandardError)
+  RedirectLimit      = Class.new(Exceptions)
+  BadUriFormat       = Class.new(Exceptions)
+  FormatNotSupported = Class.new(Exceptions)
+  ScraperInvalid     = Class.new(Exceptions)
+  HTTPError          = Class.new(Exceptions)
+  SyntaxError        = Class.new(Exceptions)
 end

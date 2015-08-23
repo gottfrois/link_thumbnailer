@@ -3,10 +3,10 @@ require 'nokogiri'
 module LinkThumbnailer
   class Parser
 
-    attr_reader :document
-
     def call(source)
-      @document ||= ::Nokogiri::HTML(source)
+      ::Nokogiri::HTML(source)
+    rescue ::Nokogiri::XML::SyntaxError => e
+      raise ::LinkThumbnailer::SyntaxError.new(e.message)
     end
 
   end

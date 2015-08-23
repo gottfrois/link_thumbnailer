@@ -38,7 +38,7 @@ describe LinkThumbnailer::Processor do
         stub_request(:get, url).to_return(status: 500, body: '', headers: {})
       end
 
-      it { expect { action }.to raise_error(Net::HTTPFatalError) }
+      it { expect { action }.to raise_error(LinkThumbnailer::HTTPError) }
 
     end
 
