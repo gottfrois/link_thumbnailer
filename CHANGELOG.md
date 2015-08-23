@@ -1,3 +1,9 @@
+# 3.0.3
+
+- Fix an issue when dealing with absolute urls. https://github.com/gottfrois/link_thumbnailer/issues/68
+- Fix an issue with http redirection and location header not beeing present. https://github.com/gottfrois/link_thumbnailer/issues/70
+- Rescue and raise custom LinkThumbnailer exceptions. https://github.com/gottfrois/link_thumbnailer/issues/71
+
 # 3.0.2
 
 - Replace FastImage gem dependency by [ImageInfo](https://github.com/gottfrois/image_info) to improve performances when
