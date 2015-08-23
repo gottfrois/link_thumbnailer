@@ -62,7 +62,7 @@ module LinkThumbnailer
         response.body
       when ::Net::HTTPRedirection
         call(
-          resolve_relative_url(response['location']),
+          resolve_relative_url(response['location'].to_s),
           redirect_count + 1,
           headers
         )
