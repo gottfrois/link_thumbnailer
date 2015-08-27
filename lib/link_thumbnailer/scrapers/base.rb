@@ -62,6 +62,11 @@ module LinkThumbnailer
         model_class.new(node, text)
       end
 
+      def scheme
+        # Extract the schema from the url
+        uri = URI.parse("#{@website.url}")
+        uri.scheme
+      end
     end
   end
 end
