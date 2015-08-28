@@ -25,7 +25,7 @@ module LinkThumbnailer
 
       graders.each do |lambda|
         instance = lambda.call(description)
-        probability *= instance.call.to_f
+        probability *= instance.call.to_f ** instance.weight
       end
 
       probability

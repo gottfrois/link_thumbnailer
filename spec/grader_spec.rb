@@ -8,7 +8,8 @@ describe LinkThumbnailer::Grader do
   describe '#call' do
 
     let(:probability)   { 0.5 }
-    let(:grader)  { double('grader', call: probability) }
+    let(:weight) { 2 }
+    let(:grader)  { double('grader', call: probability, weight: weight) }
     let(:lambda)  { ->(_) { grader } }
     let(:graders) { [lambda, lambda] }
     let(:action)  { instance.call }
@@ -17,7 +18,7 @@ describe LinkThumbnailer::Grader do
       instance.stub(:graders).and_return(graders)
     end
 
-    it { expect(action).to eq(0.5 * 0.5) }
+    it { expect(action).to eq((0.5 * 0.5) ** weight) }
 
   end
 

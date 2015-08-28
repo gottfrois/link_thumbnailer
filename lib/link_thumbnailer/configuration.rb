@@ -50,7 +50,7 @@ module LinkThumbnailer
         ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
         ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
         ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
-        ->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
+        ->(description) { ::LinkThumbnailer::Graders::Position.new(description, weigth: 3) },
         ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) },
       ]
       @description_min_length = 50

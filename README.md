@@ -129,7 +129,7 @@ LinkThumbnailer.configure do |config|
   #   ->(description) { ::LinkThumbnailer::Graders::Length.new(description) },
   #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
   #   ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
-  #   ->(description) { ::LinkThumbnailer::Graders::Position.new(description) },
+  #   ->(description) { ::LinkThumbnailer::Graders::Position.new(description, weight: 3) },
   #   ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) }
   # ]
 
