@@ -8,7 +8,8 @@ LinkThumbnailer::Graders::Position.new(description, weigth: 3)
 ```
 
 Will give a 3 times more weigth to the `Position` grader compare to other graders.
-By default all graders have a weigth of `1`.
+By default all graders have a weigth of `1` except the above position grader since position should play a bigger role in
+order to find good description candidates.
 
 # 3.0.3
 
