@@ -34,6 +34,23 @@ describe LinkThumbnailer::ImageComparators::Size do
 
     end
 
+    context 'when other image size could not be computed' do
+
+      let(:other_size) { [] }
+
+      it { expect(action).to eq(-1) }
+
+    end
+
+    context 'when self image size could not be computed' do
+
+      let(:image) { double(size: []) }
+      let(:other_size) { [10, 10] }
+
+      it { expect(action).to eq(1) }
+
+    end
+
   end
 
 end

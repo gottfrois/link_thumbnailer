@@ -3,7 +3,7 @@ module LinkThumbnailer
     class Size < ::LinkThumbnailer::ImageComparators::Base
 
       def call(other)
-        (other.size.min ** 2) <=> (image.size.min ** 2)
+        (other.size.min.to_i ** 2) <=> (image.size.min.to_i ** 2)
       end
 
     end
