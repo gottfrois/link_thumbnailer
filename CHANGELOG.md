@@ -1,3 +1,15 @@
+# 3.1.0
+
+- Fix an issue when image sizes could not be retrieved.
+- Grapers now accepts an optional parameter to customize the weigth of the grader in the probablity computation.
+
+```ruby
+LinkThumbnailer::Graders::Position.new(description, weigth: 3)
+```
+
+Will give a 3 times more weigth to the `Position` grader compare to other graders.
+By default all graders have a weigth of `1`.
+
 # 3.0.3
 
 - Fix an issue when dealing with absolute urls. https://github.com/gottfrois/link_thumbnailer/issues/68
