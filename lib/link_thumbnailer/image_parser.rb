@@ -10,11 +10,11 @@ module LinkThumbnailer
     end
 
     def size
-      images.first.size
+      images.empty? ? [0,0] : images.first.size
     end
 
     def type
-      images.first.type
+      images.empty? ? 'jpeg' : images.first.type
     end
 
     private
