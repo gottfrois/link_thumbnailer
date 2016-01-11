@@ -51,7 +51,8 @@ describe LinkThumbnailer::Processor do
         let(:another_url) { '/bar' }
 
         before do
-          stub_request(:get, url).to_return(status: 300, body: '', headers: { 'Location' => another_url })
+          instance.config.raise_on_invalid_format = true
+          stub_request(:get, url).to_return(status: 300, body: '', headers: { 'Content-Type' => '', 'Location' => another_url })
           stub_request(:get, url + another_url).to_return(status: 200, body: body, headers: {})
         end
 
@@ -64,7 +65,8 @@ describe LinkThumbnailer::Processor do
         let(:another_url) { 'http://bar.com' }
 
         before do
-          stub_request(:get, url).to_return(status: 300, body: '', headers: { 'Location' => another_url })
+          instance.config.raise_on_invalid_format = true
+          stub_request(:get, url).to_return(status: 300, body: '', headers: { 'Content-Type' => '', 'Location' => another_url })
           stub_request(:get, another_url).to_return(status: 200, body: body, headers: {})
         end
 
