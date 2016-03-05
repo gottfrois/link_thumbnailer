@@ -1,3 +1,8 @@
+# 3.1.1
+
+- Upgrade `video_info` gem
+- Fixes https://github.com/gottfrois/link_thumbnailer/issues/69
+
 # 3.1.0
 
 - Fix an issue when image sizes could not be retrieved.
