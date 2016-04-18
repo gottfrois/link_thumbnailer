@@ -1,3 +1,25 @@
+# 3.1.2
+
+Allows to customize ideal description length
+
+Pass the :ideal_description_length option to the Graders::Length initializer to customize
+the ideal description length of a website. In the rails initializer:
+
+```ruby
+LinkThumbnailer.configure do |config|
+  config.graders = [
+    ->(description) { ::LinkThumbnailer::Graders::Length.new(description, ideal_description_length: 500) },
+    ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :class) },
+    ->(description) { ::LinkThumbnailer::Graders::HtmlAttribute.new(description, :id) },
+    ->(description) { ::LinkThumbnailer::Graders::Position.new(description, weigth: 3) },
+    ->(description) { ::LinkThumbnailer::Graders::LinkDensity.new(description) },
+  ]
+end
+```
+
+Will default to `120` characters. More information about how the gem manage to find the best description can be found at
+http://www.codeids.com/2015/06/27/how-to-find-best-description-of-a-website-using-linkthumbnailer/
+
 # 3.1.1
 
 - Upgrade `video_info` gem
