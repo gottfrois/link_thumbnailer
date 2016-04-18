@@ -5,7 +5,7 @@ module LinkThumbnailer
       def call
         return 0.0 if too_short?
 
-        y / ideal_description_gaussian_value
+        y / get_gaussian_value_for(ideal_description_length)
       end
 
       private
@@ -23,11 +23,7 @@ module LinkThumbnailer
       end
 
       def ideal_description_length
-        120.0
-      end
-
-      def ideal_description_gaussian_value
-        4.442882938158366
+        options.fetch(:ideal_description_length, 120).to_f
       end
 
       def too_short?
