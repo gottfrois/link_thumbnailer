@@ -25,7 +25,7 @@ describe LinkThumbnailer::Scraper do
 
     before do
       instance.stub_chain(:config, :attributes).and_return(attributes)
-      instance.stub(:scrapers).and_return(scrapers)
+      instance.stub_chain(:config, :scrapers).and_return(scrapers)
     end
 
     context 'when first one return a result' do

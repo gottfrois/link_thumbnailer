@@ -33,7 +33,7 @@ module LinkThumbnailer
 
     def call
       config.attributes.each do |name|
-        scrapers.each do |scraper_prefix|
+        config.scrapers.each do |scraper_prefix|
           scraper_class(scraper_prefix, name).new(document, website).call(name.to_s)
           break unless website.send(name).blank?
         end
@@ -44,14 +44,8 @@ module LinkThumbnailer
 
     private
 
-    def scrapers
-      [
-        '::LinkThumbnailer::Scrapers::Opengraph',
-        '::LinkThumbnailer::Scrapers::Default'
-      ]
-    end
-
     def scraper_class(prefix, name)
+      prefix = "::LinkThumbnailer::Scrapers::#{prefix.to_s.camelize}"
       name = name.to_s.camelize
       "#{prefix}::#{name}".constantize
     rescue NameError

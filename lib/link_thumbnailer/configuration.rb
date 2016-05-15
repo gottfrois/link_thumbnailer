@@ -25,7 +25,8 @@ module LinkThumbnailer
     attr_accessor :redirect_limit, :blacklist_urls, :user_agent,
                   :verify_ssl, :http_open_timeout, :http_read_timeout, :attributes,
                   :graders, :description_min_length, :positive_regex, :negative_regex,
-                  :image_limit, :image_stats, :raise_on_invalid_format, :max_concurrency
+                  :image_limit, :image_stats, :raise_on_invalid_format, :max_concurrency,
+                  :scrapers
 
     alias_method :http_timeout, :http_open_timeout
     alias_method :http_timeout=, :http_open_timeout=
@@ -60,6 +61,7 @@ module LinkThumbnailer
       @image_stats    = true
       @raise_on_invalid_format = false
       @max_concurrency = 20
+      @scrapers = [:opengraph, :default]
     end
 
 	end

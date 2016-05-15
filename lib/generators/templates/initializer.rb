@@ -67,13 +67,17 @@ LinkThumbnailer.configure do |config|
   # does not have to fetch its size and type.
   #
   # config.image_stats = true
-  #
+
   # Whether you want LinkThumbnailer to raise an exception if the Content-Type of the HTTP request
   # is not an html or xml.
   #
   # config.raise_on_invalid_format = false
-  #
+
   # Sets number of concurrent http connections that can be opened to fetch images informations such as size and type.
   #
   # config.max_concurrency = 20
+
+  # Defines the strategies to use to scrap the website. See the [Open Graph Protocol](http://ogp.me/) for more information.
+  #
+  # config.scrapers = [:opengraph, :default]
 end
