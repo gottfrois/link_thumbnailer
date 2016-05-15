@@ -1,3 +1,16 @@
+# 3.2.0
+
+Makes scrapers configurable by allowing to set the scraping strategy:
+
+```ruby
+LinkThumbnailer.configure do |config|
+  config.scrapers = [:opengraph, :default]
+end
+```
+
+`opengraph` use the [Open Graph Protocol](http://ogp.me/).
+`default` use a homemade algorithm
+
 # 3.1.2
 
 Allows to customize ideal description length
