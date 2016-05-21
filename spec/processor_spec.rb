@@ -106,7 +106,7 @@ describe LinkThumbnailer::Processor do
   describe '#set_http_headers' do
 
     let(:user_agent)  { 'foo' }
-    let(:headers)     { instance.send(:http).headers }
+    let(:headers)     { instance.send(:http).override_headers }
     let(:action)      { instance.send(:set_http_headers) }
 
     before do

@@ -39,7 +39,7 @@ module LinkThumbnailer
 
     def set_http_headers(headers = {})
       headers.each { |k, v| http.headers[k] = v }
-      http.headers['User-Agent']               = user_agent
+      http.override_headers['User-Agent']      = user_agent
       http.override_headers['Accept-Encoding'] = 'none'
     end
 
