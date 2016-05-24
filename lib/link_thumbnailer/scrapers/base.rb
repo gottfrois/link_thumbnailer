@@ -47,7 +47,7 @@ module LinkThumbnailer
         value     = options.fetch(:value, :content)
         attribute = options.fetch(:attribute, attribute_name)
 
-        document.xpath("//meta[translate(@#{key},'#{abc.upcase}','#{abc}') = '#{attribute}' and @#{value}]")
+        document.xpath("//meta[translate(@#{key},'#{abc.upcase}','#{abc}') = '#{attribute}' and string-length(@#{value}) > 0]")
       end
 
       def abc
