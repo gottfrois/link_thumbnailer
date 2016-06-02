@@ -1,4 +1,5 @@
 require 'link_thumbnailer/scrapers/opengraph/base'
+require 'link_thumbnailer/uri'
 
 module LinkThumbnailer
   module Scrapers
@@ -20,7 +21,10 @@ module LinkThumbnailer
           end
 
           def model
-            nodes.map { |n| modelize(n, n.attributes['content'].to_s) }
+            nodes.map do |n|
+              uri =  LinkThumbnailer::URI.new(n.attributes['content'])
+              modelize(n, uri.to_s) if uri.valid?
+            end.compact
           end
 
           def modelize(node, text = nil)
