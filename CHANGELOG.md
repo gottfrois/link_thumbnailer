@@ -1,3 +1,10 @@
+# 3.2.1
+
+- Fixes #88
+- Override User-Agent header properly
+- Match xpath nodes if attribute content is present
+- Avoid nil urls in image parser
+
 # 3.2.0
 
 Makes scrapers configurable by allowing to set the scraping strategy:
