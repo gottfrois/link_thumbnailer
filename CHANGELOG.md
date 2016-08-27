@@ -1,3 +1,13 @@
+# 3.3.0
+
+- Allows to configure overrided http headers
+
+```ruby
+LinkThumbnailer.configure do |config|
+  config.http_override_headers = { 'Accept-Encoding' => 'none', ... }
+end
+```
+
 # 3.2.1
 
 - Fixes #88
