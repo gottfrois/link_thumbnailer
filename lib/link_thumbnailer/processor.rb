@@ -60,7 +60,7 @@ module LinkThumbnailer
           raise ::LinkThumbnailer::DownloadSizeLimit if too_big_download_size?(body.length)
         end
       end
-
+      response.body = body
       headers           = {}
       headers['Cookie'] = response['Set-Cookie'] if response['Set-Cookie'].present?
 
@@ -68,7 +68,7 @@ module LinkThumbnailer
 
       case response
       when ::Net::HTTPSuccess
-        body
+        response.body
       when ::Net::HTTPRedirection
         call(
           resolve_relative_url(response['location'].to_s),
