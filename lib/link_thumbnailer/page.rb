@@ -4,7 +4,7 @@ require 'link_thumbnailer/scraper'
 module LinkThumbnailer
   class Page
 
-    attr_reader :url, :options, :source
+    attr_reader :url, :options, :source, :content_type
 
     def initialize(url, options = {})
       @url     = url
@@ -15,6 +15,7 @@ module LinkThumbnailer
 
     def generate
       @source = processor.call(url)
+      @content_type = processor.content_type
       scraper.call
     end
 

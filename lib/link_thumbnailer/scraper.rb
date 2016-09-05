@@ -24,7 +24,7 @@ module LinkThumbnailer
       @source       = source
       @url          = url
       @config       = ::LinkThumbnailer.page.config
-      @document     = parser.call(source)
+      @content_type = ::LinkThumbnailer.page.content_type
       @website      = ::LinkThumbnailer::Models::Website.new
       @website.url  = url
 
@@ -32,10 +32,17 @@ module LinkThumbnailer
     end
 
     def call
-      config.attributes.each do |name|
-        config.scrapers.each do |scraper_prefix|
-          scraper_class(scraper_prefix, name).new(document, website).call(name.to_s)
-          break unless website.send(name).blank?
+      if @content_type == :image
+        image_params = ImageSize.new(source)
+        website.images = LinkThumbnailer::Models::Image.new(url, [image_params.width, image_params.height], image_params.format)
+      elsif @content_type == :video
+        website.videos = LinkThumbnailer::Models::Video.new(url)
+      else
+        config.attributes.each do |name|
+          config.scrapers.each do |scraper_prefix|
+            scraper_class(scraper_prefix, name).new(document, website).call(name.to_s)
+            break unless website.send(name).blank?
+          end
         end
       end
 
@@ -54,6 +61,10 @@ module LinkThumbnailer
 
     def parser
       ::LinkThumbnailer::Parser.new
+    end
+
+    def document
+      @document ||= parser.call(source)
     end
 
   end

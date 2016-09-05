@@ -80,4 +80,9 @@ LinkThumbnailer.configure do |config|
   # Defines the strategies to use to scrap the website. See the [Open Graph Protocol](http://ogp.me/) for more information.
   #
   # config.scrapers = [:opengraph, :default]
+  #
+  # Limit for download size in bytes. For example, 10.megabytes
+  #
+  # config.download_size_limit = nil
+
 end

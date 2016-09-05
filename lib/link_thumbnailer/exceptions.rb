@@ -6,4 +6,5 @@ module LinkThumbnailer
   ScraperInvalid     = Class.new(Exceptions)
   HTTPError          = Class.new(Exceptions)
   SyntaxError        = Class.new(Exceptions)
+  DownloadSizeLimit  = Class.new(Exceptions)
 end

@@ -6,7 +6,7 @@ module LinkThumbnailer
   class Processor < ::SimpleDelegator
 
     attr_accessor :url
-    attr_reader   :config, :http, :redirect_count
+    attr_reader   :config, :http, :redirect_count, :content_type
 
     def initialize
       @config = ::LinkThumbnailer.page.config
@@ -51,7 +51,16 @@ module LinkThumbnailer
     end
 
     def perform_request
-      response          = http.request(url)
+      body = String.new
+      response = http.request(url) do |resp|
+        response = resp
+        raise ::LinkThumbnailer::DownloadSizeLimit if too_big_download_size?(resp.header['content-length'])
+        resp.read_body do |chunk|
+          body += chunk
+          raise ::LinkThumbnailer::DownloadSizeLimit if too_big_download_size?(body.length)
+        end
+      end
+
       headers           = {}
       headers['Cookie'] = response['Set-Cookie'] if response['Set-Cookie'].present?
 
@@ -59,7 +68,7 @@ module LinkThumbnailer
 
       case response
       when ::Net::HTTPSuccess
-        response.body
+        body
       when ::Net::HTTPRedirection
         call(
           resolve_relative_url(response['location'].to_s),
@@ -77,6 +86,10 @@ module LinkThumbnailer
 
     def build_absolute_url_for(relative_url)
       ::URI.parse("#{url.scheme}://#{url.host}#{relative_url}")
+    end
+
+    def download_size_limit
+      config.download_size_limit
     end
 
     def redirect_limit
@@ -103,19 +116,26 @@ module LinkThumbnailer
       redirect_count > redirect_limit
     end
 
+    def too_big_download_size?(size)
+      download_size_limit && (size.to_i > download_size_limit)
+    end
+
     def valid_url_format?
       url.is_a?(::URI::HTTP)
     end
 
     def valid_response_format?(response)
-      return true unless config.raise_on_invalid_format
-      return true if response['Content-Type'] =~ /text\/html/
-      return true if response['Content-Type'] =~ /application\/html/
-      return true if response['Content-Type'] =~ /application\/xhtml\+xml/
-      return true if response['Content-Type'] =~ /application\/xml/
-      return true if response['Content-Type'] =~ /text\/xml/
-      return true if response['Content-Type'] =~ /text\/plain/
-      false
+      if response['Content-Type'] =~ (/text\/html|application\/html|application\/xhtml\+xml|application\/xml|text\/xml|text\/plain/)
+        @content_type=:application
+        return true
+      elsif response['Content-Type'] =~ /image\//
+        @content_type=:image
+        return true
+      elsif response['Content-Type'] =~ /video\//
+        @content_type=:video
+        return tru
+      end
+      !config.raise_on_invalid_format
     end
 
     def url=(url)
