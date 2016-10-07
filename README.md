@@ -165,6 +165,10 @@ LinkThumbnailer.configure do |config|
   # Sets number of concurrent http connections that can be opened to fetch images informations such as size and type.
   #
   # config.max_concurrency = 20
+
+  # Sets the default encoding.
+  #
+  # config.encoding = 'utf-8'
 end
 ```
 
