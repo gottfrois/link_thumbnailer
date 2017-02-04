@@ -55,17 +55,16 @@ module LinkThumbnailer
       headers           = {}
       headers['Cookie'] = response['Set-Cookie'] if response['Set-Cookie'].present?
 
-      raise ::LinkThumbnailer::FormatNotSupported.new(response['Content-Type']) unless valid_response_format?(response)
-
-      case response
-      when ::Net::HTTPSuccess
+      if response.is_a? ::Net::HTTPSuccess
         response.body
-      when ::Net::HTTPRedirection
+      elsif response.is_a? ::Net::HTTPRedirection
         call(
           resolve_relative_url(response['location'].to_s),
           redirect_count + 1,
           headers
         )
+      elsif !valid_response_format?(response)
+        raise ::LinkThumbnailer::FormatNotSupported.new(response['Content-Type'])
       else
         response.error!
       end
