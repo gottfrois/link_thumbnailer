@@ -59,7 +59,7 @@ module LinkThumbnailer
 
       case response
       when ::Net::HTTPSuccess
-        response.body
+        Response.new(response).body
       when ::Net::HTTPRedirection
         call(
           resolve_relative_url(response['location'].to_s),
