@@ -2,7 +2,6 @@ module LinkThumbnailer
   class Response
     def initialize(response)
       @response = response
-      @config = ::LinkThumbnailer.page.config
     end
 
     def charset
@@ -22,13 +21,15 @@ module LinkThumbnailer
     end
 
     def extract_body
-      body = @response.body
-      body = convert_encoding(body, charset, @config.encoding) if charset != '' && charset != @config.encoding
-      body
+      should_convert_body_to_utf8? ? convert_encoding_to_utf8(@response.body, charset) : @response.body
     end
 
-    def convert_encoding(body, from, to)
-      Encoding::Converter.new(from, to).convert(body)
+    def should_convert_body_to_utf8?
+      charset != '' && charset != 'utf-8'
+    end
+
+    def convert_encoding_to_utf8(body, from)
+      Encoding::Converter.new(from, 'utf-8').convert(body)
     rescue EncodingError
       body
     end
