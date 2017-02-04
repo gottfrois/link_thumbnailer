@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activesupport',          '>= 3.0'
   spec.add_dependency 'json',                   ['>= 1.7.7', '~> 1.8']
-  spec.add_dependency 'rake',                   '>= 0.9'
+  spec.add_dependency 'rake',                   ['>= 0.9', '< 11.0']
   spec.add_dependency 'nokogiri',               '~> 1.6'
   spec.add_dependency 'net-http-persistent',    '~> 2.9'
   spec.add_dependency 'video_info',             '~> 2.6'
