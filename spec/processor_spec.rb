@@ -198,6 +198,33 @@ describe LinkThumbnailer::Processor do
 
     end
 
+    context 'when access non-utf8-encoding website' do
+      let(:code) { 200 }
+      let(:body_shift_jis) do
+        File.read(File.expand_path('fixtures/google_shift_jis.html', File.dirname(__FILE__)))
+      end
+      let(:body_utf8) do
+        File.read(File.expand_path('fixtures/google_utf8.html', File.dirname(__FILE__)))
+      end
+      let(:response) do
+        r = ::Net::HTTPSuccess.new('', code, body_shift_jis)
+        r['Content-Type'] = 'text/html'
+        r.body = body_shift_jis
+        r.instance_variable_set(:@read, true)
+        r
+      end
+
+      context 'when http success with valid charset provided in Content-Type' do
+        before { response['Content-Type'] = 'text/html; charset=Shift_JIS' }
+        it { expect(action).to eq body_utf8 }
+      end
+
+      context 'when http success with invalid charset provided in Content-Type' do
+        before { response['Content-Type'] = 'text/html; charset=Shift-JIS' }
+        it { expect(action).to eq body_shift_jis }
+      end
+    end
+
     context 'when http redirection' do
 
       let(:code)      { 200 }

@@ -59,6 +59,7 @@ module LinkThumbnailer
 
       case response
       when ::Net::HTTPSuccess
+        try_convert_response_encoding_if_charset_provided(response)
         response.body
       when ::Net::HTTPRedirection
         call(
@@ -120,6 +121,25 @@ module LinkThumbnailer
 
     def url=(url)
       @url = ::URI.parse(url.to_s)
+    end
+
+    def encoding_converter(response)
+      content_type = response['Content-Type'] || ''
+      m = content_type.match(/charset=(\w+)/)
+      return if m.nil?
+      src_encoding = m[1]
+      return if src_encoding.nil?
+      dest_encoding = config.encoding
+      return if src_encoding == dest_encoding
+      Encoding::Converter.new(src_encoding, dest_encoding)
+    end
+
+    def try_convert_response_encoding_if_charset_provided(response)
+      converter = encoding_converter(response)
+      return unless converter
+      response.body = converter.convert(response.body).force_encoding('utf-8')
+    rescue EncodingError
+      nil
     end
 
   end
