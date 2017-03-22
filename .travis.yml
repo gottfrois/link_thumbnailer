@@ -2,3 +2,4 @@ bundler_args: --without development
 language: ruby
 rvm:
   - 2.2.2
+  - 2.4.0
