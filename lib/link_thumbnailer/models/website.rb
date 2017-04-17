@@ -36,6 +36,11 @@ module LinkThumbnailer
         @images.sort!
       end
 
+      def scheme
+        uri = URI.parse("#{url}")
+        uri.scheme
+      end
+
       def as_json(*)
         {
           url:          url.to_s,

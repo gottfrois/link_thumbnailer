@@ -46,4 +46,28 @@ describe LinkThumbnailer::Models::Website do
 
   end
 
+  describe '#scheme' do
+
+    subject { ::LinkThumbnailer::Models::Website.new }
+
+    before do
+      subject.url = url
+    end
+
+    context 'when protocol is https' do
+      let(:url) { "https://foo.com" }
+
+      it 'returns https scheme' do
+        expect(subject.scheme).to eq "https"
+      end
+    end
+
+    context 'when protocol is http' do
+      let(:url) { "http://bar.com" }
+
+      it 'returns http scheme' do
+        expect(subject.scheme).to eq "http"
+      end
+    end
+  end
 end

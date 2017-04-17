@@ -62,6 +62,9 @@ module LinkThumbnailer
         model_class.new(node, text)
       end
 
+      def scheme
+        website.scheme
+      end
     end
   end
 end

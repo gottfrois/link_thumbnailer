@@ -22,7 +22,7 @@ module LinkThumbnailer
           private
 
           def model
-            nodes.map { |n| modelize(n, n.attributes['content'].to_s) }
+            nodes.map { |n| modelize(n, n.attributes['content'].to_s) if n.attributes['content'].to_s.start_with? scheme }
           end
 
           def modelize(node, text = nil)
