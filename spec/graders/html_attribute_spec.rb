@@ -12,7 +12,7 @@ describe LinkThumbnailer::Graders::HtmlAttribute do
     context 'when current node does not match attribute' do
 
       before do
-        instance.stub(:attribute?).and_return(false)
+        allow(instance).to receive(:attribute?).and_return(false)
       end
 
       it { expect(action).to eq(1.0) }
@@ -22,9 +22,9 @@ describe LinkThumbnailer::Graders::HtmlAttribute do
     context 'when current node has a negative attribute' do
 
       before do
-        instance.stub(:attribute?).and_return(true)
-        instance.stub(:negative?).and_return(true)
-        instance.stub(:positive?).and_return(false)
+        allow(instance).to receive(:attribute?).and_return(true)
+        allow(instance).to receive(:negative?).and_return(true)
+        allow(instance).to receive(:positive?).and_return(false)
       end
 
       it { expect(action).to eq(0.0) }
@@ -34,9 +34,9 @@ describe LinkThumbnailer::Graders::HtmlAttribute do
     context 'when current node has a positive attribute' do
 
       before do
-        instance.stub(:attribute?).and_return(true)
-        instance.stub(:negative?).and_return(false)
-        instance.stub(:positive?).and_return(true)
+        allow(instance).to receive(:attribute?).and_return(true)
+        allow(instance).to receive(:negative?).and_return(false)
+        allow(instance).to receive(:positive?).and_return(true)
       end
 
       it { expect(action).to eq(1.0) }

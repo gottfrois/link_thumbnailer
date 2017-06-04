@@ -8,7 +8,7 @@ describe LinkThumbnailer::VideoParser do
   let(:instance)  { described_class.new(video) }
 
   before do
-    instance.stub(:parser).and_return(parser)
+    allow(instance).to receive(:parser).and_return(parser)
   end
 
   describe '#id' do
@@ -18,7 +18,7 @@ describe LinkThumbnailer::VideoParser do
     context 'when respond to video_id' do
 
       before do
-        parser.stub(:video_id).and_return(1)
+        allow(parser).to receive(:video_id).and_return(1)
       end
 
       it { expect(action).to eq(parser.video_id) }
@@ -28,7 +28,7 @@ describe LinkThumbnailer::VideoParser do
     context 'when do not respond to video_id' do
 
       before do
-        parser.stub(:video_id).and_raise(NoMethodError)
+        allow(parser).to receive(:video_id).and_raise(NoMethodError)
       end
 
       it { expect(action).to be_nil }
@@ -44,8 +44,8 @@ describe LinkThumbnailer::VideoParser do
     context 'when respond to width and height' do
 
       before do
-        parser.stub(:width).and_return(1)
-        parser.stub(:height).and_return(1)
+        allow(parser).to receive(:width).and_return(1)
+        allow(parser).to receive(:height).and_return(1)
       end
 
       it { expect(action).to eq([parser.width, parser.height]) }
@@ -55,8 +55,8 @@ describe LinkThumbnailer::VideoParser do
     context 'when do not respond to width and height' do
 
       before do
-        parser.stub(:width).and_raise(NoMethodError)
-        parser.stub(:height).and_raise(NoMethodError)
+        allow(parser).to receive(:width).and_raise(NoMethodError)
+        allow(parser).to receive(:height).and_raise(NoMethodError)
       end
 
       it { expect(action).to be_empty }
@@ -72,7 +72,7 @@ describe LinkThumbnailer::VideoParser do
     context 'when respond to duration' do
 
       before do
-        parser.stub(:duration).and_return(1)
+        allow(parser).to receive(:duration).and_return(1)
       end
 
       it { expect(action).to eq(parser.duration) }
@@ -82,7 +82,7 @@ describe LinkThumbnailer::VideoParser do
     context 'when do not respond to duration' do
 
       before do
-        parser.stub(:duration).and_raise(NoMethodError)
+        allow(parser).to receive(:duration).and_raise(NoMethodError)
       end
 
       it { expect(action).to be_nil }
@@ -98,7 +98,7 @@ describe LinkThumbnailer::VideoParser do
     context 'when respond to provider' do
 
       before do
-        parser.stub(:provider).and_return(1)
+        allow(parser).to receive(:provider).and_return(1)
       end
 
       it { expect(action).to eq(parser.provider) }
@@ -108,7 +108,7 @@ describe LinkThumbnailer::VideoParser do
     context 'when do not respond to provider' do
 
       before do
-        parser.stub(:provider).and_raise(NoMethodError)
+        allow(parser).to receive(:provider).and_raise(NoMethodError)
       end
 
       it { expect(action).to be_nil }
@@ -124,7 +124,7 @@ describe LinkThumbnailer::VideoParser do
     context 'when respond to embed_code' do
 
       before do
-        parser.stub(:embed_code).and_return('')
+        allow(parser).to receive(:embed_code).and_return('')
       end
 
       it { expect(action).to eq(parser.embed_code) }
@@ -134,7 +134,7 @@ describe LinkThumbnailer::VideoParser do
     context 'when do not respond to embed_code' do
 
       before do
-        parser.stub(:embed_code).and_raise(NoMethodError)
+        allow(parser).to receive(:embed_code).and_raise(NoMethodError)
       end
 
       it { expect(action).to be_nil }

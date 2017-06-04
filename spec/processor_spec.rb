@@ -7,7 +7,7 @@ describe LinkThumbnailer::Processor do
   let(:url)       { 'http://foo.com' }
 
   before do
-    LinkThumbnailer.stub(:page).and_return(page)
+    allow(LinkThumbnailer).to receive(:page).and_return(page)
   end
 
   describe '#call' do
@@ -81,7 +81,7 @@ describe LinkThumbnailer::Processor do
     context 'when valid' do
 
       before do
-        instance.stub(:valid_url_format?).and_return(true)
+        allow(instance).to receive(:valid_url_format?).and_return(true)
       end
 
       it 'yields' do
@@ -94,7 +94,7 @@ describe LinkThumbnailer::Processor do
     context 'when not valid' do
 
       before do
-        instance.stub(:valid_url_format?).and_return(false)
+        allow(instance).to receive(:valid_url_format?).and_return(false)
       end
 
       it { expect { instance.send(:with_valid_url) }.to raise_error(LinkThumbnailer::BadUriFormat) }
@@ -110,7 +110,7 @@ describe LinkThumbnailer::Processor do
     let(:action)      { instance.send(:set_http_headers) }
 
     before do
-      instance.stub(:user_agent).and_return(user_agent)
+      allow(instance).to receive(:user_agent).and_return(user_agent)
       action
     end
 
@@ -128,7 +128,7 @@ describe LinkThumbnailer::Processor do
       context 'when verify_ssl is true' do
 
         before do
-          instance.stub(:ssl_required?).and_return(true)
+          allow(instance).to receive(:ssl_required?).and_return(true)
           action
         end
 
@@ -139,7 +139,7 @@ describe LinkThumbnailer::Processor do
       context 'when verify_ssl is not true' do
 
         before do
-          instance.stub(:ssl_required?).and_return(false)
+          allow(instance).to receive(:ssl_required?).and_return(false)
           action
         end
 
@@ -154,7 +154,7 @@ describe LinkThumbnailer::Processor do
       let(:http_open_timeout) { 1 }
 
       before do
-        instance.stub(:http_open_timeout).and_return(http_open_timeout)
+        allow(instance).to receive(:http_open_timeout).and_return(http_open_timeout)
         action
       end
 
@@ -167,7 +167,7 @@ describe LinkThumbnailer::Processor do
       let(:http_read_timeout) { 1 }
 
       before do
-        instance.stub(:http_read_timeout).and_return(http_read_timeout)
+        allow(instance).to receive(:http_read_timeout).and_return(http_read_timeout)
         action
       end
 
@@ -179,9 +179,11 @@ describe LinkThumbnailer::Processor do
   describe '#perform_request' do
 
     let(:action) { instance.send(:perform_request) }
+    let(:http) { double }
 
     before do
-      instance.stub_chain(:http, :request).and_return(response)
+      allow(instance).to receive(:http).and_return(http)
+      allow(http).to receive(:request).and_return(response)
     end
 
     context 'when http success' do
@@ -191,7 +193,7 @@ describe LinkThumbnailer::Processor do
       let(:response)  { ::Net::HTTPSuccess.new('', code, body) }
 
       before do
-        response.stub(:body).and_return(body)
+        allow(response).to receive(:body).and_return(body)
       end
 
       it { expect(action).to eq(body) }
@@ -233,8 +235,8 @@ describe LinkThumbnailer::Processor do
       let(:new_url)   { 'http://foo.com/bar' }
 
       before do
-        instance.stub(:redirect_count).and_return(0)
-        instance.stub(:resolve_relative_url).and_return(new_url)
+        allow(instance).to receive(:redirect_count).and_return(0)
+        allow(instance).to receive(:resolve_relative_url).and_return(new_url)
       end
 
       it 'calls call method' do
@@ -256,7 +258,7 @@ describe LinkThumbnailer::Processor do
     let(:action)        { instance.send(:build_absolute_url_for, relative_url).to_s }
 
     before do
-      instance.stub(:url).and_return(url)
+      allow(instance).to receive(:url).and_return(url)
     end
 
     it { expect(action).to eq("#{scheme}://#{host}#{relative_url}") }
@@ -335,7 +337,7 @@ describe LinkThumbnailer::Processor do
     context 'when bad format' do
 
       before do
-        instance.stub(:url).and_return("http://foo.com")
+        allow(instance).to receive(:url).and_return("http://foo.com")
       end
 
       it { expect(action).to be_falsey }
@@ -345,7 +347,7 @@ describe LinkThumbnailer::Processor do
     context 'when valid format' do
 
       before do
-        instance.stub(:url).and_return(URI("http://foo.com"))
+        allow(instance).to receive(:url).and_return(URI("http://foo.com"))
       end
 
       it { expect(action).to be_truthy }
@@ -361,8 +363,8 @@ describe LinkThumbnailer::Processor do
     context 'when redirect count is greater than redirect limit' do
 
       before do
-        instance.stub(:redirect_count).and_return(5)
-        instance.stub(:redirect_limit).and_return(4)
+        allow(instance).to receive(:redirect_count).and_return(5)
+        allow(instance).to receive(:redirect_limit).and_return(4)
       end
 
       it { expect(action).to be_truthy }
@@ -372,8 +374,8 @@ describe LinkThumbnailer::Processor do
     context 'when redirect count is less than redirect limit' do
 
       before do
-        instance.stub(:redirect_count).and_return(4)
-        instance.stub(:redirect_limit).and_return(5)
+        allow(instance).to receive(:redirect_count).and_return(4)
+        allow(instance).to receive(:redirect_limit).and_return(5)
       end
 
       it { expect(action).to be_falsey }
@@ -383,8 +385,8 @@ describe LinkThumbnailer::Processor do
     context 'when redirect count is equal to redirect limit' do
 
       before do
-        instance.stub(:redirect_count).and_return(5)
-        instance.stub(:redirect_limit).and_return(5)
+        allow(instance).to receive(:redirect_count).and_return(5)
+        allow(instance).to receive(:redirect_limit).and_return(5)
       end
 
       it { expect(action).to be_falsey }

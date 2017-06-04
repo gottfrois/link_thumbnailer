@@ -23,7 +23,7 @@ describe LinkThumbnailer::Response do
   end
 
   before do
-    LinkThumbnailer.stub(:page).and_return(page)
+    allow(LinkThumbnailer).to receive(:page).and_return(page)
   end
 
   describe '#charset' do

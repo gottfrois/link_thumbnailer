@@ -9,8 +9,8 @@ describe LinkThumbnailer::Scraper do
   let(:instance)  { described_class.new(source, url) }
 
   before do
-    instance.stub(:document).and_return(document)
-    instance.stub(:website).and_return(website)
+    allow(instance).to receive(:document).and_return(document)
+    allow(instance).to receive(:website).and_return(website)
   end
 
   describe '#call' do
@@ -22,10 +22,10 @@ describe LinkThumbnailer::Scraper do
     let(:attributes)              { [:bar] }
     let(:scrapers)                { [prefix_1, prefix_2] }
     let(:action)                  { instance.call }
+    let(:config)                  { double(attributes: attributes, scrapers: scrapers) }
 
     before do
-      instance.stub_chain(:config, :attributes).and_return(attributes)
-      instance.stub_chain(:config, :scrapers).and_return(scrapers)
+      allow(instance).to receive(:config).and_return(config)
     end
 
     context 'when first one return a result' do

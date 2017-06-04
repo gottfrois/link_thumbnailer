@@ -7,7 +7,7 @@ describe LinkThumbnailer::Graders::Length do
   let(:instance)    { described_class.new(description) }
 
   before do
-    instance.stub(:config).and_return(config)
+    allow(instance).to receive(:config).and_return(config)
   end
 
   describe '#call' do
@@ -17,7 +17,7 @@ describe LinkThumbnailer::Graders::Length do
     context 'when text is too short' do
 
       before do
-        instance.stub(:too_short?).and_return(true)
+        allow(instance).to receive(:too_short?).and_return(true)
       end
 
       it { expect(action).to eq(0.0) }
@@ -27,8 +27,8 @@ describe LinkThumbnailer::Graders::Length do
     context 'when text is not too short' do
 
       before do
-        instance.stub(:too_short?).and_return(false)
-        instance.stub(:text).and_return(text)
+        allow(instance).to receive(:too_short?).and_return(false)
+        allow(instance).to receive(:text).and_return(text)
       end
 
       context 'when text length is 120' do
@@ -62,10 +62,12 @@ describe LinkThumbnailer::Graders::Length do
   describe '#too_short?' do
 
     let(:action) { instance.send(:too_short?) }
+    let(:config) { double }
 
     before do
-      instance.stub_chain(:config, :description_min_length).and_return(10)
-      instance.stub(:text).and_return(text)
+      allow(instance).to receive(:config).and_return(config)
+      allow(config).to receive(:description_min_length).and_return(10)
+      allow(instance).to receive(:text).and_return(text)
     end
 
     context 'when true' do

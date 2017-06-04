@@ -11,7 +11,7 @@ describe LinkThumbnailer::ImageValidator do
     let(:action) { instance.call }
 
     before do
-      instance.stub(:blacklist_urls).and_return(blacklist_urls)
+      allow(instance).to receive(:blacklist_urls).and_return(blacklist_urls)
     end
 
     context 'when image url is blacklisted' do
