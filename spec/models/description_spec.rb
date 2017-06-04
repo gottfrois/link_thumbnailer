@@ -8,7 +8,7 @@ describe LinkThumbnailer::Models::Description do
   let(:instance)  { described_class.new(node, text) }
 
   before do
-    ::LinkThumbnailer::Grader.should_receive(:new).at_least(1).and_return(grader)
+    expect(LinkThumbnailer::Grader).to receive(:new).at_least(1).times.and_return(grader)
   end
 
   describe '#to_s' do

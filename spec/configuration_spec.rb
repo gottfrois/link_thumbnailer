@@ -34,7 +34,7 @@ describe LinkThumbnailer::Configuration do
   describe '.configure' do
 
     before do
-      LinkThumbnailer.stub(:config).and_return(instance)
+      allow(LinkThumbnailer).to receive(:config).and_return(instance)
     end
 
     context 'when block given' do
@@ -57,4 +57,3 @@ describe LinkThumbnailer::Configuration do
   end
 
 end
-

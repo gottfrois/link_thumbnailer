@@ -12,8 +12,8 @@ describe LinkThumbnailer::Graders::Position do
     context 'when position is 0' do
 
       before do
-        description.stub(:position).and_return(0)
-        description.stub(:candidates_number).and_return(1)
+        allow(description).to receive(:position).and_return(0)
+        allow(description).to receive(:candidates_number).and_return(1)
       end
 
       it { expect(action).to eq(1.0) }
@@ -23,8 +23,8 @@ describe LinkThumbnailer::Graders::Position do
     context 'when position is 1 over 1 candidates' do
 
       before do
-        description.stub(:position).and_return(1)
-        description.stub(:candidates_number).and_return(1)
+        allow(description).to receive(:position).and_return(1)
+        allow(description).to receive(:candidates_number).and_return(1)
       end
 
       it { expect(action).to eq(0.0) }
@@ -34,8 +34,8 @@ describe LinkThumbnailer::Graders::Position do
     context 'when position is 1 over more than 1 candidates' do
 
       before do
-        description.stub(:position).and_return(1)
-        description.stub(:candidates_number).and_return(2)
+        allow(description).to receive(:position).and_return(1)
+        allow(description).to receive(:candidates_number).and_return(2)
       end
 
       it { expect(action).to eq(0.5) }

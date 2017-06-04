@@ -15,7 +15,7 @@ describe LinkThumbnailer::Grader do
     let(:action)  { instance.call }
 
     before do
-      instance.stub(:graders).and_return(graders)
+      allow(instance).to receive(:graders).and_return(graders)
     end
 
     it { expect(action).to eq((0.5 * 0.5) ** weight) }
