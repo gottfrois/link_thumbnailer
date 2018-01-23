@@ -13,7 +13,7 @@ describe LinkThumbnailer::Scrapers::Base do
     let(:action)  { instance.call(attr) }
 
     before do
-      instance.stub(:value).and_return(value)
+      allow(instance).to receive(:value).and_return(value)
     end
 
     it { expect { action }.to change { website.title }.from(nil).to(value) }
@@ -25,7 +25,7 @@ describe LinkThumbnailer::Scrapers::Base do
     let(:action) { instance.send(:model_class) }
 
     before do
-      instance.stub(:attribute_name).and_return(attr)
+      allow(instance).to receive(:attribute_name).and_return(attr)
     end
 
     context 'when internal class exists' do
@@ -40,7 +40,7 @@ describe LinkThumbnailer::Scrapers::Base do
 
       let(:attr) { :foo }
 
-      it { expect { action }.to raise_exception }
+      it { expect { action }.to raise_error(NameError) }
 
     end
 
@@ -54,7 +54,7 @@ describe LinkThumbnailer::Scrapers::Base do
     let(:action)      { instance.send(:modelize, node, text) }
 
     before do
-      instance.stub(:model_class).and_return(model_class)
+      allow(instance).to receive(:model_class).and_return(model_class)
     end
 
     it 'instantiates a new model' do

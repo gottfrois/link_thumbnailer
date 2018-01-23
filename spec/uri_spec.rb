@@ -12,7 +12,7 @@ describe LinkThumbnailer::URI do
     context 'when bad format' do
 
       before do
-        instance.stub(:attribute).and_return("/invalid/path")
+        allow(instance).to receive(:attribute).and_return("/invalid/path")
       end
 
       it { expect(action).to be_falsey }
@@ -22,7 +22,7 @@ describe LinkThumbnailer::URI do
     context 'when valid format' do
 
       before do
-        instance.stub(:attribute).and_return("http://foo.com")
+        allow(instance).to receive(:attribute).and_return("http://foo.com")
       end
 
       it { expect(action).to be_truthy }

@@ -85,4 +85,7 @@ LinkThumbnailer.configure do |config|
   #
   # config.download_size_limit = nil
 
+  # Sets the default encoding.
+  #
+  # config.encoding = 'utf-8'
 end

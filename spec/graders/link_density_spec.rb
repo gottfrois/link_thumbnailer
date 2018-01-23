@@ -10,8 +10,8 @@ describe LinkThumbnailer::Graders::LinkDensity do
     let(:action) { instance.call }
 
     before do
-      instance.stub(:text).and_return(text)
-      instance.stub(:links).and_return(links)
+      allow(instance).to receive(:text).and_return(text)
+      allow(instance).to receive(:links).and_return(links)
     end
 
     context 'when text length is 0' do

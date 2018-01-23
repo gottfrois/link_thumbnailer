@@ -18,6 +18,7 @@ describe LinkThumbnailer::Configuration do
   it { expect(instance.image_limit).to            eq(5) }
   it { expect(instance.image_stats).to            eq(true) }
   it { expect(instance.max_concurrency).to        eq(20) }
+  it { expect(instance.encoding).to               eq('utf-8') }
 
   describe "#http_timeout" do
     it { expect(instance.method(:http_timeout)).to eq(instance.method(:http_open_timeout)) }
@@ -33,7 +34,7 @@ describe LinkThumbnailer::Configuration do
   describe '.configure' do
 
     before do
-      LinkThumbnailer.stub(:config).and_return(instance)
+      allow(LinkThumbnailer).to receive(:config).and_return(instance)
     end
 
     context 'when block given' do
@@ -56,4 +57,3 @@ describe LinkThumbnailer::Configuration do
   end
 
 end
-

@@ -33,11 +33,11 @@ describe LinkThumbnailer::Models::Video do
     }
 
     before do
-      instance.stub(:id).and_return(id)
-      instance.stub(:size).and_return(size)
-      instance.stub(:duration).and_return(duration)
-      instance.stub(:provider).and_return(provider)
-      instance.stub(:embed_code).and_return(embed_code)
+      allow(instance).to receive(:id).and_return(id)
+      allow(instance).to receive(:size).and_return(size)
+      allow(instance).to receive(:duration).and_return(duration)
+      allow(instance).to receive(:provider).and_return(provider)
+      allow(instance).to receive(:embed_code).and_return(embed_code)
     end
 
     it { expect(action).to eq(result) }

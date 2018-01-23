@@ -12,7 +12,7 @@ describe LinkThumbnailer::Models::Website do
     let(:action)  { instance.image = image }
 
     before do
-      image.stub(:valid?).and_return(true)
+      allow(image).to receive(:valid?).and_return(true)
     end
 
     it { expect { action }.to change { instance.images.size }.by(1) }
@@ -27,7 +27,7 @@ describe LinkThumbnailer::Models::Website do
     context 'when image is valid' do
 
       before do
-        image.stub(:valid?).and_return(true)
+        allow(image).to receive(:valid?).and_return(true)
       end
 
       it { expect { action }.to change { instance.images.size }.by(1) }
@@ -37,7 +37,7 @@ describe LinkThumbnailer::Models::Website do
     context 'when image is not valid' do
 
       before do
-        image.stub(:valid?).and_return(false)
+        allow(image).to receive(:valid?).and_return(false)
       end
 
       it { expect { action }.to_not change { instance.images.size } }

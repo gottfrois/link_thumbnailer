@@ -57,7 +57,9 @@ module LinkThumbnailer
 
         def base_href
           base = document.at('//head/base')
-          base['href'] if base
+          base['href'] if base && ::URI.parse(base['href']).host
+        rescue ::URI::InvalidURIError
+          nil
         end
 
         def model_class

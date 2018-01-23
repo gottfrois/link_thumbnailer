@@ -23,7 +23,7 @@ describe LinkThumbnailer::Models::Image do
     let(:action)  { instance <=> other }
 
     before do
-      instance.stub(:size).and_return([20, 20])
+      allow(instance).to receive(:size).and_return([20, 20])
     end
 
     context 'when other has a smaller image' do
@@ -58,7 +58,7 @@ describe LinkThumbnailer::Models::Image do
     let(:action)    { instance.valid? }
 
     before do
-      instance.stub(:validator).and_return(validator)
+      allow(instance).to receive(:validator).and_return(validator)
     end
 
     it 'calls validator public method' do
@@ -82,8 +82,8 @@ describe LinkThumbnailer::Models::Image do
     }
 
     before do
-      instance.stub(:size).and_return(size)
-      instance.stub(:type).and_return(type)
+      allow(instance).to receive(:size).and_return(size)
+      allow(instance).to receive(:type).and_return(type)
     end
 
     it { expect(action).to eq(result) }

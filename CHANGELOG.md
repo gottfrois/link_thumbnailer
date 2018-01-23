@@ -1,3 +1,7 @@
+# 3.3.1
+
+Gem upgrade (json)
+
 # 3.3.0
 
 - Allows to configure overrided http headers
