@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'delegate'
 require 'link_thumbnailer/graders/base'
 require 'link_thumbnailer/graders/length'

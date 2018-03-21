@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module LinkThumbnailer
 
   # Access point for the gem configurations.

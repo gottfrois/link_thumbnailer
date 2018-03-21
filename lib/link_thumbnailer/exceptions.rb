@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module LinkThumbnailer
   Exceptions         = Class.new(StandardError)
   RedirectLimit      = Class.new(Exceptions)

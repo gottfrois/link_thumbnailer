@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module LinkThumbnailer
   module ImageComparators
     class Size < ::LinkThumbnailer::ImageComparators::Base

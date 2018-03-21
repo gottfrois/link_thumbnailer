@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module LinkThumbnailer
   module Graders
     class LinkDensity < ::LinkThumbnailer::Graders::Base

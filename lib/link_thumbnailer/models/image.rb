@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'link_thumbnailer/model'
 require 'link_thumbnailer/image_parser'
 require 'link_thumbnailer/image_comparator'
