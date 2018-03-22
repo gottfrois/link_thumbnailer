@@ -1,6 +1,10 @@
+# 3.3.2
+
+- Frozen strings https://github.com/gottfrois/link_thumbnailer/pull/125
+
 # 3.3.1
 
-Gem upgrade (json)
+- Gem upgrade (json)
 
 # 3.3.0
 
