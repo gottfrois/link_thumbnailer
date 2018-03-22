@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'link_thumbnailer/scrapers/opengraph/base'
 
 module LinkThumbnailer

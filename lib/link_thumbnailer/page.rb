@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'link_thumbnailer/response'
 require 'link_thumbnailer/processor'
 require 'link_thumbnailer/scraper'

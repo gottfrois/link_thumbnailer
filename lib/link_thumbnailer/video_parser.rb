@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'video_info'
 
 module LinkThumbnailer
@@ -6,7 +8,7 @@ module LinkThumbnailer
     attr_reader :parser
 
     def initialize(video)
-      @parser = ::VideoInfo.new(video.src.to_s)
+      @parser = ::VideoInfo.new(video.src.dup.to_s)
     rescue ::VideoInfo::UrlError
       @parser = nil
     end

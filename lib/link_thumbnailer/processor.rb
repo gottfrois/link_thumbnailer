@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'delegate'
 require 'uri'
 require 'net/http/persistent'

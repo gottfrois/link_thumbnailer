@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LinkThumbnailer
   module Graders
     class Position < ::LinkThumbnailer::Graders::Base

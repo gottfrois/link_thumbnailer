@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LinkThumbnailer
   class Response
     def initialize(response)
