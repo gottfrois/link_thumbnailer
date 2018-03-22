@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'link_thumbnailer/model'
 require 'link_thumbnailer/video_parser'
 

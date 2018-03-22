@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'link_thumbnailer/scrapers/default/base'
 require 'link_thumbnailer/models/image'
 

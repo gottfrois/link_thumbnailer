@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'json'
 require 'link_thumbnailer/version'
 require 'link_thumbnailer/configuration'

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module LinkThumbnailer
   module ImageComparators
     class Base
