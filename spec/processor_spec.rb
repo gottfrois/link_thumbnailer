@@ -7,7 +7,6 @@ describe LinkThumbnailer::Processor do
   let(:page)      { ::LinkThumbnailer::Page.new(url, {}) }
   let(:instance)  { described_class.new }
   let(:url)       { 'http://foo.com' }
-
   before do
     allow(LinkThumbnailer).to receive(:page).and_return(page)
   end
@@ -15,6 +14,7 @@ describe LinkThumbnailer::Processor do
   describe '#call' do
 
     let(:action) { instance.call(url) }
+    let(:https_action) { instance.call(https_url) }
 
     context 'when redirect_count is greater than config' do
 
@@ -38,6 +38,16 @@ describe LinkThumbnailer::Processor do
 
       before do
         stub_request(:get, url).to_return(status: 500, body: '', headers: {})
+      end
+
+      it { expect { action }.to raise_error(LinkThumbnailer::HTTPError) }
+
+    end
+
+    context 'on http unauthorized error' do
+
+      before do
+        stub_request(:get, url).to_return(status: 401, body: '', headers: {})
       end
 
       it { expect { action }.to raise_error(LinkThumbnailer::HTTPError) }
