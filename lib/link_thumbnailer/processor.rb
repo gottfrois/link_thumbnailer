@@ -53,7 +53,7 @@ module LinkThumbnailer
     end
 
     def perform_request
-      response          = http.request(url)
+      response          = request_in_chunks
       headers           = {}
       headers['Cookie'] = response['Set-Cookie'] if response['Set-Cookie'].present?
 
@@ -71,6 +71,19 @@ module LinkThumbnailer
       else
         response.error!
       end
+    end
+
+    def request_in_chunks
+      body     = String.new
+      response = http.request(url) do |resp|
+        raise ::LinkThumbnailer::DownloadSizeLimit if too_big_download_size?(resp.content_length)
+        resp.read_body do |chunk|
+          body.concat(chunk)
+          raise ::LinkThumbnailer::DownloadSizeLimit if too_big_download_size?(body.length)
+        end
+      end
+      response.body = body
+      response
     end
 
     def resolve_relative_url(location)
@@ -101,6 +114,10 @@ module LinkThumbnailer
       config.verify_ssl
     end
 
+    def download_size_limit
+      config.download_size_limit
+    end
+
     def too_many_redirections?
       redirect_count > redirect_limit
     end
@@ -118,6 +135,10 @@ module LinkThumbnailer
       return true if response['Content-Type'] =~ /text\/xml/
       return true if response['Content-Type'] =~ /text\/plain/
       false
+    end
+
+    def too_big_download_size?(size)
+      size.to_i > download_size_limit.to_i
     end
 
     def url=(url)
