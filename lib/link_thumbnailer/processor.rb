@@ -74,7 +74,7 @@ module LinkThumbnailer
     end
 
     def request_in_chunks
-      body     = +''
+      body     = String.new
       response = http.request(url) do |resp|
         raise ::LinkThumbnailer::DownloadSizeLimit if too_big_download_size?(resp.content_length)
         resp.read_body do |chunk|
