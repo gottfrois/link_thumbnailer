@@ -65,7 +65,7 @@ module LinkThumbnailer
       @max_concurrency = 20
       @scrapers = [:opengraph, :default]
       @http_override_headers = { 'Accept-Encoding' => 'none' }
-      @download_size_limit = 10.megabytes
+      @download_size_limit = 10 * 1024 * 1024
       @encoding = 'utf-8'
     end
 
