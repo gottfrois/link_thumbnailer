@@ -83,9 +83,9 @@ LinkThumbnailer.configure do |config|
   #
   # config.scrapers = [:opengraph, :default]
 
-  # Limit for download size in bytes. For example, 10.megabytes
+  # Limit for download size in bytes.
   #
-  # config.download_size_limit = nil
+  # config.download_size_limit = 10.megabytes
 
   # Sets the default encoding.
   #

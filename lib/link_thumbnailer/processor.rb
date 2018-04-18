@@ -138,7 +138,7 @@ module LinkThumbnailer
     end
 
     def too_big_download_size?(size)
-      download_size_limit && (size.to_i > download_size_limit)
+      size.to_i > download_size_limit
     end
 
     def url=(url)
