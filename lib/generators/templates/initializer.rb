@@ -83,6 +83,10 @@ LinkThumbnailer.configure do |config|
   #
   # config.scrapers = [:opengraph, :default]
 
+  # Limit for download size in bytes. When using ActiveSupport, you can also use values like 10.megabytes
+  #
+  # config.download_size_limit = 10 * 1024 * 1024
+
   # Sets the default encoding.
   #
   # config.encoding = 'utf-8'
