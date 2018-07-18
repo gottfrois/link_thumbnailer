@@ -10,7 +10,7 @@ module LinkThumbnailer
 
       def initialize(node, text = nil)
         @node = node
-        @text = sanitize(node.map(&:text).join(' '))
+        @text = sanitize(node.map(&:text).join(' ').squish)
       end
 
       def to_s
