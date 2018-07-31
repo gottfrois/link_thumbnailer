@@ -105,7 +105,7 @@ describe 'Fixture' do
 
       it { expect(action.favicon).to                eq(favicon) }
       it { expect(action.description).to            eq(description) }
-      it { expect(action.body).to                   eq(description) }
+      it { expect(action.body).to                   eq(body) }
       it { expect(action.images.count).to           eq(1) }
       it { expect(action.images.first.src.to_s).to  eq(png_url) }
 

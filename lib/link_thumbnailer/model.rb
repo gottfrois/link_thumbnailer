@@ -16,5 +16,13 @@ module LinkThumbnailer
       str = str.encode("UTF-8", "UTF-16").strip.gsub(/[\r\n\f]+/, "\n")
       str
     end
+
+    def squish(str)
+      return unless str
+      str = str.gsub(/\A[[:space:]]+/, '')
+      str = str.gsub(/[[:space:]]+\z/, '')
+      str = str.gsub(/[[:space:]]+/, ' ')
+      str
+    end
   end
 end
