@@ -10,7 +10,7 @@ module LinkThumbnailer
 
       def initialize(node, text = nil)
         @node = node
-        @paragraphs = node.map{|n| sanitize(squish(n.text.to_s))}
+        @paragraphs = node.map{|n| sanitize(squish(n.text.to_s))}.reject{|n| n.empty?}
       end
 
       def to_s
