@@ -8,7 +8,7 @@ module LinkThumbnailer
       class Body < ::LinkThumbnailer::Scrapers::Default::Base
 
         def value
-          model.to_s
+          model.paragraphs
         end
 
         private
@@ -18,7 +18,7 @@ module LinkThumbnailer
         end
 
         def node
-          document.css('body').css('p')
+          document.css('body').css('p,h1,h2,h3,h4,h5,h6,blockquote')
         end
 
       end

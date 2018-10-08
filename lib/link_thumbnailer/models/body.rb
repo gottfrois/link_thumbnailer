@@ -6,15 +6,15 @@ module LinkThumbnailer
   module Models
     class Body < ::LinkThumbnailer::Model
 
-      attr_reader :node, :text
+      attr_reader :node, :paragraphs
 
       def initialize(node, text = nil)
         @node = node
-        @text = sanitize(squish(node.map(&:text).join(' ')))
+        @paragraphs = node.map{|n| sanitize(squish(n.text.to_s))}
       end
 
       def to_s
-        text
+        @paragraphs.join(' ')
       end
 
     end

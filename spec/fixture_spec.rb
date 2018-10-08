@@ -101,7 +101,7 @@ describe 'Fixture' do
 
       let(:html)        { File.open(File.dirname(__FILE__) + '/fixtures/default_from_body.html').read }
       let(:description) { 'Description from body' }
-      let(:body)        { 'Body paragraph Description from body' }
+      let(:body)        { ['Body paragraph', 'Description from body'] }
 
       it { expect(action.favicon).to                eq(favicon) }
       it { expect(action.description).to            eq(description) }

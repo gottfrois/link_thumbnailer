@@ -19,9 +19,9 @@ module LinkThumbnailer
 
     def squish(str)
       return unless str
-      str = str.gsub(/\A[[:space:]]+/, '')
-      str = str.gsub(/[[:space:]]+\z/, '')
-      str = str.gsub(/[[:space:]]+/, ' ')
+      str.gsub!(/\A[[:space:]]+/, '')
+      str.gsub!(/[[:space:]]+\z/, '')
+      str.gsub!(/[[:space:]]+/, ' ')
       str
     end
   end
