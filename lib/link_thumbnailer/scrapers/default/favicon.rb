@@ -18,6 +18,7 @@ module LinkThumbnailer
           uri = ::URI.parse(href)
           uri.scheme ||= website.url.scheme
           uri.host ||= website.url.host
+          uri.path = uri.path&.sub(%r{^(?=[^\/])}, '/')
           uri
         rescue ::URI::InvalidURIError
           nil
