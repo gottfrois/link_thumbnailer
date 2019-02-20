@@ -25,13 +25,21 @@ module LinkThumbnailer
         end
 
         def node
-          document.xpath("//link[contains(@rel, 'icon')]").first
+          icons = document.xpath("//link[contains(@rel, 'icon')]")
+          retrieve_by_size(icons) || icons.first
         end
 
         def modelize(uri)
           model_class.new(uri)
         end
 
+        def retrieve_by_size(icons)
+          return if config.favicon_size.nil?
+
+          icons.find do |icon|
+            icon.attributes['sizes']&.value == config.favicon_size
+          end
+        end
       end
     end
   end
