@@ -15,7 +15,10 @@ module LinkThumbnailer
         private
 
         def to_uri(href)
-          ::URI.parse(href)
+          uri = ::URI.parse(href)
+          uri.scheme ||= website.url.scheme
+          uri.host ||= website.url.host
+          uri
         rescue ::URI::InvalidURIError
           nil
         end
