@@ -109,6 +109,18 @@ describe 'Fixture' do
 
     end
 
+    context 'when favicon with root path in the href' do
+      let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/with_root_path_in_href.html').read }
+
+      it { expect(action.favicon).to eq(favicon) }
+    end
+
+    context 'when favicon with related path in the href' do
+      let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/with_related_path_in_href.html').read }
+
+      it { expect(action.favicon).to eq(favicon) }
+    end
+
   end
 
 end
