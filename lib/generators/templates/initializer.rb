@@ -35,6 +35,11 @@ LinkThumbnailer.configure do |config|
   #
   # config.attributes = [:title, :images, :description, :videos, :favicon]
 
+  # Prior favicon size. If the website doesn't have such size - returns the first favicon.
+  # Value should be like '32x32' or '16x16'. Default value is nil.
+  #
+  # config.favicon_size = nil
+
   # List of procedures used to rate the website description. Add you custom class
   # here. See wiki for more details on how to build your own graders.
   #

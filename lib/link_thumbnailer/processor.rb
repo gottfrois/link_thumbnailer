@@ -17,6 +17,12 @@ module LinkThumbnailer
       super(config)
     end
 
+    def start(url)
+      result = call(url)
+      shutdown
+      result
+    end
+
     def call(url = '', redirect_count = 0, headers = {})
       self.url        = url
       @redirect_count = redirect_count
@@ -33,6 +39,10 @@ module LinkThumbnailer
     end
 
     private
+
+    def shutdown
+      http.shutdown
+    end
 
     def with_valid_url
       raise ::LinkThumbnailer::BadUriFormat unless valid_url_format?
