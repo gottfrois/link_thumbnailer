@@ -24,12 +24,16 @@ describe LinkThumbnailer::Response do
     File.read(File.expand_path('fixtures/google_utf8.html', File.dirname(__FILE__)))
   end
 
+  let(:body_utf8_no_meta_charset) do
+    File.read(File.expand_path('fixtures/google_utf8_no_meta_charset.html', File.dirname(__FILE__)))
+  end
+
   before do
     allow(LinkThumbnailer).to receive(:page).and_return(page)
   end
 
   describe '#charset' do
-    context 'when charset provided in content-type' do
+    context 'when charset provided in content-type "Shift_JIS"' do
       before do
         response['Content-Type'] = 'text/html; charset=Shift_JIS'
       end
@@ -37,7 +41,25 @@ describe LinkThumbnailer::Response do
       it { expect(instance.charset).to eq 'Shift_JIS' }
     end
 
-    context 'when no charset available in content-type' do
+    context 'when charset provided in content-type "utf-8"' do
+      before do
+        response['Content-Type'] = 'text/html; charset=utf-8'
+      end
+
+      it { expect(instance.charset).to eq 'utf-8' }
+    end
+
+    context 'when no charset available in content-type and charset provided in meta tag "UTF-8"' do
+      before do
+        response.body = body_utf8
+      end
+      it { expect(instance.charset).to eq 'UTF-8' }
+    end
+
+    context 'when no charset available in content-type and body' do
+      before do
+        response.body = body_utf8_no_meta_charset
+      end
       it { expect(instance.charset).to eq '' }
     end
   end
