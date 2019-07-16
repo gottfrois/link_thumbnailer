@@ -18,8 +18,8 @@ module LinkThumbnailer
 
     def extract_charset
       content_type = @response['Content-Type'] || ''
-      m = content_type.match(/charset=(\w+)/)
-      (m && m[1]) || ''
+      m = content_type.match(/charset=([\w-]+)/)
+      (m && m[1]) || @response.body.scrub =~ /<meta[^>]*charset\s*=\s*["']?(.+?)["' >]/i && $1 || ''
     end
 
     def extract_body
