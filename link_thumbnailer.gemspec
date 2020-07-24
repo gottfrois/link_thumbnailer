@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.version       = LinkThumbnailer::VERSION
   spec.authors       = ["Pierre-Louis Gottfrois"]
   spec.email         = ["pierrelouis.gottfrois@gmail.com"]
-  spec.description   = %q{Ruby gem generating thumbnail images from a given URL.}
-  spec.summary       = %q{Ruby gem ranking images from a given URL returning an object containing images and website informations.}
+  spec.description   = %q{Ruby gem that fetches images and metadata from a given URL.}
+  spec.summary       = %q{Ruby gem that fetches images and metadata from a given URL. Much like popular social website with link preview.}
   spec.homepage      = "https://github.com/gottfrois/link_thumbnailer"
 
   spec.files         = `git ls-files`.split($\)
