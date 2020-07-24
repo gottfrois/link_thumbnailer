@@ -25,5 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'nokogiri',               '>= 1.6'
   spec.add_dependency 'net-http-persistent',    '>= 2.9'
   spec.add_dependency 'video_info',             '>= 2.6'
-  spec.add_dependency 'image_info',             '>= 1.0'
+  spec.add_dependency 'image_info',             ['~> 1.0', '>= 1.2.0']
 end

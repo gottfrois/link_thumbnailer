@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.4.0]
+### Adds
+
+- Adds `download_size_limit` configuration to raise `LinkThumbnailer::DownloadSizeLimit` when the body of the request is too big. Defaults to `10 * 1024 * 1024` bytes.
+- Adds `favicon_size` configuration to allow to choose which favison
+size the gem should prefer. Defaults to the first favicon found otherwise.
+
+### Fixes
+
+- Fixes string encoding in previous versions of Ruby
+- Fixes favicon by providing the full path.
+- When HTML charset cannot be found in the HTML header, we now try
+to find it in the body.
+- Closes the HTTP connection upon completion
+
+### Changes
+
+- 401 HTTP errors now raise `LinkThumbnailer::HTTPError`
+- Upgrades [ImageInfo](https://github.com/gottfrois/image_info/blob/master/CHANGELOG.md) gem
+
 ## [3.3.2]
 ### Fixes
 
@@ -412,7 +432,8 @@ If you used the `PreviewsController` feature, you need to build it yourself sinc
 
 - First release 🎆
 
-[Unreleased]: https://github.com/gottfrois/link_thumbnailer/compare/v3.3.2...HEAD
+[Unreleased]: https://github.com/gottfrois/link_thumbnailer/compare/v3.4.0...HEAD
+[3.4.0]: https://github.com/gottfrois/link_thumbnailer/compare/v3.3.2...v3.4.0
 [3.3.2]: https://github.com/gottfrois/link_thumbnailer/compare/v3.3.1...v3.3.2
 [3.3.1]: https://github.com/gottfrois/link_thumbnailer/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/gottfrois/link_thumbnailer/compare/v3.2.1...v3.3.0
