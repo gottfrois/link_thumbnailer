@@ -5,9 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Adds
+
+- Adds Ruby 2.7 to travis CI
+
 ### Changes
 
 - Updates the gem description
+- Removes the "no framework detected" warning when Rails could not be loaded
+- Removes useless rails require directive and `railtie.rb`
 
 ## [3.4.0]
 ### Adds

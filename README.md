@@ -3,14 +3,11 @@
 [![Code Climate](https://codeclimate.com/github/gottfrois/link_thumbnailer.png)](https://codeclimate.com/github/gottfrois/link_thumbnailer)
 [![Build Status](https://travis-ci.org/gottfrois/link_thumbnailer.png?branch=master)](https://travis-ci.org/gottfrois/link_thumbnailer)
 [![Gem Version](https://badge.fury.io/rb/link_thumbnailer.svg)](http://badge.fury.io/rb/link_thumbnailer)
-[![Dependency Status](https://gemnasium.com/gottfrois/link_thumbnailer.svg)](https://gemnasium.com/gottfrois/link_thumbnailer)
 
 Ruby gem generating image thumbnails from a given URL. Rank them and give you back an object containing images and website informations. Works like Facebook link previewer.
 
 Demo Application is [here](http://link-thumbnailer-demo.herokuapp.com/) !
 The source code of the Demo Application is hosted [here](https://github.com/gottfrois/link_thumbnailer_demo)!
-
-**OpenSource** and **Free** API available [here](https://github.com/gottfrois/link_thumbnailer_api) !
 
 ## Features
 
@@ -40,7 +37,7 @@ Or install it yourself as:
 
     $ gem install link_thumbnailer
 
-Run:
+If you are using Rails, you can generate the configuration file with:
 
 	$ rails g link_thumbnailer:install
 
