@@ -25,7 +25,7 @@ module LinkThumbnailer
         end
 
         def href
-          node.attributes['href'].value.to_s if node
+          node.attributes['href'].value.to_s if node && node.attributes['href']
         end
 
         def node
