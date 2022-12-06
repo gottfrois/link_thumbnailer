@@ -16,6 +16,8 @@ require 'link_thumbnailer/scrapers/default/videos'
 require 'link_thumbnailer/scrapers/opengraph/videos'
 require 'link_thumbnailer/scrapers/default/favicon'
 require 'link_thumbnailer/scrapers/opengraph/favicon'
+require 'link_thumbnailer/scrapers/default/body'
+require 'link_thumbnailer/scrapers/opengraph/body'
 
 module LinkThumbnailer
   class Scraper < ::SimpleDelegator

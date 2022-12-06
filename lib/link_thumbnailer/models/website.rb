@@ -6,7 +6,7 @@ module LinkThumbnailer
   module Models
     class Website < ::LinkThumbnailer::Model
 
-      attr_accessor :url, :title, :description, :images, :videos, :favicon
+      attr_accessor :url, :title, :description, :images, :videos, :favicon, :body
 
       def initialize
         @images = []
