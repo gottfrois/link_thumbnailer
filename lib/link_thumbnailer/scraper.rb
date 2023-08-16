@@ -18,6 +18,8 @@ require 'link_thumbnailer/scrapers/default/favicon'
 require 'link_thumbnailer/scrapers/opengraph/favicon'
 require 'link_thumbnailer/scrapers/default/body'
 require 'link_thumbnailer/scrapers/opengraph/body'
+require 'link_thumbnailer/scrapers/default/site_name'
+require 'link_thumbnailer/scrapers/opengraph/site_name'
 
 module LinkThumbnailer
   class Scraper < ::SimpleDelegator
