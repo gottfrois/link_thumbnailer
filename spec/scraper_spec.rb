@@ -5,15 +5,8 @@ require 'spec_helper'
 describe LinkThumbnailer::Scraper do
 
   let(:source)    { '' }
-  let(:url)       { 'http://foo.com' }
   let(:document)  { double('document') }
-  let(:website)   { double('website') }
-  let(:instance)  { described_class.new(source, url) }
-
-  before do
-    allow(instance).to receive(:document).and_return(document)
-    allow(instance).to receive(:website).and_return(website)
-  end
+  let(:website)   { ::LinkThumbnailer::Models::Website.new }
 
   describe '#call' do
 
@@ -23,10 +16,19 @@ describe LinkThumbnailer::Scraper do
     let(:scraper)                 { double('scraper', call: true) }
     let(:attributes)              { [:bar] }
     let(:scrapers)                { [prefix_1, prefix_2] }
-    let(:action)                  { instance.call }
+    let(:http_response)                { double(header: double(to_hash: {'Content-Type' => ['text/html; charset=utf-8']}), code: 200, body: 'body') }
+    let(:action)                  { instance.call ::LinkThumbnailer::Models::HttpResponse.new(http_response) }
     let(:config)                  { double(attributes: attributes, scrapers: scrapers) }
+    let(:instance)  { described_class.new(source, URL) }
+
+    before(:all) do
+       stub_request(:get, URL).to_return(status: 200, body: 'body', headers: {'Content-Type' => ['text/html; charset=utf-8']})
+      ::LinkThumbnailer.generate(URL, {})
+    end
 
     before do
+      allow(instance).to receive(:document).and_return(document)
+      allow(instance).to receive(:website).and_return(website)
       allow(instance).to receive(:config).and_return(config)
     end
 

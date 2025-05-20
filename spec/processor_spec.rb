@@ -30,7 +30,7 @@ describe LinkThumbnailer::Processor do
         stub_request(:get, url).to_return(status: 200, body: body, headers: {})
       end
 
-      it { expect(action).to eq(body) }
+      it { expect(action.body).to eq(body) }
 
     end
 
@@ -67,7 +67,7 @@ describe LinkThumbnailer::Processor do
           stub_request(:get, url + another_url).to_return(status: 200, body: body, headers: {})
         end
 
-        it { expect(action).to eq(body) }
+        it { expect(action.body).to eq(body) }
 
       end
 
@@ -80,7 +80,7 @@ describe LinkThumbnailer::Processor do
           stub_request(:get, another_url).to_return(status: 200, body: body, headers: {})
         end
 
-        it { expect(action).to eq(body) }
+        it { expect(action.body).to eq(body) }
 
       end
 
@@ -208,7 +208,7 @@ describe LinkThumbnailer::Processor do
         allow(response).to receive(:body).and_return(body)
       end
 
-      it { expect(action).to eq(body) }
+      it { expect(action.body).to eq(body) }
 
     end
 
@@ -231,7 +231,7 @@ describe LinkThumbnailer::Processor do
           response['Content-Type'] = 'text/html; charset=Shift-JIS'
         end
 
-        it { expect(action).to eq(shift_jis_encoded_body) }
+        it { expect(action.body).to eq(shift_jis_encoded_body) }
 
       end
 
@@ -243,7 +243,7 @@ describe LinkThumbnailer::Processor do
           response['Content-Type'] = 'text/html; charset=Shift_JIS'
         end
 
-        it { expect(action).to eq(utf8_encoded_body) }
+        it { expect(action.body).to eq(utf8_encoded_body) }
 
       end
 

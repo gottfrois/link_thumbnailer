@@ -5,8 +5,10 @@ require 'spec_helper'
 describe LinkThumbnailer::Scrapers::Opengraph::Base do
 
   let(:node)      { double('node') }
+  let (:http_response) { double('http_response', html?: true) }
+  let(:website)  { double('website', http_response: http_response) }
   let(:document)  { double('document') }
-  let(:instance)  { described_class.new(document) }
+  let(:instance)  { described_class.new(document, website) }
 
   describe '#applicable?' do
 

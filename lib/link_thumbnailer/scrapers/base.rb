@@ -32,7 +32,7 @@ module LinkThumbnailer
       end
 
       def applicable?
-        true
+        website.http_response.html?
       end
 
       def value

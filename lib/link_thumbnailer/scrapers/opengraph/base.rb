@@ -8,7 +8,7 @@ module LinkThumbnailer
       class Base < ::LinkThumbnailer::Scrapers::Base
 
         def applicable?
-          meta.any? { |node| opengraph_node?(node) }
+          super && meta.any? { |node| opengraph_node?(node) }
         end
 
         def value

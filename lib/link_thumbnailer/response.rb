@@ -1,7 +1,8 @@
+require 'forwardable'
 # frozen_string_literal: true
 
 module LinkThumbnailer
-  class Response
+  class Response extend Forwardable
     def initialize(response)
       @response = response
     end
@@ -13,6 +14,8 @@ module LinkThumbnailer
     def body
       @body ||= extract_body
     end
+
+    def_delegators :@response, :header, :code
 
     private
 

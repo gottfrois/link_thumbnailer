@@ -12,8 +12,8 @@ describe 'Fixture' do
   let(:action)      { LinkThumbnailer.generate(url) }
 
   before do
-    stub_request(:get, url).to_return(status: 200, body: html, headers: {})
-    stub_request(:get, png_url).to_return(status: 200, body: png, headers: {})
+    stub_request(:get, url).to_return(status: 200, body: html, headers: {'Content-Type' => ['text/html; charset=utf-8']})
+    stub_request(:get, png_url).to_return(status: 200, body: png, headers: {'Content-Type' => ['text/html; charset=utf-8']})
   end
 
   describe 'Opengraph' do
@@ -24,7 +24,7 @@ describe 'Fixture' do
     context 'when valid' do
 
       let(:html) { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_example.html').read }
-
+      
       it { expect(action.favicon).to                eq(favicon) }
       it { expect(action.title).to                  eq(title) }
       it { expect(action.description).to            eq(description) }
@@ -44,7 +44,7 @@ describe 'Fixture' do
       let(:html)      { File.open(File.dirname(__FILE__) + '/fixtures/og_valid_multi_image_example.html').read }
 
       before do
-        stub_request(:get, png_url_2).to_return(status: 200, body: png_2, headers: {})
+        stub_request(:get, png_url_2).to_return(status: 200, body: png_2, headers: {'Content-Type' => ['text/html; charset=utf-8']})
       end
 
       it { expect(action.favicon).to                eq('') }
